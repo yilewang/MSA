@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 10 DiSTATIS | Multivariate Statistical Analysis Cookbook with R</title>
+  <meta name="description" content="This is a final cookbook of Multivariate Statistical Analysis" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 10 DiSTATIS | Multivariate Statistical Analysis Cookbook with R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a final cookbook of Multivariate Statistical Analysis" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 10 DiSTATIS | Multivariate Statistical Analysis Cookbook with R" />
+  
+  <meta name="twitter:description" content="This is a final cookbook of Multivariate Statistical Analysis" />
+  
+
+<meta name="author" content="Yile Wang" />
+
+
+<meta name="date" content="2020-12-09" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="pls.html"/>
+<link rel="next" href="mfa.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#msa-introduction"><i class="fa fa-check"></i><b>1.1</b> MSA Introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#msadata"><i class="fa fa-check"></i><b>1.2</b> MSA data set</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#main-packages"><i class="fa fa-check"></i><b>1.3</b> Main packages</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#whoo-hoo"><i class="fa fa-check"></i><b>1.4</b> Whoo-hoo!</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="Functions.html"><a href="Functions.html"><i class="fa fa-check"></i><b>2</b> Functions Introduction</a><ul>
+<li class="chapter" data-level="2.1" data-path="Functions.html"><a href="Functions.html#Scree"><i class="fa fa-check"></i><b>2.1</b> Plotting Scree plot</a></li>
+<li class="chapter" data-level="2.2" data-path="Functions.html"><a href="Functions.html#Permutation"><i class="fa fa-check"></i><b>2.2</b> Plotting Permutation test results</a></li>
+<li class="chapter" data-level="2.3" data-path="Functions.html"><a href="Functions.html#Heatmap"><i class="fa fa-check"></i><b>2.3</b> Plotting Heatmap</a></li>
+<li class="chapter" data-level="2.4" data-path="Functions.html"><a href="Functions.html#FactorScores"><i class="fa fa-check"></i><b>2.4</b> Plotting Row Factor Scores</a></li>
+<li class="chapter" data-level="2.5" data-path="Functions.html"><a href="Functions.html#CFactorScore"><i class="fa fa-check"></i><b>2.5</b> Plotting Column Plot</a></li>
+<li class="chapter" data-level="2.6" data-path="Functions.html"><a href="Functions.html#Loading"><i class="fa fa-check"></i><b>2.6</b> Plotting Loading Plot</a></li>
+<li class="chapter" data-level="2.7" data-path="Functions.html"><a href="Functions.html#Contribution"><i class="fa fa-check"></i><b>2.7</b> Plotting Contribution Barplot</a></li>
+<li class="chapter" data-level="2.8" data-path="Functions.html"><a href="Functions.html#binshelper"><i class="fa fa-check"></i><b>2.8</b> Bins Helper Functions</a></li>
+<li class="chapter" data-level="2.9" data-path="Functions.html"><a href="Functions.html#plotting-latent-variable-plot"><i class="fa fa-check"></i><b>2.9</b> Plotting Latent Variable Plot</a></li>
+<li class="chapter" data-level="2.10" data-path="Functions.html"><a href="Functions.html#plotting-partial-factor-scores"><i class="fa fa-check"></i><b>2.10</b> Plotting Partial Factor Scores</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="Data-Intro.html"><a href="Data-Intro.html"><i class="fa fa-check"></i><b>3</b> Data Introduction</a><ul>
+<li class="chapter" data-level="3.1" data-path="Data-Intro.html"><a href="Data-Intro.html#collect"><i class="fa fa-check"></i><b>3.1</b> Main data set: Collective Action Data Set</a></li>
+<li class="chapter" data-level="3.2" data-path="Data-Intro.html"><a href="Data-Intro.html#sausage"><i class="fa fa-check"></i><b>3.2</b> Low Income Sausage</a></li>
+<li class="chapter" data-level="3.3" data-path="Data-Intro.html"><a href="Data-Intro.html#wines"><i class="fa fa-check"></i><b>3.3</b> Wines</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="pca.html"><a href="pca.html"><i class="fa fa-check"></i><b>4</b> Principal Component Analysis</a><ul>
+<li class="chapter" data-level="4.1" data-path="pca.html"><a href="pca.html#introduction-of-pca"><i class="fa fa-check"></i><b>4.1</b> Introduction of PCA</a></li>
+<li class="chapter" data-level="4.2" data-path="pca.html"><a href="pca.html#computing"><i class="fa fa-check"></i><b>4.2</b> Computing</a></li>
+<li class="chapter" data-level="4.3" data-path="pca.html"><a href="pca.html#heatmap"><i class="fa fa-check"></i><b>4.3</b> Heatmap</a></li>
+<li class="chapter" data-level="4.4" data-path="pca.html"><a href="pca.html#pcaScree"><i class="fa fa-check"></i><b>4.4</b> Scree Plot</a></li>
+<li class="chapter" data-level="4.5" data-path="pca.html"><a href="pca.html#factor-scores"><i class="fa fa-check"></i><b>4.5</b> Factor Scores</a></li>
+<li class="chapter" data-level="4.6" data-path="pca.html"><a href="pca.html#loading"><i class="fa fa-check"></i><b>4.6</b> Loading</a></li>
+<li class="chapter" data-level="4.7" data-path="pca.html"><a href="pca.html#contriution-and-bootstrap-ratio-barplots"><i class="fa fa-check"></i><b>4.7</b> Contriution and Bootstrap Ratio Barplots</a></li>
+<li class="chapter" data-level="4.8" data-path="pca.html"><a href="pca.html#conclusion"><i class="fa fa-check"></i><b>4.8</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ca.html"><a href="ca.html"><i class="fa fa-check"></i><b>5</b> Correspondence Analysis</a><ul>
+<li class="chapter" data-level="5.1" data-path="ca.html"><a href="ca.html#introduction-of-ca"><i class="fa fa-check"></i><b>5.1</b> Introduction of CA</a></li>
+<li class="chapter" data-level="5.2" data-path="ca.html"><a href="ca.html#computation"><i class="fa fa-check"></i><b>5.2</b> Computation</a></li>
+<li class="chapter" data-level="5.3" data-path="ca.html"><a href="ca.html#heatmap-1"><i class="fa fa-check"></i><b>5.3</b> Heatmap</a></li>
+<li class="chapter" data-level="5.4" data-path="ca.html"><a href="ca.html#computation-1"><i class="fa fa-check"></i><b>5.4</b> Computation</a></li>
+<li class="chapter" data-level="5.5" data-path="ca.html"><a href="ca.html#scree-plot"><i class="fa fa-check"></i><b>5.5</b> Scree Plot</a></li>
+<li class="chapter" data-level="5.6" data-path="ca.html"><a href="ca.html#symmetric-asymmetric-plots"><i class="fa fa-check"></i><b>5.6</b> Symmetric &amp; Asymmetric Plots</a></li>
+<li class="chapter" data-level="5.7" data-path="ca.html"><a href="ca.html#contribution-and-bootstrap-ratio-barplot"><i class="fa fa-check"></i><b>5.7</b> Contribution and Bootstrap Ratio Barplot</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="dica.html"><a href="dica.html"><i class="fa fa-check"></i><b>6</b> Discriminant Correspondence Analysis</a><ul>
+<li class="chapter" data-level="6.1" data-path="dica.html"><a href="dica.html#introdcution-of-dica"><i class="fa fa-check"></i><b>6.1</b> Introdcution of DiCA</a></li>
+<li class="chapter" data-level="6.2" data-path="dica.html"><a href="dica.html#histgram-of-binning-variables"><i class="fa fa-check"></i><b>6.2</b> Histgram of Binning Variables</a></li>
+<li class="chapter" data-level="6.3" data-path="dica.html"><a href="dica.html#heatmap-2"><i class="fa fa-check"></i><b>6.3</b> Heatmap</a></li>
+<li class="chapter" data-level="6.4" data-path="dica.html"><a href="dica.html#scree-plot-1"><i class="fa fa-check"></i><b>6.4</b> Scree Plot</a></li>
+<li class="chapter" data-level="6.5" data-path="dica.html"><a href="dica.html#factor-scores-1"><i class="fa fa-check"></i><b>6.5</b> Factor Scores</a></li>
+<li class="chapter" data-level="6.6" data-path="dica.html"><a href="dica.html#confusion-matrix"><i class="fa fa-check"></i><b>6.6</b> Confusion Matrix</a></li>
+<li class="chapter" data-level="6.7" data-path="dica.html"><a href="dica.html#contribution-and-bootstrap-ratio-barplots"><i class="fa fa-check"></i><b>6.7</b> Contribution and Bootstrap Ratio Barplots</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="bada.html"><a href="bada.html"><i class="fa fa-check"></i><b>7</b> Barycentric Discriminant Analysis</a><ul>
+<li class="chapter" data-level="7.1" data-path="bada.html"><a href="bada.html#introduction-of-bada"><i class="fa fa-check"></i><b>7.1</b> Introduction of BADA</a></li>
+<li class="chapter" data-level="7.2" data-path="bada.html"><a href="bada.html#computation-2"><i class="fa fa-check"></i><b>7.2</b> Computation</a></li>
+<li class="chapter" data-level="7.3" data-path="bada.html"><a href="bada.html#heatmap-3"><i class="fa fa-check"></i><b>7.3</b> Heatmap</a></li>
+<li class="chapter" data-level="7.4" data-path="bada.html"><a href="bada.html#scree"><i class="fa fa-check"></i><b>7.4</b> Scree</a></li>
+<li class="chapter" data-level="7.5" data-path="bada.html"><a href="bada.html#factor-scores-2"><i class="fa fa-check"></i><b>7.5</b> Factor Scores</a></li>
+<li class="chapter" data-level="7.6" data-path="bada.html"><a href="bada.html#loading-1"><i class="fa fa-check"></i><b>7.6</b> Loading</a></li>
+<li class="chapter" data-level="7.7" data-path="bada.html"><a href="bada.html#confusion-matrix-1"><i class="fa fa-check"></i><b>7.7</b> Confusion Matrix</a></li>
+<li class="chapter" data-level="7.8" data-path="bada.html"><a href="bada.html#contribution-and-bootstrap-ratio-barplot-1"><i class="fa fa-check"></i><b>7.8</b> Contribution and Bootstrap Ratio Barplot</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="mca.html"><a href="mca.html"><i class="fa fa-check"></i><b>8</b> Multiple Corresponding Analysis</a><ul>
+<li class="chapter" data-level="8.1" data-path="mca.html"><a href="mca.html#introduction-of-mca"><i class="fa fa-check"></i><b>8.1</b> Introduction of MCA</a></li>
+<li class="chapter" data-level="8.2" data-path="mca.html"><a href="mca.html#histgram-of-binning-variables-1"><i class="fa fa-check"></i><b>8.2</b> Histgram of Binning Variables</a></li>
+<li class="chapter" data-level="8.3" data-path="mca.html"><a href="mca.html#computation-3"><i class="fa fa-check"></i><b>8.3</b> Computation</a></li>
+<li class="chapter" data-level="8.4" data-path="mca.html"><a href="mca.html#heatmap-4"><i class="fa fa-check"></i><b>8.4</b> Heatmap</a></li>
+<li class="chapter" data-level="8.5" data-path="mca.html"><a href="mca.html#scree-plot-2"><i class="fa fa-check"></i><b>8.5</b> Scree Plot</a></li>
+<li class="chapter" data-level="8.6" data-path="mca.html"><a href="mca.html#row-factor-scores"><i class="fa fa-check"></i><b>8.6</b> Row Factor Scores</a></li>
+<li class="chapter" data-level="8.7" data-path="mca.html"><a href="mca.html#important-variables-line-plots"><i class="fa fa-check"></i><b>8.7</b> Important Variables Line Plots</a></li>
+<li class="chapter" data-level="8.8" data-path="mca.html"><a href="mca.html#contribution-and-bootstrap-ratio-barplots-1"><i class="fa fa-check"></i><b>8.8</b> Contribution and Bootstrap Ratio Barplots</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="pls.html"><a href="pls.html"><i class="fa fa-check"></i><b>9</b> Partial Least Square</a><ul>
+<li class="chapter" data-level="9.1" data-path="pls.html"><a href="pls.html#introduction-of-pls-c"><i class="fa fa-check"></i><b>9.1</b> Introduction of PLS-C</a></li>
+<li class="chapter" data-level="9.2" data-path="pls.html"><a href="pls.html#computation-4"><i class="fa fa-check"></i><b>9.2</b> Computation</a></li>
+<li class="chapter" data-level="9.3" data-path="pls.html"><a href="pls.html#heatmap-5"><i class="fa fa-check"></i><b>9.3</b> Heatmap</a></li>
+<li class="chapter" data-level="9.4" data-path="pls.html"><a href="pls.html#scree-plot-3"><i class="fa fa-check"></i><b>9.4</b> Scree Plot</a></li>
+<li class="chapter" data-level="9.5" data-path="pls.html"><a href="pls.html#latent-variables"><i class="fa fa-check"></i><b>9.5</b> Latent Variables</a></li>
+<li class="chapter" data-level="9.6" data-path="pls.html"><a href="pls.html#salience"><i class="fa fa-check"></i><b>9.6</b> Salience</a></li>
+<li class="chapter" data-level="9.7" data-path="pls.html"><a href="pls.html#bootstrap-ratio-barplot"><i class="fa fa-check"></i><b>9.7</b> Bootstrap Ratio Barplot</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="distatis.html"><a href="distatis.html"><i class="fa fa-check"></i><b>10</b> DiSTATIS</a><ul>
+<li class="chapter" data-level="10.1" data-path="distatis.html"><a href="distatis.html#introduction-of-distatis"><i class="fa fa-check"></i><b>10.1</b> Introduction of DiSTATIS</a></li>
+<li class="chapter" data-level="10.2" data-path="distatis.html"><a href="distatis.html#computation-5"><i class="fa fa-check"></i><b>10.2</b> Computation</a></li>
+<li class="chapter" data-level="10.3" data-path="distatis.html"><a href="distatis.html#heatmap-6"><i class="fa fa-check"></i><b>10.3</b> HeatMap</a></li>
+<li class="chapter" data-level="10.4" data-path="distatis.html"><a href="distatis.html#scree-plot-4"><i class="fa fa-check"></i><b>10.4</b> Scree Plot</a></li>
+<li class="chapter" data-level="10.5" data-path="distatis.html"><a href="distatis.html#global-factor-scores"><i class="fa fa-check"></i><b>10.5</b> Global Factor Scores</a></li>
+<li class="chapter" data-level="10.6" data-path="distatis.html"><a href="distatis.html#partial-factor-scores"><i class="fa fa-check"></i><b>10.6</b> Partial Factor Scores</a></li>
+<li class="chapter" data-level="10.7" data-path="distatis.html"><a href="distatis.html#vocabulary-graphs"><i class="fa fa-check"></i><b>10.7</b> Vocabulary graphs</a></li>
+<li class="chapter" data-level="10.8" data-path="distatis.html"><a href="distatis.html#contribution-barplots"><i class="fa fa-check"></i><b>10.8</b> Contribution Barplots</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="mfa.html"><a href="mfa.html"><i class="fa fa-check"></i><b>11</b> Multiple Factor Analysis</a><ul>
+<li class="chapter" data-level="11.1" data-path="mfa.html"><a href="mfa.html#introduction-of-mfa"><i class="fa fa-check"></i><b>11.1</b> Introduction of MFA</a></li>
+<li class="chapter" data-level="11.2" data-path="mfa.html"><a href="mfa.html#computation-6"><i class="fa fa-check"></i><b>11.2</b> Computation</a></li>
+<li class="chapter" data-level="11.3" data-path="mfa.html"><a href="mfa.html#heatmap-7"><i class="fa fa-check"></i><b>11.3</b> Heatmap</a></li>
+<li class="chapter" data-level="11.4" data-path="mfa.html"><a href="mfa.html#scree-plot-5"><i class="fa fa-check"></i><b>11.4</b> Scree Plot</a></li>
+<li class="chapter" data-level="11.5" data-path="mfa.html"><a href="mfa.html#global-factor-scores-1"><i class="fa fa-check"></i><b>11.5</b> Global Factor Scores</a></li>
+<li class="chapter" data-level="11.6" data-path="mfa.html"><a href="mfa.html#partial-factor-scores-1"><i class="fa fa-check"></i><b>11.6</b> Partial Factor Scores</a></li>
+<li class="chapter" data-level="11.7" data-path="mfa.html"><a href="mfa.html#contribution-barplots-1"><i class="fa fa-check"></i><b>11.7</b> Contribution Barplots</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="end.html"><a href="end.html"><i class="fa fa-check"></i><b>12</b> The End</a><ul>
+<li class="chapter" data-level="12.1" data-path="end.html"><a href="end.html#final-conclusion"><i class="fa fa-check"></i><b>12.1</b> Final Conclusion</a></li>
+<li class="chapter" data-level="12.2" data-path="end.html"><a href="end.html#appreciation"><i class="fa fa-check"></i><b>12.2</b> Appreciation</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Multivariate Statistical Analysis Cookbook with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="distatis" class="section level1">
+<h1><span class="header-section-number">Chapter 10</span> DiSTATIS</h1>
+<div id="introduction-of-distatis" class="section level2">
+<h2><span class="header-section-number">10.1</span> Introduction of DiSTATIS</h2>
+<p>DiSTATIS is a statistical method designed for analyzing multiple data table for qualitative data from multidimensional scaling. DiSTATIS is capable for analyzing multiple sub data tables. It is different from MCA because MCA is only processing one data table with different nominal variables. However, DiSTATIS is processing multiple data tables at the same time. An much easier way to distinguish them is that DiSTATIS is corresponding to MFA for nominal data. Since it is a distance analysis method, the core concept is to know the similarity in the data pattern.</p>
+<p>In this chapter, I am using a different data set called <code>wines</code> data set to conduct DiSTATIS. Please see more detailed info at data intro part<sup><a href="Data-Intro.html#wines">3.3</a></sup></p>
+</div>
+<div id="computation-5" class="section level2">
+<h2><span class="header-section-number">10.2</span> Computation</h2>
+<p>Since DiSTATIS cares about the distance, I need to create a distance cube for the analysis here, which is different than usual analysis.</p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="distatis.html#cb109-1"></a><span class="co"># table.wines, table.wines.names, table.wines.flavors</span></span>
+<span id="cb109-2"><a href="distatis.html#cb109-2"></a></span>
+<span id="cb109-3"><a href="distatis.html#cb109-3"></a><span class="co"># have the design</span></span>
+<span id="cb109-4"><a href="distatis.html#cb109-4"></a>place.design &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(table.wines<span class="op">$</span>X)</span>
+<span id="cb109-5"><a href="distatis.html#cb109-5"></a><span class="kw">rownames</span>(place.design) &lt;-<span class="st"> </span>table.wines<span class="op">$</span>X</span>
+<span id="cb109-6"><a href="distatis.html#cb109-6"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(place.design)){</span>
+<span id="cb109-7"><a href="distatis.html#cb109-7"></a>  place.design[i,] &lt;-<span class="st"> </span><span class="kw">str_sub</span>(<span class="kw">rownames</span>(place.design)[i], <span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb109-8"><a href="distatis.html#cb109-8"></a>}</span>
+<span id="cb109-9"><a href="distatis.html#cb109-9"></a><span class="kw">rownames</span>(table.wines) &lt;-<span class="st"> </span>table.wines<span class="op">$</span>X</span>
+<span id="cb109-10"><a href="distatis.html#cb109-10"></a>table.wines.data &lt;-<span class="st"> </span>table.wines[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb109-11"><a href="distatis.html#cb109-11"></a><span class="kw">rownames</span>(table.wines.flavors) &lt;-<span class="st"> </span>table.wines.flavors<span class="op">$</span>X</span>
+<span id="cb109-12"><a href="distatis.html#cb109-12"></a>table.wines.flavors.data &lt;-<span class="st"> </span>table.wines.flavors[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb109-13"><a href="distatis.html#cb109-13"></a><span class="kw">colnames</span>(table.wines.flavors.data) &lt;-<span class="st"> </span>table.wines.names[,<span class="dv">2</span>]</span>
+<span id="cb109-14"><a href="distatis.html#cb109-14"></a></span>
+<span id="cb109-15"><a href="distatis.html#cb109-15"></a>place.design.col &lt;-<span class="st"> </span>place.design</span>
+<span id="cb109-16"><a href="distatis.html#cb109-16"></a>place.design.col[<span class="kw">which</span>(place.design.col <span class="op">==</span><span class="st"> &quot;F&quot;</span>)] &lt;-<span class="st"> </span>index[<span class="dv">1</span>]</span>
+<span id="cb109-17"><a href="distatis.html#cb109-17"></a>place.design.col[<span class="kw">which</span>(place.design.col <span class="op">==</span><span class="st"> &quot;S&quot;</span>)] &lt;-<span class="st"> </span>index[<span class="dv">2</span>]</span>
+<span id="cb109-18"><a href="distatis.html#cb109-18"></a></span>
+<span id="cb109-19"><a href="distatis.html#cb109-19"></a></span>
+<span id="cb109-20"><a href="distatis.html#cb109-20"></a></span>
+<span id="cb109-21"><a href="distatis.html#cb109-21"></a><span class="co"># creating distance cube</span></span>
+<span id="cb109-22"><a href="distatis.html#cb109-22"></a>DistanceCube &lt;-<span class="st"> </span><span class="kw">DistanceFromSort</span>(table.wines.data)</span>
+<span id="cb109-23"><a href="distatis.html#cb109-23"></a></span>
+<span id="cb109-24"><a href="distatis.html#cb109-24"></a><span class="co"># run distance cube</span></span>
+<span id="cb109-25"><a href="distatis.html#cb109-25"></a>res.Distatis &lt;-<span class="st"> </span><span class="kw">distatis</span>(DistanceCube)</span>
+<span id="cb109-26"><a href="distatis.html#cb109-26"></a></span>
+<span id="cb109-27"><a href="distatis.html#cb109-27"></a><span class="co"># get the factors from the Cmat analysis</span></span>
+<span id="cb109-28"><a href="distatis.html#cb109-28"></a></span>
+<span id="cb109-29"><a href="distatis.html#cb109-29"></a>G &lt;-<span class="st"> </span>res.Distatis<span class="op">$</span>res4Cmat<span class="op">$</span>G</span>
+<span id="cb109-30"><a href="distatis.html#cb109-30"></a>C &lt;-<span class="st"> </span>res.Distatis<span class="op">$</span>res4Cmat<span class="op">$</span>C</span>
+<span id="cb109-31"><a href="distatis.html#cb109-31"></a>eigs &lt;-<span class="st"> </span>res.Distatis<span class="op">$</span>res4Cmat<span class="op">$</span>eigValues</span>
+<span id="cb109-32"><a href="distatis.html#cb109-32"></a>tau &lt;-<span class="st"> </span>res.Distatis<span class="op">$</span>res4Cmat<span class="op">$</span>tau</span>
+<span id="cb109-33"><a href="distatis.html#cb109-33"></a>cj &lt;-<span class="st"> </span>res.Distatis<span class="op">$</span>res4Splus<span class="op">$</span>ctr</span>
+<span id="cb109-34"><a href="distatis.html#cb109-34"></a>eigs.compromise &lt;-<span class="st"> </span>res.Distatis<span class="op">$</span>res4Splus<span class="op">$</span>eigValues</span>
+<span id="cb109-35"><a href="distatis.html#cb109-35"></a><span class="co"># get partial factor array</span></span>
+<span id="cb109-36"><a href="distatis.html#cb109-36"></a>BootF &lt;-<span class="st"> </span><span class="kw">BootFactorScores</span>(res.Distatis<span class="op">$</span>res4Splus<span class="op">$</span>PartialF)</span></code></pre></div>
+<pre><code>[1] Bootstrap On Factor Scores. Iterations #: 
+[2] 1000                                      </code></pre>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="distatis.html#cb111-1"></a>F &lt;-<span class="st"> </span>res.Distatis<span class="op">$</span>res4Splus<span class="op">$</span>F</span>
+<span id="cb111-2"><a href="distatis.html#cb111-2"></a>pf.j &lt;-<span class="st"> </span>res.Distatis<span class="op">$</span>res4Splus<span class="op">$</span>PartialF </span>
+<span id="cb111-3"><a href="distatis.html#cb111-3"></a>alpha &lt;-<span class="st"> </span>res.Distatis<span class="op">$</span>res4Cmat<span class="op">$</span>alpha</span></code></pre></div>
+</div>
+<div id="heatmap-6" class="section level2">
+<h2><span class="header-section-number">10.3</span> HeatMap</h2>
+<p>I used C, the correlation matrix from the analysis to plot the heatmap. By using the ‘first principal component’, I am able to know what’s the inner pattern in these judges and make clustering based on their response.</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="distatis.html#cb112-1"></a><span class="co"># plot color</span></span>
+<span id="cb112-2"><a href="distatis.html#cb112-2"></a>col &lt;-<span class="kw">colorRampPalette</span>(<span class="kw">c</span>(<span class="st">&quot;#BB4444&quot;</span>, </span>
+<span id="cb112-3"><a href="distatis.html#cb112-3"></a>                         <span class="st">&quot;#EE9988&quot;</span>, </span>
+<span id="cb112-4"><a href="distatis.html#cb112-4"></a>                         <span class="st">&quot;#FFFFFF&quot;</span>, </span>
+<span id="cb112-5"><a href="distatis.html#cb112-5"></a>                         <span class="st">&quot;#77AADD&quot;</span>, </span>
+<span id="cb112-6"><a href="distatis.html#cb112-6"></a>                         <span class="st">&quot;#4477AA&quot;</span>))</span>
+<span id="cb112-7"><a href="distatis.html#cb112-7"></a></span>
+<span id="cb112-8"><a href="distatis.html#cb112-8"></a><span class="co"># plot</span></span>
+<span id="cb112-9"><a href="distatis.html#cb112-9"></a>corr4MCA.r &lt;-<span class="st"> </span>corrplot<span class="op">::</span><span class="kw">corrplot</span>(</span>
+<span id="cb112-10"><a href="distatis.html#cb112-10"></a>  C,</span>
+<span id="cb112-11"><a href="distatis.html#cb112-11"></a>  <span class="dt">method=</span><span class="st">&quot;color&quot;</span>, </span>
+<span id="cb112-12"><a href="distatis.html#cb112-12"></a>  <span class="dt">col=</span><span class="kw">col</span>(<span class="dv">200</span>),</span>
+<span id="cb112-13"><a href="distatis.html#cb112-13"></a>  <span class="dt">type=</span><span class="st">&quot;upper&quot;</span>,</span>
+<span id="cb112-14"><a href="distatis.html#cb112-14"></a>  <span class="co">#addCoef.col = &quot;black&quot;,# Add coefficient of correlation</span></span>
+<span id="cb112-15"><a href="distatis.html#cb112-15"></a>  <span class="dt">tl.cex =</span> <span class="fl">.7</span>,</span>
+<span id="cb112-16"><a href="distatis.html#cb112-16"></a>  <span class="dt">tl.srt =</span> <span class="dv">60</span>,<span class="co">#Text label color and rotation</span></span>
+<span id="cb112-17"><a href="distatis.html#cb112-17"></a>  <span class="dt">order =</span> <span class="st">&quot;FPC&quot;</span>,</span>
+<span id="cb112-18"><a href="distatis.html#cb112-18"></a>  <span class="co">#number.cex = 0.5,</span></span>
+<span id="cb112-19"><a href="distatis.html#cb112-19"></a>  <span class="dt">diag =</span> <span class="ot">TRUE</span> <span class="co"># needed to have the color of variables correct</span></span>
+<span id="cb112-20"><a href="distatis.html#cb112-20"></a>  )</span></code></pre></div>
+<p><img src="MSA_files/figure-html/distatisHeatMap-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="scree-plot-4" class="section level2">
+<h2><span class="header-section-number">10.4</span> Scree Plot</h2>
+<p>I have tow scree plots here: 1 is for the global one (all judges), one is for the compromise data (wines).</p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="distatis.html#cb113-1"></a>my.scree &lt;-<span class="st"> </span><span class="kw">PlotScree</span>(<span class="dt">ev =</span> eigs,</span>
+<span id="cb113-2"><a href="distatis.html#cb113-2"></a>  <span class="dt">plotKaiser =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb113-3"><a href="distatis.html#cb113-3"></a>  <span class="dt">title =</span> <span class="st">&quot;Explained Variance per Dimension&quot;</span>)</span></code></pre></div>
+<p><img src="MSA_files/figure-html/distatisScree-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="distatis.html#cb114-1"></a>my.scree &lt;-<span class="st"> </span><span class="kw">PlotScree</span>(<span class="dt">ev =</span> eigs.compromise,</span>
+<span id="cb114-2"><a href="distatis.html#cb114-2"></a>  <span class="dt">plotKaiser =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb114-3"><a href="distatis.html#cb114-3"></a>  <span class="dt">title =</span> <span class="st">&quot;Explained Variance per Dimension&quot;</span>)</span></code></pre></div>
+<p><img src="MSA_files/figure-html/distatisScree-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="global-factor-scores" class="section level2">
+<h2><span class="header-section-number">10.5</span> Global Factor Scores</h2>
+<p>Since I don’t have any pre-group before, based on the factor scores, I used kmeans to manually cluster 4 groups for labels. From the global factor scores, it serves well.</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="distatis.html#cb115-1"></a><span class="co"># cluster analysis</span></span>
+<span id="cb115-2"><a href="distatis.html#cb115-2"></a></span>
+<span id="cb115-3"><a href="distatis.html#cb115-3"></a><span class="kw">colnames</span>(G) &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;Dimension &quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(G))</span>
+<span id="cb115-4"><a href="distatis.html#cb115-4"></a></span>
+<span id="cb115-5"><a href="distatis.html#cb115-5"></a>fit &lt;-<span class="st"> </span><span class="kw">kmeans</span>(G[,<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>],<span class="dv">4</span>)</span>
+<span id="cb115-6"><a href="distatis.html#cb115-6"></a></span>
+<span id="cb115-7"><a href="distatis.html#cb115-7"></a>Judge.design &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(fit<span class="op">$</span>cluster)</span>
+<span id="cb115-8"><a href="distatis.html#cb115-8"></a>Judge.design[<span class="kw">which</span>(Judge.design <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)] &lt;-<span class="st"> &quot;Design1&quot;</span></span>
+<span id="cb115-9"><a href="distatis.html#cb115-9"></a>Judge.design[<span class="kw">which</span>(Judge.design <span class="op">==</span><span class="st"> </span><span class="dv">2</span>)] &lt;-<span class="st"> &quot;Design2&quot;</span></span>
+<span id="cb115-10"><a href="distatis.html#cb115-10"></a>Judge.design[<span class="kw">which</span>(Judge.design <span class="op">==</span><span class="st"> </span><span class="dv">3</span>)] &lt;-<span class="st"> &quot;Design3&quot;</span></span>
+<span id="cb115-11"><a href="distatis.html#cb115-11"></a>Judge.design[<span class="kw">which</span>(Judge.design <span class="op">==</span><span class="st"> </span><span class="dv">4</span>)] &lt;-<span class="st"> &quot;Design4&quot;</span></span>
+<span id="cb115-12"><a href="distatis.html#cb115-12"></a><span class="kw">colnames</span>(Judge.design) &lt;-<span class="st"> &quot;group&quot;</span></span>
+<span id="cb115-13"><a href="distatis.html#cb115-13"></a></span>
+<span id="cb115-14"><a href="distatis.html#cb115-14"></a>J.D &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(Judge.design)</span>
+<span id="cb115-15"><a href="distatis.html#cb115-15"></a><span class="co"># get some color</span></span>
+<span id="cb115-16"><a href="distatis.html#cb115-16"></a>nominal.Judges &lt;-<span class="st"> </span><span class="kw">makeNominalData</span>(<span class="kw">as.data.frame</span>(J.D))</span>
+<span id="cb115-17"><a href="distatis.html#cb115-17"></a>color4Judges.list &lt;-<span class="st"> </span>prettyGraphs<span class="op">::</span><span class="kw">createColorVectorsByDesign</span>(nominal.Judges)</span>
+<span id="cb115-18"><a href="distatis.html#cb115-18"></a></span>
+<span id="cb115-19"><a href="distatis.html#cb115-19"></a><span class="kw">plot.fs</span>(<span class="kw">as.factor</span>(J.D), G[,<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>], </span>
+<span id="cb115-20"><a href="distatis.html#cb115-20"></a>        eigs, tau, <span class="dt">method =</span> <span class="st">&quot;DiSTATIS&quot;</span>)</span></code></pre></div>
+<p><img src="MSA_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="partial-factor-scores" class="section level2">
+<h2><span class="header-section-number">10.6</span> Partial Factor Scores</h2>
+<p>The first partial factor scores is to compute a partial fi array.</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="distatis.html#cb116-1"></a><span class="co"># create the groups of Judges</span></span>
+<span id="cb116-2"><a href="distatis.html#cb116-2"></a>code4Groups &lt;-<span class="st"> </span><span class="kw">unique</span>(J.D)</span>
+<span id="cb116-3"><a href="distatis.html#cb116-3"></a>nK &lt;-<span class="st"> </span><span class="kw">length</span>(code4Groups)</span>
+<span id="cb116-4"><a href="distatis.html#cb116-4"></a><span class="co"># initialize F_K and alpha_k</span></span>
+<span id="cb116-5"><a href="distatis.html#cb116-5"></a>F_k &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dv">0</span>, <span class="dt">dim =</span> <span class="kw">c</span>(<span class="kw">dim</span>(pf.j)[[<span class="dv">1</span>]], </span>
+<span id="cb116-6"><a href="distatis.html#cb116-6"></a>                        <span class="kw">dim</span>(pf.j)[[<span class="dv">2</span>]],nK))</span>
+<span id="cb116-7"><a href="distatis.html#cb116-7"></a></span>
+<span id="cb116-8"><a href="distatis.html#cb116-8"></a><span class="kw">dimnames</span>(F_k) &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">dimnames</span>(pf.j)[[<span class="dv">1</span>]],</span>
+<span id="cb116-9"><a href="distatis.html#cb116-9"></a><span class="kw">dimnames</span>(pf.j)[[<span class="dv">2</span>]], code4Groups)</span>
+<span id="cb116-10"><a href="distatis.html#cb116-10"></a>alpha_k &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, nK)</span>
+<span id="cb116-11"><a href="distatis.html#cb116-11"></a><span class="kw">names</span>(alpha_k) &lt;-<span class="st"> </span>code4Groups</span>
+<span id="cb116-12"><a href="distatis.html#cb116-12"></a>Fa_j &lt;-<span class="st"> </span>pf.j</span>
+<span id="cb116-13"><a href="distatis.html#cb116-13"></a><span class="co"># A horrible loop</span></span>
+<span id="cb116-14"><a href="distatis.html#cb116-14"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">dim</span>(pf.j)[[<span class="dv">3</span>]]){ Fa_j[,,j] &lt;-<span class="st"> </span>pf.j[,,j] <span class="op">*</span><span class="st"> </span>alpha[j]}</span>
+<span id="cb116-15"><a href="distatis.html#cb116-15"></a></span>
+<span id="cb116-16"><a href="distatis.html#cb116-16"></a><span class="co"># Another horrible loop</span></span>
+<span id="cb116-17"><a href="distatis.html#cb116-17"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nK){</span>
+<span id="cb116-18"><a href="distatis.html#cb116-18"></a>lindex &lt;-<span class="st"> </span>J.D <span class="op">==</span><span class="st"> </span>code4Groups[k]</span>
+<span id="cb116-19"><a href="distatis.html#cb116-19"></a>alpha_k[k] &lt;-<span class="st"> </span><span class="kw">sum</span>(alpha[lindex])</span>
+<span id="cb116-20"><a href="distatis.html#cb116-20"></a>F_k[,,k] &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">/</span>alpha_k[k])<span class="op">*</span><span class="kw">apply</span>(Fa_j[,,lindex],<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),sum)</span>
+<span id="cb116-21"><a href="distatis.html#cb116-21"></a>}</span></code></pre></div>
+<p>From the partial factor scores plot, I can compare the 4 groups differently with their own judging response. It is interesting that design 2 group unstable evaluation on French wines and design 3 &amp; 4 groups have huge inner discrepancy on South Africa’s wines.</p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="distatis.html#cb117-1"></a><span class="co"># 5.2 a compromise plot</span></span>
+<span id="cb117-2"><a href="distatis.html#cb117-2"></a></span>
+<span id="cb117-3"><a href="distatis.html#cb117-3"></a><span class="co"># To get graphs with axes 1 and 2:</span></span>
+<span id="cb117-4"><a href="distatis.html#cb117-4"></a>h_axis =<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb117-5"><a href="distatis.html#cb117-5"></a>v_axis =<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb117-6"><a href="distatis.html#cb117-6"></a><span class="co"># To get graphs with say 2 and 3</span></span>
+<span id="cb117-7"><a href="distatis.html#cb117-7"></a></span>
+<span id="cb117-8"><a href="distatis.html#cb117-8"></a><span class="co">### base map </span></span>
+<span id="cb117-9"><a href="distatis.html#cb117-9"></a>gg.compromise.graph.out &lt;-<span class="st"> </span><span class="kw">createFactorMap</span>(F,</span>
+<span id="cb117-10"><a href="distatis.html#cb117-10"></a>              <span class="dt">axis1 =</span> h_axis,</span>
+<span id="cb117-11"><a href="distatis.html#cb117-11"></a>              <span class="dt">axis2 =</span> v_axis,</span>
+<span id="cb117-12"><a href="distatis.html#cb117-12"></a>              <span class="dt">title =</span> <span class="st">&quot;Compromise Factor Scores&quot;</span>, </span>
+<span id="cb117-13"><a href="distatis.html#cb117-13"></a>              <span class="dt">col.points =</span> place.design.col, </span>
+<span id="cb117-14"><a href="distatis.html#cb117-14"></a>              <span class="dt">col.labels =</span> place.design.col)</span>
+<span id="cb117-15"><a href="distatis.html#cb117-15"></a></span>
+<span id="cb117-16"><a href="distatis.html#cb117-16"></a><span class="co"># labels</span></span>
+<span id="cb117-17"><a href="distatis.html#cb117-17"></a>label4S &lt;-<span class="st"> </span><span class="kw">createxyLabels.gen</span>(<span class="dt">x_axis=</span> h_axis,</span>
+<span id="cb117-18"><a href="distatis.html#cb117-18"></a>                              <span class="dt">y_axis =</span> v_axis,</span>
+<span id="cb117-19"><a href="distatis.html#cb117-19"></a>                              <span class="dt">lambda=</span> eigs,</span>
+<span id="cb117-20"><a href="distatis.html#cb117-20"></a>                              <span class="dt">tau =</span> tau,</span>
+<span id="cb117-21"><a href="distatis.html#cb117-21"></a>                              <span class="dt">axisName =</span> <span class="st">&quot;Dimension &quot;</span>)</span>
+<span id="cb117-22"><a href="distatis.html#cb117-22"></a></span>
+<span id="cb117-23"><a href="distatis.html#cb117-23"></a></span>
+<span id="cb117-24"><a href="distatis.html#cb117-24"></a><span class="co">#### a bootstrap confidence interval plot</span></span>
+<span id="cb117-25"><a href="distatis.html#cb117-25"></a>gg.boot.graph.out.elli &lt;-<span class="st"> </span><span class="kw">MakeCIEllipses</span>(</span>
+<span id="cb117-26"><a href="distatis.html#cb117-26"></a>                        <span class="dt">data =</span> BootF[,<span class="kw">c</span>(h_axis,v_axis),],</span>
+<span id="cb117-27"><a href="distatis.html#cb117-27"></a>                        <span class="dt">names.of.factors =</span></span>
+<span id="cb117-28"><a href="distatis.html#cb117-28"></a>                        <span class="kw">c</span>(<span class="kw">paste0</span>(<span class="st">&#39;Factor &#39;</span>,h_axis), </span>
+<span id="cb117-29"><a href="distatis.html#cb117-29"></a>                          <span class="kw">paste0</span>(<span class="st">&#39;Factor &#39;</span>,v_axis)),</span>
+<span id="cb117-30"><a href="distatis.html#cb117-30"></a>                        <span class="dt">col =</span> place.design.col)</span>
+<span id="cb117-31"><a href="distatis.html#cb117-31"></a></span>
+<span id="cb117-32"><a href="distatis.html#cb117-32"></a><span class="co"># Add ellipses to compromise graph</span></span>
+<span id="cb117-33"><a href="distatis.html#cb117-33"></a>gg.map.elli &lt;-<span class="st"> </span>gg.compromise.graph.out<span class="op">$</span>zeMap <span class="op">+</span><span class="st"> </span></span>
+<span id="cb117-34"><a href="distatis.html#cb117-34"></a><span class="st">  </span>gg.boot.graph.out.elli <span class="op">+</span><span class="st"> </span></span>
+<span id="cb117-35"><a href="distatis.html#cb117-35"></a><span class="st">  </span>label4S <span class="co">#</span></span>
+<span id="cb117-36"><a href="distatis.html#cb117-36"></a>gg.map.elli</span></code></pre></div>
+<p><img src="MSA_files/figure-html/distatisPFS-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="distatis.html#cb118-1"></a><span class="co">### get the partial map</span></span>
+<span id="cb118-2"><a href="distatis.html#cb118-2"></a></span>
+<span id="cb118-3"><a href="distatis.html#cb118-3"></a>map4PFS &lt;-<span class="st"> </span><span class="kw">createPartialFactorScoresMap</span>(</span>
+<span id="cb118-4"><a href="distatis.html#cb118-4"></a>                <span class="dt">factorScores =</span> F,</span>
+<span id="cb118-5"><a href="distatis.html#cb118-5"></a>                <span class="dt">partialFactorScores =</span> F_k,</span>
+<span id="cb118-6"><a href="distatis.html#cb118-6"></a>                <span class="dt">axis1 =</span> <span class="dv">1</span>, <span class="dt">axis2 =</span> <span class="dv">2</span>,</span>
+<span id="cb118-7"><a href="distatis.html#cb118-7"></a>                <span class="dt">colors4Items =</span> <span class="kw">as.vector</span>(place.design.col), </span>
+<span id="cb118-8"><a href="distatis.html#cb118-8"></a>                <span class="dt">colors4Blocks =</span> <span class="kw">unique</span>(color4Judges.list<span class="op">$</span>oc),</span>
+<span id="cb118-9"><a href="distatis.html#cb118-9"></a>                <span class="dt">names4Partial =</span> <span class="kw">dimnames</span>(F_k)[[<span class="dv">3</span>]],  </span>
+<span id="cb118-10"><a href="distatis.html#cb118-10"></a>                <span class="dt">font.labels =</span> <span class="st">&#39;bold&#39;</span>)</span>
+<span id="cb118-11"><a href="distatis.html#cb118-11"></a></span>
+<span id="cb118-12"><a href="distatis.html#cb118-12"></a>d1.partialFS.map.byProducts &lt;-<span class="st"> </span>gg.compromise.graph.out<span class="op">$</span>zeMap <span class="op">+</span><span class="st"> </span></span>
+<span id="cb118-13"><a href="distatis.html#cb118-13"></a><span class="st">  </span>map4PFS<span class="op">$</span>mapColByItems <span class="op">+</span><span class="st"> </span></span>
+<span id="cb118-14"><a href="distatis.html#cb118-14"></a><span class="st">  </span>label4S</span>
+<span id="cb118-15"><a href="distatis.html#cb118-15"></a></span>
+<span id="cb118-16"><a href="distatis.html#cb118-16"></a>d2.partialFS.map.byCategories &lt;-<span class="st"> </span>gg.compromise.graph.out<span class="op">$</span>zeMap <span class="op">+</span></span>
+<span id="cb118-17"><a href="distatis.html#cb118-17"></a>map4PFS<span class="op">$</span>mapColByBlocks <span class="op">+</span><span class="st"> </span></span>
+<span id="cb118-18"><a href="distatis.html#cb118-18"></a><span class="st">  </span>label4S</span>
+<span id="cb118-19"><a href="distatis.html#cb118-19"></a></span>
+<span id="cb118-20"><a href="distatis.html#cb118-20"></a>d2.partialFS.map.byCategories</span></code></pre></div>
+<p><img src="MSA_files/figure-html/distatisPFS-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="vocabulary-graphs" class="section level2">
+<h2><span class="header-section-number">10.7</span> Vocabulary graphs</h2>
+<p>By using Kmeans again, I tried to cluster all these flavor tag in the vocabulary data table. Right dot for the French and left dot for the South Africa, I found that French wines are described as more balanced and typical flavors; However, South Africa is considered as rich and strong taste, even sometimes it is not a good thing. Some other vocabulares, spicy, fish, aggressive are clustered to anther group. Since there are still some strong flavors, they are more closer to the South Africa wines.</p>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="distatis.html#cb119-1"></a><span class="co"># 5.5. Vocabulary</span></span>
+<span id="cb119-2"><a href="distatis.html#cb119-2"></a><span class="co"># 5.5.2 CA-like Barycentric (same Inertia as products) </span></span>
+<span id="cb119-3"><a href="distatis.html#cb119-3"></a></span>
+<span id="cb119-4"><a href="distatis.html#cb119-4"></a>F4Voc &lt;-<span class="st"> </span>DistatisR<span class="op">::</span><span class="kw">projectVoc</span>(table.wines.flavors.data, F)</span>
+<span id="cb119-5"><a href="distatis.html#cb119-5"></a></span>
+<span id="cb119-6"><a href="distatis.html#cb119-6"></a><span class="kw">set.seed</span>(<span class="dv">44</span>)</span>
+<span id="cb119-7"><a href="distatis.html#cb119-7"></a>Voc.clusters &lt;-<span class="st"> </span><span class="kw">kmeans</span>(F4Voc<span class="op">$</span>Fvoca.bary, <span class="dv">3</span>)</span>
+<span id="cb119-8"><a href="distatis.html#cb119-8"></a></span>
+<span id="cb119-9"><a href="distatis.html#cb119-9"></a>Voc.color &lt;-<span class="st"> </span>Voc.clusters<span class="op">$</span>cluster</span>
+<span id="cb119-10"><a href="distatis.html#cb119-10"></a>Voc.color[<span class="kw">which</span>(Voc.color <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)] &lt;-<span class="st"> </span><span class="kw">prettyGraphsColorSelection</span>(<span class="dt">starting.color =</span> <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">170</span>,<span class="dv">1</span>))</span>
+<span id="cb119-11"><a href="distatis.html#cb119-11"></a>Voc.color[<span class="kw">which</span>(Voc.color <span class="op">==</span><span class="st"> </span><span class="dv">2</span>)] &lt;-<span class="st"> </span><span class="kw">prettyGraphsColorSelection</span>(<span class="dt">starting.color =</span> <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">170</span>,<span class="dv">1</span>))</span>
+<span id="cb119-12"><a href="distatis.html#cb119-12"></a>Voc.color[<span class="kw">which</span>(Voc.color <span class="op">==</span><span class="st"> </span><span class="dv">3</span>)] &lt;-<span class="st"> </span><span class="kw">prettyGraphsColorSelection</span>(<span class="dt">starting.color =</span> <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">170</span>,<span class="dv">1</span>))</span>
+<span id="cb119-13"><a href="distatis.html#cb119-13"></a></span>
+<span id="cb119-14"><a href="distatis.html#cb119-14"></a></span>
+<span id="cb119-15"><a href="distatis.html#cb119-15"></a></span>
+<span id="cb119-16"><a href="distatis.html#cb119-16"></a>gg.voc.bary &lt;-<span class="st"> </span><span class="kw">createFactorMap</span>(F4Voc<span class="op">$</span>Fvoca.bary,</span>
+<span id="cb119-17"><a href="distatis.html#cb119-17"></a><span class="dt">title =</span> <span class="st">&#39;Vocabulary&#39;</span>,</span>
+<span id="cb119-18"><a href="distatis.html#cb119-18"></a><span class="dt">col.points =</span> Voc.color,</span>
+<span id="cb119-19"><a href="distatis.html#cb119-19"></a><span class="dt">col.labels =</span> Voc.color,</span>
+<span id="cb119-20"><a href="distatis.html#cb119-20"></a><span class="dt">display.points =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb119-21"><a href="distatis.html#cb119-21"></a><span class="dt">constraints =</span> gg.compromise.graph.out<span class="op">$</span>constraints)</span>
+<span id="cb119-22"><a href="distatis.html#cb119-22"></a><span class="co">#</span></span>
+<span id="cb119-23"><a href="distatis.html#cb119-23"></a>gg.voc.bary.gr &lt;-<span class="st"> </span>gg.voc.bary<span class="op">$</span>zeMap <span class="op">+</span><span class="st"> </span>label4S</span>
+<span id="cb119-24"><a href="distatis.html#cb119-24"></a><span class="co">#print(e1.gg.voc.bary.gr)</span></span>
+<span id="cb119-25"><a href="distatis.html#cb119-25"></a>gg.voc.bary.dots.gr &lt;-<span class="st"> </span>gg.compromise.graph.out<span class="op">$</span>zeMap_background <span class="op">+</span><span class="st"> </span></span>
+<span id="cb119-26"><a href="distatis.html#cb119-26"></a><span class="st">  </span>gg.compromise.graph.out<span class="op">$</span>zeMap_dots <span class="op">+</span></span>
+<span id="cb119-27"><a href="distatis.html#cb119-27"></a><span class="st">  </span><span class="co">#gg.compromise.graph.out$zeMap_text +</span></span>
+<span id="cb119-28"><a href="distatis.html#cb119-28"></a><span class="st">  </span>gg.voc.bary<span class="op">$</span>zeMap_text <span class="op">+</span><span class="st"> </span>label4S</span>
+<span id="cb119-29"><a href="distatis.html#cb119-29"></a>gg.voc.bary.dots.gr</span></code></pre></div>
+<p><img src="MSA_files/figure-html/distatisVoc-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="contribution-barplots" class="section level2">
+<h2><span class="header-section-number">10.8</span> Contribution Barplots</h2>
+<p>The dimension 1 can perfectly distinguish the two wines from French and South Africa. There are also some ambiguous ones such as SRAA, FROU hard to distinguish from the data.</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="distatis.html#cb120-1"></a>  signed.ctrJ &lt;-<span class="st"> </span>cj <span class="op">*</span><span class="st"> </span><span class="kw">sign</span>(F)</span>
+<span id="cb120-2"><a href="distatis.html#cb120-2"></a>  laDim =<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb120-3"><a href="distatis.html#cb120-3"></a>  ctrJ<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">PrettyBarPlot2</span>(signed.ctrJ[,laDim],</span>
+<span id="cb120-4"><a href="distatis.html#cb120-4"></a>               <span class="dt">threshold =</span> <span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="kw">NROW</span>(signed.ctrJ),</span>
+<span id="cb120-5"><a href="distatis.html#cb120-5"></a>               <span class="dt">font.size =</span> <span class="dv">3</span>,</span>
+<span id="cb120-6"><a href="distatis.html#cb120-6"></a>               <span class="dt">signifOnly =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb120-7"><a href="distatis.html#cb120-7"></a>               <span class="dt">horizontal =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb120-8"><a href="distatis.html#cb120-8"></a>               <span class="dt">color4bar =</span> place.design.col, </span>
+<span id="cb120-9"><a href="distatis.html#cb120-9"></a>               <span class="dt">main =</span> <span class="st">&#39;Variable Contributions (Signed)&#39;</span>,</span>
+<span id="cb120-10"><a href="distatis.html#cb120-10"></a>               <span class="dt">ylab =</span> <span class="kw">paste0</span>(<span class="st">&#39;Contributions Barplot&#39;</span>,laDim),</span>
+<span id="cb120-11"><a href="distatis.html#cb120-11"></a>               <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="fl">1.2</span><span class="op">*</span><span class="kw">min</span>(signed.ctrJ), <span class="fl">1.2</span><span class="op">*</span><span class="kw">max</span>(signed.ctrJ))</span>
+<span id="cb120-12"><a href="distatis.html#cb120-12"></a>    ) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;Contribution&quot;</span>,<span class="dt">subtitle =</span> <span class="kw">paste0</span>(<span class="st">&#39;Component &#39;</span>, laDim))</span>
+<span id="cb120-13"><a href="distatis.html#cb120-13"></a>  </span>
+<span id="cb120-14"><a href="distatis.html#cb120-14"></a>  <span class="co">### plot contributions for component 2</span></span>
+<span id="cb120-15"><a href="distatis.html#cb120-15"></a>  laDim =<span class="dv">2</span></span>
+<span id="cb120-16"><a href="distatis.html#cb120-16"></a>  ctrJ<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">PrettyBarPlot2</span>(signed.ctrJ[,laDim],</span>
+<span id="cb120-17"><a href="distatis.html#cb120-17"></a>               <span class="dt">threshold =</span> <span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="kw">NROW</span>(signed.ctrJ),</span>
+<span id="cb120-18"><a href="distatis.html#cb120-18"></a>               <span class="dt">font.size =</span> <span class="dv">3</span>,</span>
+<span id="cb120-19"><a href="distatis.html#cb120-19"></a>               <span class="dt">color4bar =</span> place.design.col, </span>
+<span id="cb120-20"><a href="distatis.html#cb120-20"></a>               <span class="dt">signifOnly =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb120-21"><a href="distatis.html#cb120-21"></a>               <span class="dt">horizontal =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb120-22"><a href="distatis.html#cb120-22"></a>               <span class="dt">main =</span> <span class="st">&#39;Variable Contributions (Signed)&#39;</span>,</span>
+<span id="cb120-23"><a href="distatis.html#cb120-23"></a>               <span class="dt">ylab =</span> <span class="kw">paste0</span>(<span class="st">&#39;Contributions Barplot&#39;</span>, laDim),</span>
+<span id="cb120-24"><a href="distatis.html#cb120-24"></a>               <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="fl">1.2</span><span class="op">*</span><span class="kw">min</span>(signed.ctrJ), <span class="fl">1.2</span><span class="op">*</span><span class="kw">max</span>(signed.ctrJ))</span>
+<span id="cb120-25"><a href="distatis.html#cb120-25"></a>  )<span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;&quot;</span>,<span class="dt">subtitle =</span> <span class="kw">paste0</span>(<span class="st">&#39;Component &#39;</span>, laDim))</span>
+<span id="cb120-26"><a href="distatis.html#cb120-26"></a>  laDim =<span class="dv">3</span></span>
+<span id="cb120-27"><a href="distatis.html#cb120-27"></a>  ctrJ<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">PrettyBarPlot2</span>(signed.ctrJ[,laDim],</span>
+<span id="cb120-28"><a href="distatis.html#cb120-28"></a>               <span class="dt">threshold =</span> <span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="kw">NROW</span>(signed.ctrJ),</span>
+<span id="cb120-29"><a href="distatis.html#cb120-29"></a>               <span class="dt">font.size =</span> <span class="dv">3</span>,</span>
+<span id="cb120-30"><a href="distatis.html#cb120-30"></a>               <span class="dt">color4bar =</span> place.design.col, </span>
+<span id="cb120-31"><a href="distatis.html#cb120-31"></a>               <span class="dt">signifOnly =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb120-32"><a href="distatis.html#cb120-32"></a>               <span class="dt">horizontal =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb120-33"><a href="distatis.html#cb120-33"></a>               <span class="dt">main =</span> <span class="st">&#39;Variable Contributions (Signed)&#39;</span>,</span>
+<span id="cb120-34"><a href="distatis.html#cb120-34"></a>               <span class="dt">ylab =</span> <span class="kw">paste0</span>(<span class="st">&#39;Contributions Barplot&#39;</span>, laDim),</span>
+<span id="cb120-35"><a href="distatis.html#cb120-35"></a>               <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="fl">1.2</span><span class="op">*</span><span class="kw">min</span>(signed.ctrJ), <span class="fl">1.2</span><span class="op">*</span><span class="kw">max</span>(signed.ctrJ))</span>
+<span id="cb120-36"><a href="distatis.html#cb120-36"></a>  )<span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;&quot;</span>,<span class="dt">subtitle =</span> <span class="kw">paste0</span>(<span class="st">&#39;Component &#39;</span>, laDim))</span>
+<span id="cb120-37"><a href="distatis.html#cb120-37"></a>  </span>
+<span id="cb120-38"><a href="distatis.html#cb120-38"></a>  </span>
+<span id="cb120-39"><a href="distatis.html#cb120-39"></a>gridExtra<span class="op">::</span><span class="kw">grid.arrange</span>(<span class="kw">as.grob</span>(ctrJ<span class="fl">.1</span>),</span>
+<span id="cb120-40"><a href="distatis.html#cb120-40"></a>                        <span class="kw">as.grob</span>(ctrJ<span class="fl">.2</span>),</span>
+<span id="cb120-41"><a href="distatis.html#cb120-41"></a>                        <span class="kw">as.grob</span>(ctrJ<span class="fl">.3</span>),</span>
+<span id="cb120-42"><a href="distatis.html#cb120-42"></a>                        <span class="dt">ncol=</span><span class="dv">1</span>, </span>
+<span id="cb120-43"><a href="distatis.html#cb120-43"></a>                        <span class="dt">top =</span> <span class="kw">textGrob</span>(<span class="st">&quot;Contribution barplots&quot;</span>,<span class="dt">gp=</span><span class="kw">gpar</span>(<span class="dt">fontsize=</span><span class="dv">18</span>,<span class="dt">font=</span><span class="dv">3</span>)))</span></code></pre></div>
+<p><img src="MSA_files/figure-html/distatisContribution-1.png" width="672" style="display: block; margin: auto;" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="pls.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="mfa.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
