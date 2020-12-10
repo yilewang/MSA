@@ -634,33 +634,34 @@ R4-R6, HIGH resource, LOW group members</li>
 <span id="cb16-51"><a href="Data-Intro.html#cb16-51"></a></span>
 <span id="cb16-52"><a href="Data-Intro.html#cb16-52"></a><span class="co">## color</span></span>
 <span id="cb16-53"><a href="Data-Intro.html#cb16-53"></a></span>
-<span id="cb16-54"><a href="Data-Intro.html#cb16-54"></a>index &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">170</span>, <span class="kw">length</span>(<span class="kw">levels</span>(exp.neg<span class="op">$</span>group)))</span>
-<span id="cb16-55"><a href="Data-Intro.html#cb16-55"></a></span>
-<span id="cb16-56"><a href="Data-Intro.html#cb16-56"></a><span class="co"># manually setting color design</span></span>
-<span id="cb16-57"><a href="Data-Intro.html#cb16-57"></a>m.color.design &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">colnames</span>(exp.neg[<span class="dv">8</span><span class="op">:</span><span class="dv">36</span>]))</span>
-<span id="cb16-58"><a href="Data-Intro.html#cb16-58"></a></span>
-<span id="cb16-59"><a href="Data-Intro.html#cb16-59"></a>m.color.design[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">prettyGraphsColorSelection</span>(<span class="dt">starting.color =</span> <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">170</span>, </span>
-<span id="cb16-60"><a href="Data-Intro.html#cb16-60"></a> <span class="dv">1</span>))</span>
-<span id="cb16-61"><a href="Data-Intro.html#cb16-61"></a>m.color.design[<span class="dv">4</span><span class="op">:</span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">prettyGraphsColorSelection</span>(<span class="dt">starting.color =</span> <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">170</span>, </span>
-<span id="cb16-62"><a href="Data-Intro.html#cb16-62"></a> <span class="dv">1</span>))</span>
-<span id="cb16-63"><a href="Data-Intro.html#cb16-63"></a>m.color.design[<span class="dv">7</span><span class="op">:</span><span class="dv">9</span>] &lt;-<span class="st"> </span>m.color.design[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</span>
-<span id="cb16-64"><a href="Data-Intro.html#cb16-64"></a>m.color.design[<span class="dv">10</span><span class="op">:</span><span class="dv">12</span>] &lt;-<span class="st"> </span>m.color.design[<span class="dv">4</span><span class="op">:</span><span class="dv">6</span>]</span>
-<span id="cb16-65"><a href="Data-Intro.html#cb16-65"></a>m.color.design[<span class="dv">13</span><span class="op">:</span><span class="dv">14</span>] &lt;-<span class="st"> </span><span class="kw">prettyGraphsColorSelection</span>(<span class="dt">starting.color =</span> <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">170</span>, </span>
-<span id="cb16-66"><a href="Data-Intro.html#cb16-66"></a> <span class="dv">1</span>))</span>
-<span id="cb16-67"><a href="Data-Intro.html#cb16-67"></a>m.color.design[<span class="dv">15</span><span class="op">:</span><span class="dv">17</span>] &lt;-<span class="st"> </span><span class="kw">prettyGraphsColorSelection</span>(<span class="dt">starting.color =</span> <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">170</span>, </span>
-<span id="cb16-68"><a href="Data-Intro.html#cb16-68"></a> <span class="dv">1</span>))</span>
-<span id="cb16-69"><a href="Data-Intro.html#cb16-69"></a>m.color.design[<span class="dv">18</span><span class="op">:</span><span class="dv">21</span>] &lt;-<span class="st"> </span><span class="kw">prettyGraphsColorSelection</span>(<span class="dt">starting.color =</span> <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">170</span>, </span>
-<span id="cb16-70"><a href="Data-Intro.html#cb16-70"></a> <span class="dv">1</span>))</span>
-<span id="cb16-71"><a href="Data-Intro.html#cb16-71"></a>m.color.design[<span class="dv">22</span><span class="op">:</span><span class="dv">26</span>] &lt;-<span class="st"> </span><span class="kw">prettyGraphsColorSelection</span>(<span class="dt">starting.color =</span> <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">170</span>, </span>
-<span id="cb16-72"><a href="Data-Intro.html#cb16-72"></a> <span class="dv">1</span>))</span>
-<span id="cb16-73"><a href="Data-Intro.html#cb16-73"></a>m.color.design[<span class="dv">27</span><span class="op">:</span><span class="dv">29</span>] &lt;-<span class="st"> </span><span class="kw">prettyGraphsColorSelection</span>(<span class="dt">starting.color =</span> <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">170</span>, </span>
-<span id="cb16-74"><a href="Data-Intro.html#cb16-74"></a> <span class="dv">1</span>))</span>
-<span id="cb16-75"><a href="Data-Intro.html#cb16-75"></a></span>
+<span id="cb16-54"><a href="Data-Intro.html#cb16-54"></a>index &lt;-<span class="st"> </span><span class="kw">prettyGraphsColorSelection</span>(<span class="dt">n.colors =</span> <span class="dv">4</span>, <span class="dt">starting.color =</span> <span class="kw">sample</span>((<span class="dv">1</span><span class="op">:</span><span class="dv">300</span>), </span>
+<span id="cb16-55"><a href="Data-Intro.html#cb16-55"></a> <span class="dv">4</span>))</span>
+<span id="cb16-56"><a href="Data-Intro.html#cb16-56"></a></span>
+<span id="cb16-57"><a href="Data-Intro.html#cb16-57"></a><span class="co"># manually setting color design</span></span>
+<span id="cb16-58"><a href="Data-Intro.html#cb16-58"></a>m.color.design &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">colnames</span>(exp.neg[<span class="dv">8</span><span class="op">:</span><span class="dv">36</span>]))</span>
+<span id="cb16-59"><a href="Data-Intro.html#cb16-59"></a></span>
+<span id="cb16-60"><a href="Data-Intro.html#cb16-60"></a>m.color.design[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">prettyGraphsColorSelection</span>(<span class="dt">starting.color =</span> <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">170</span>, </span>
+<span id="cb16-61"><a href="Data-Intro.html#cb16-61"></a> <span class="dv">1</span>))</span>
+<span id="cb16-62"><a href="Data-Intro.html#cb16-62"></a>m.color.design[<span class="dv">4</span><span class="op">:</span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">prettyGraphsColorSelection</span>(<span class="dt">starting.color =</span> <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">170</span>, </span>
+<span id="cb16-63"><a href="Data-Intro.html#cb16-63"></a> <span class="dv">1</span>))</span>
+<span id="cb16-64"><a href="Data-Intro.html#cb16-64"></a>m.color.design[<span class="dv">7</span><span class="op">:</span><span class="dv">9</span>] &lt;-<span class="st"> </span>m.color.design[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</span>
+<span id="cb16-65"><a href="Data-Intro.html#cb16-65"></a>m.color.design[<span class="dv">10</span><span class="op">:</span><span class="dv">12</span>] &lt;-<span class="st"> </span>m.color.design[<span class="dv">4</span><span class="op">:</span><span class="dv">6</span>]</span>
+<span id="cb16-66"><a href="Data-Intro.html#cb16-66"></a>m.color.design[<span class="dv">13</span><span class="op">:</span><span class="dv">14</span>] &lt;-<span class="st"> </span><span class="kw">prettyGraphsColorSelection</span>(<span class="dt">starting.color =</span> <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">170</span>, </span>
+<span id="cb16-67"><a href="Data-Intro.html#cb16-67"></a> <span class="dv">1</span>))</span>
+<span id="cb16-68"><a href="Data-Intro.html#cb16-68"></a>m.color.design[<span class="dv">15</span><span class="op">:</span><span class="dv">17</span>] &lt;-<span class="st"> </span><span class="kw">prettyGraphsColorSelection</span>(<span class="dt">starting.color =</span> <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">170</span>, </span>
+<span id="cb16-69"><a href="Data-Intro.html#cb16-69"></a> <span class="dv">1</span>))</span>
+<span id="cb16-70"><a href="Data-Intro.html#cb16-70"></a>m.color.design[<span class="dv">18</span><span class="op">:</span><span class="dv">21</span>] &lt;-<span class="st"> </span><span class="kw">prettyGraphsColorSelection</span>(<span class="dt">starting.color =</span> <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">170</span>, </span>
+<span id="cb16-71"><a href="Data-Intro.html#cb16-71"></a> <span class="dv">1</span>))</span>
+<span id="cb16-72"><a href="Data-Intro.html#cb16-72"></a>m.color.design[<span class="dv">22</span><span class="op">:</span><span class="dv">26</span>] &lt;-<span class="st"> </span><span class="kw">prettyGraphsColorSelection</span>(<span class="dt">starting.color =</span> <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">170</span>, </span>
+<span id="cb16-73"><a href="Data-Intro.html#cb16-73"></a> <span class="dv">1</span>))</span>
+<span id="cb16-74"><a href="Data-Intro.html#cb16-74"></a>m.color.design[<span class="dv">27</span><span class="op">:</span><span class="dv">29</span>] &lt;-<span class="st"> </span><span class="kw">prettyGraphsColorSelection</span>(<span class="dt">starting.color =</span> <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">170</span>, </span>
+<span id="cb16-75"><a href="Data-Intro.html#cb16-75"></a> <span class="dv">1</span>))</span>
 <span id="cb16-76"><a href="Data-Intro.html#cb16-76"></a></span>
 <span id="cb16-77"><a href="Data-Intro.html#cb16-77"></a></span>
-<span id="cb16-78"><a href="Data-Intro.html#cb16-78"></a><span class="co">### ________________________________________###</span></span>
-<span id="cb16-79"><a href="Data-Intro.html#cb16-79"></a></span>
-<span id="cb16-80"><a href="Data-Intro.html#cb16-80"></a><span class="co">## **** ending of the data preprocessing ****</span></span></code></pre></div>
+<span id="cb16-78"><a href="Data-Intro.html#cb16-78"></a></span>
+<span id="cb16-79"><a href="Data-Intro.html#cb16-79"></a><span class="co">### ________________________________________###</span></span>
+<span id="cb16-80"><a href="Data-Intro.html#cb16-80"></a></span>
+<span id="cb16-81"><a href="Data-Intro.html#cb16-81"></a><span class="co">## **** ending of the data preprocessing ****</span></span></code></pre></div>
 <p>It is worth to mention that the chunk above is the data preprocessing for quantitative data.</p>
 <p>We used similar strategy for qualitative data preprocessing. The essential part of qualitative data coding is that I need to convert all the quantitative data into categorical format (1,2,3) by using <code>quantile</code> function. I already compile a new function for the bin coding, please see Function Chapter<sup><a href="Functions.html#binshelper">2.8</a></sup> in this book.</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="Data-Intro.html#cb17-1"></a>bins.exp.neg &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(exp.neg)</span>

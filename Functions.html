@@ -354,7 +354,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb5-12"><a href="Functions.html#cb5-12"></a>  na.de &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">levels</span>(DESIGN))</span>
 <span id="cb5-13"><a href="Functions.html#cb5-13"></a>  num.de &lt;-<span class="st"> </span><span class="kw">length</span>(na.de)</span>
 <span id="cb5-14"><a href="Functions.html#cb5-14"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="st"> </span>num.de){</span>
-<span id="cb5-15"><a href="Functions.html#cb5-15"></a>    color.dot[<span class="kw">which</span>(color.dot <span class="op">==</span><span class="st"> </span>na.de[i])] &lt;-<span class="st"> </span><span class="kw">prettyGraphsColorSelection</span>(<span class="dt">n.colors =</span> <span class="dv">1</span>,                                                                  <span class="dt">starting.color =</span> index[i])</span>
+<span id="cb5-15"><a href="Functions.html#cb5-15"></a>    color.dot[<span class="kw">which</span>(color.dot <span class="op">==</span><span class="st"> </span>na.de[i])] &lt;-<span class="st"> </span>index[i]</span>
 <span id="cb5-16"><a href="Functions.html#cb5-16"></a>  }</span>
 <span id="cb5-17"><a href="Functions.html#cb5-17"></a>  color.dot &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(color.dot)</span>
 <span id="cb5-18"><a href="Functions.html#cb5-18"></a>  <span class="kw">rownames</span>(color.dot) &lt;-<span class="st"> </span>DESIGN</span>
@@ -689,57 +689,56 @@ col(color coding of variables), method(title names)</p>
 <span id="cb10-3"><a href="Functions.html#cb10-3"></a>  na.de &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">levels</span>(DESIGN))</span>
 <span id="cb10-4"><a href="Functions.html#cb10-4"></a>  num.de &lt;-<span class="st"> </span><span class="kw">length</span>(na.de)</span>
 <span id="cb10-5"><a href="Functions.html#cb10-5"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="st"> </span>num.de){</span>
-<span id="cb10-6"><a href="Functions.html#cb10-6"></a>    color.dot[<span class="kw">which</span>(color.dot <span class="op">==</span><span class="st"> </span>na.de[i])] &lt;-<span class="st"> </span><span class="kw">prettyGraphsColorSelection</span>(<span class="dt">n.colors =</span> <span class="dv">1</span>, </span>
-<span id="cb10-7"><a href="Functions.html#cb10-7"></a>                                                                          <span class="dt">starting.color =</span> index[i])</span>
-<span id="cb10-8"><a href="Functions.html#cb10-8"></a>  }</span>
-<span id="cb10-9"><a href="Functions.html#cb10-9"></a>  color.dot &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(color.dot)</span>
-<span id="cb10-10"><a href="Functions.html#cb10-10"></a>  <span class="kw">rownames</span>(color.dot) &lt;-<span class="st"> </span>DESIGN</span>
-<span id="cb10-11"><a href="Functions.html#cb10-11"></a>  latvar &lt;-<span class="st"> </span><span class="kw">cbind</span>(lx[,d],ly[,d])</span>
-<span id="cb10-12"><a href="Functions.html#cb10-12"></a>  <span class="kw">colnames</span>(latvar) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">paste0</span>(<span class="st">&quot;Lx &quot;</span>, d), </span>
-<span id="cb10-13"><a href="Functions.html#cb10-13"></a>                        <span class="kw">paste0</span>(<span class="st">&quot;Ly &quot;</span>, d))</span>
-<span id="cb10-14"><a href="Functions.html#cb10-14"></a>  </span>
-<span id="cb10-15"><a href="Functions.html#cb10-15"></a>  <span class="co"># compute means</span></span>
-<span id="cb10-16"><a href="Functions.html#cb10-16"></a>  lv.group &lt;-<span class="st"> </span><span class="kw">getMeans</span>(latvar,DESIGN)</span>
-<span id="cb10-17"><a href="Functions.html#cb10-17"></a>  </span>
-<span id="cb10-18"><a href="Functions.html#cb10-18"></a>  <span class="co"># get bootstrap intervals of groups</span></span>
-<span id="cb10-19"><a href="Functions.html#cb10-19"></a>  lv.group.boot &lt;-<span class="st"> </span><span class="kw">Boot4Mean</span>(latvar, DESIGN)</span>
-<span id="cb10-20"><a href="Functions.html#cb10-20"></a>  <span class="kw">colnames</span>(lv.group.boot<span class="op">$</span>BootCube) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">paste0</span>(<span class="st">&quot;Lx &quot;</span>, d), </span>
-<span id="cb10-21"><a href="Functions.html#cb10-21"></a>                                        <span class="kw">paste0</span>(<span class="st">&quot;Ly &quot;</span>, d))</span>
+<span id="cb10-6"><a href="Functions.html#cb10-6"></a>    color.dot[<span class="kw">which</span>(color.dot <span class="op">==</span><span class="st"> </span>na.de[i])] &lt;-<span class="st"> </span>index[i]</span>
+<span id="cb10-7"><a href="Functions.html#cb10-7"></a>  }</span>
+<span id="cb10-8"><a href="Functions.html#cb10-8"></a>  color.dot &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(color.dot)</span>
+<span id="cb10-9"><a href="Functions.html#cb10-9"></a>  <span class="kw">rownames</span>(color.dot) &lt;-<span class="st"> </span>DESIGN</span>
+<span id="cb10-10"><a href="Functions.html#cb10-10"></a>  latvar &lt;-<span class="st"> </span><span class="kw">cbind</span>(lx[,d],ly[,d])</span>
+<span id="cb10-11"><a href="Functions.html#cb10-11"></a>  <span class="kw">colnames</span>(latvar) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">paste0</span>(<span class="st">&quot;Lx &quot;</span>, d), </span>
+<span id="cb10-12"><a href="Functions.html#cb10-12"></a>                        <span class="kw">paste0</span>(<span class="st">&quot;Ly &quot;</span>, d))</span>
+<span id="cb10-13"><a href="Functions.html#cb10-13"></a>  </span>
+<span id="cb10-14"><a href="Functions.html#cb10-14"></a>  <span class="co"># compute means</span></span>
+<span id="cb10-15"><a href="Functions.html#cb10-15"></a>  lv.group &lt;-<span class="st"> </span><span class="kw">getMeans</span>(latvar,DESIGN)</span>
+<span id="cb10-16"><a href="Functions.html#cb10-16"></a>  </span>
+<span id="cb10-17"><a href="Functions.html#cb10-17"></a>  <span class="co"># get bootstrap intervals of groups</span></span>
+<span id="cb10-18"><a href="Functions.html#cb10-18"></a>  lv.group.boot &lt;-<span class="st"> </span><span class="kw">Boot4Mean</span>(latvar, DESIGN)</span>
+<span id="cb10-19"><a href="Functions.html#cb10-19"></a>  <span class="kw">colnames</span>(lv.group.boot<span class="op">$</span>BootCube) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">paste0</span>(<span class="st">&quot;Lx &quot;</span>, d), </span>
+<span id="cb10-20"><a href="Functions.html#cb10-20"></a>                                        <span class="kw">paste0</span>(<span class="st">&quot;Ly &quot;</span>, d))</span>
+<span id="cb10-21"><a href="Functions.html#cb10-21"></a>  </span>
 <span id="cb10-22"><a href="Functions.html#cb10-22"></a>  </span>
-<span id="cb10-23"><a href="Functions.html#cb10-23"></a>  </span>
-<span id="cb10-24"><a href="Functions.html#cb10-24"></a>  plot.lv &lt;-<span class="st"> </span><span class="kw">createFactorMap</span>(latvar,</span>
-<span id="cb10-25"><a href="Functions.html#cb10-25"></a>             <span class="dt">col.points =</span> color.dot,</span>
-<span id="cb10-26"><a href="Functions.html#cb10-26"></a>             <span class="dt">col.labels =</span> color.dot,</span>
-<span id="cb10-27"><a href="Functions.html#cb10-27"></a>             <span class="dt">title =</span> <span class="kw">c</span>(<span class="st">&quot;Latent Variable Map&quot;</span>, d),</span>
-<span id="cb10-28"><a href="Functions.html#cb10-28"></a>                       <span class="dt">alpha.points =</span> <span class="fl">0.2</span></span>
-<span id="cb10-29"><a href="Functions.html#cb10-29"></a>  )</span>
-<span id="cb10-30"><a href="Functions.html#cb10-30"></a>  ind &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span>num.de)</span>
-<span id="cb10-31"><a href="Functions.html#cb10-31"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>num.de){</span>
-<span id="cb10-32"><a href="Functions.html#cb10-32"></a>    inde &lt;-<span class="st"> </span><span class="kw">match</span>(<span class="kw">rownames</span>(color.dot), </span>
-<span id="cb10-33"><a href="Functions.html#cb10-33"></a>                  <span class="kw">sort</span>(<span class="kw">rownames</span>(lv.group)))</span>
-<span id="cb10-34"><a href="Functions.html#cb10-34"></a>    ind[i] &lt;-<span class="st"> </span><span class="kw">which</span>(inde <span class="op">==</span><span class="st"> </span>i)[<span class="dv">1</span>]</span>
-<span id="cb10-35"><a href="Functions.html#cb10-35"></a>  }</span>
-<span id="cb10-36"><a href="Functions.html#cb10-36"></a>  grp.ind &lt;-<span class="st"> </span>ind</span>
-<span id="cb10-37"><a href="Functions.html#cb10-37"></a>  plot.mean &lt;-<span class="st"> </span><span class="kw">createFactorMap</span>(lv.group,</span>
-<span id="cb10-38"><a href="Functions.html#cb10-38"></a>             <span class="dt">col.points =</span> color.dot[grp.ind],</span>
-<span id="cb10-39"><a href="Functions.html#cb10-39"></a>             <span class="dt">col.labels =</span> color.dot[grp.ind],</span>
-<span id="cb10-40"><a href="Functions.html#cb10-40"></a>             <span class="dt">cex =</span> <span class="dv">4</span>,</span>
-<span id="cb10-41"><a href="Functions.html#cb10-41"></a>             <span class="dt">pch =</span> <span class="dv">17</span>,</span>
-<span id="cb10-42"><a href="Functions.html#cb10-42"></a>             <span class="dt">alpha.points =</span> <span class="fl">0.8</span>)</span>
-<span id="cb10-43"><a href="Functions.html#cb10-43"></a>  </span>
-<span id="cb10-44"><a href="Functions.html#cb10-44"></a>  plot.meanCI &lt;-<span class="st"> </span><span class="kw">MakeCIEllipses</span>(lv.group.boot<span class="op">$</span>BootCube[,<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>),], </span>
-<span id="cb10-45"><a href="Functions.html#cb10-45"></a>                     <span class="dt">col =</span> color.dot[grp.ind],</span>
-<span id="cb10-46"><a href="Functions.html#cb10-46"></a>                     <span class="dt">names.of.factors =</span> <span class="kw">c</span>(<span class="kw">paste0</span>(<span class="st">&quot;Lx &quot;</span>, d), </span>
-<span id="cb10-47"><a href="Functions.html#cb10-47"></a>                                          <span class="kw">paste0</span>(<span class="st">&quot;Ly &quot;</span>, d)))</span>
-<span id="cb10-48"><a href="Functions.html#cb10-48"></a>  </span>
-<span id="cb10-49"><a href="Functions.html#cb10-49"></a>  plot.lv.pls &lt;-<span class="st"> </span>plot.lv<span class="op">$</span>zeMap_background <span class="op">+</span><span class="st"> </span></span>
-<span id="cb10-50"><a href="Functions.html#cb10-50"></a><span class="st">    </span>plot.meanCI <span class="op">+</span><span class="st"> </span></span>
-<span id="cb10-51"><a href="Functions.html#cb10-51"></a><span class="st">    </span>plot.lv<span class="op">$</span>zeMap_dots <span class="op">+</span><span class="st"> </span></span>
-<span id="cb10-52"><a href="Functions.html#cb10-52"></a><span class="st">    </span>plot.mean<span class="op">$</span>zeMap_dots <span class="op">+</span><span class="st"> </span></span>
-<span id="cb10-53"><a href="Functions.html#cb10-53"></a><span class="st">    </span>plot.mean<span class="op">$</span>zeMap_text</span>
-<span id="cb10-54"><a href="Functions.html#cb10-54"></a></span>
-<span id="cb10-55"><a href="Functions.html#cb10-55"></a>  plot.lv.pls</span>
-<span id="cb10-56"><a href="Functions.html#cb10-56"></a>}</span></code></pre></div>
+<span id="cb10-23"><a href="Functions.html#cb10-23"></a>  plot.lv &lt;-<span class="st"> </span><span class="kw">createFactorMap</span>(latvar,</span>
+<span id="cb10-24"><a href="Functions.html#cb10-24"></a>             <span class="dt">col.points =</span> color.dot,</span>
+<span id="cb10-25"><a href="Functions.html#cb10-25"></a>             <span class="dt">col.labels =</span> color.dot,</span>
+<span id="cb10-26"><a href="Functions.html#cb10-26"></a>             <span class="dt">title =</span> <span class="kw">c</span>(<span class="st">&quot;Latent Variable Map&quot;</span>, d),</span>
+<span id="cb10-27"><a href="Functions.html#cb10-27"></a>                       <span class="dt">alpha.points =</span> <span class="fl">0.2</span></span>
+<span id="cb10-28"><a href="Functions.html#cb10-28"></a>  )</span>
+<span id="cb10-29"><a href="Functions.html#cb10-29"></a>  ind &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span>num.de)</span>
+<span id="cb10-30"><a href="Functions.html#cb10-30"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>num.de){</span>
+<span id="cb10-31"><a href="Functions.html#cb10-31"></a>    inde &lt;-<span class="st"> </span><span class="kw">match</span>(<span class="kw">rownames</span>(color.dot), </span>
+<span id="cb10-32"><a href="Functions.html#cb10-32"></a>                  <span class="kw">sort</span>(<span class="kw">rownames</span>(lv.group)))</span>
+<span id="cb10-33"><a href="Functions.html#cb10-33"></a>    ind[i] &lt;-<span class="st"> </span><span class="kw">which</span>(inde <span class="op">==</span><span class="st"> </span>i)[<span class="dv">1</span>]</span>
+<span id="cb10-34"><a href="Functions.html#cb10-34"></a>  }</span>
+<span id="cb10-35"><a href="Functions.html#cb10-35"></a>  grp.ind &lt;-<span class="st"> </span>ind</span>
+<span id="cb10-36"><a href="Functions.html#cb10-36"></a>  plot.mean &lt;-<span class="st"> </span><span class="kw">createFactorMap</span>(lv.group,</span>
+<span id="cb10-37"><a href="Functions.html#cb10-37"></a>             <span class="dt">col.points =</span> color.dot[grp.ind],</span>
+<span id="cb10-38"><a href="Functions.html#cb10-38"></a>             <span class="dt">col.labels =</span> color.dot[grp.ind],</span>
+<span id="cb10-39"><a href="Functions.html#cb10-39"></a>             <span class="dt">cex =</span> <span class="dv">4</span>,</span>
+<span id="cb10-40"><a href="Functions.html#cb10-40"></a>             <span class="dt">pch =</span> <span class="dv">17</span>,</span>
+<span id="cb10-41"><a href="Functions.html#cb10-41"></a>             <span class="dt">alpha.points =</span> <span class="fl">0.8</span>)</span>
+<span id="cb10-42"><a href="Functions.html#cb10-42"></a>  </span>
+<span id="cb10-43"><a href="Functions.html#cb10-43"></a>  plot.meanCI &lt;-<span class="st"> </span><span class="kw">MakeCIEllipses</span>(lv.group.boot<span class="op">$</span>BootCube[,<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>),], </span>
+<span id="cb10-44"><a href="Functions.html#cb10-44"></a>                     <span class="dt">col =</span> color.dot[grp.ind],</span>
+<span id="cb10-45"><a href="Functions.html#cb10-45"></a>                     <span class="dt">names.of.factors =</span> <span class="kw">c</span>(<span class="kw">paste0</span>(<span class="st">&quot;Lx &quot;</span>, d), </span>
+<span id="cb10-46"><a href="Functions.html#cb10-46"></a>                                          <span class="kw">paste0</span>(<span class="st">&quot;Ly &quot;</span>, d)))</span>
+<span id="cb10-47"><a href="Functions.html#cb10-47"></a>  </span>
+<span id="cb10-48"><a href="Functions.html#cb10-48"></a>  plot.lv.pls &lt;-<span class="st"> </span>plot.lv<span class="op">$</span>zeMap_background <span class="op">+</span><span class="st"> </span></span>
+<span id="cb10-49"><a href="Functions.html#cb10-49"></a><span class="st">    </span>plot.meanCI <span class="op">+</span><span class="st"> </span></span>
+<span id="cb10-50"><a href="Functions.html#cb10-50"></a><span class="st">    </span>plot.lv<span class="op">$</span>zeMap_dots <span class="op">+</span><span class="st"> </span></span>
+<span id="cb10-51"><a href="Functions.html#cb10-51"></a><span class="st">    </span>plot.mean<span class="op">$</span>zeMap_dots <span class="op">+</span><span class="st"> </span></span>
+<span id="cb10-52"><a href="Functions.html#cb10-52"></a><span class="st">    </span>plot.mean<span class="op">$</span>zeMap_text</span>
+<span id="cb10-53"><a href="Functions.html#cb10-53"></a></span>
+<span id="cb10-54"><a href="Functions.html#cb10-54"></a>  plot.lv.pls</span>
+<span id="cb10-55"><a href="Functions.html#cb10-55"></a>}</span></code></pre></div>
 </div>
 <div id="plotting-partial-factor-scores" class="section level2">
 <h2><span class="header-section-number">2.10</span> Plotting Partial Factor Scores</h2>
@@ -753,101 +752,100 @@ col(color coding of variables), method(title names)</p>
 <span id="cb11-6"><a href="Functions.html#cb11-6"></a>  na.de &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">levels</span>(DESIGN))</span>
 <span id="cb11-7"><a href="Functions.html#cb11-7"></a>  num.de &lt;-<span class="st"> </span><span class="kw">length</span>(na.de)</span>
 <span id="cb11-8"><a href="Functions.html#cb11-8"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="st"> </span>num.de){</span>
-<span id="cb11-9"><a href="Functions.html#cb11-9"></a>    color.dot[<span class="kw">which</span>(color.dot <span class="op">==</span><span class="st"> </span>na.de[i])] &lt;-<span class="st"> </span><span class="kw">prettyGraphsColorSelection</span>(<span class="dt">n.colors =</span> <span class="dv">1</span>,</span>
-<span id="cb11-10"><a href="Functions.html#cb11-10"></a>                                                                          <span class="dt">starting.color =</span> index[i])</span>
-<span id="cb11-11"><a href="Functions.html#cb11-11"></a>  }</span>
-<span id="cb11-12"><a href="Functions.html#cb11-12"></a>  color.dot &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(color.dot)</span>
-<span id="cb11-13"><a href="Functions.html#cb11-13"></a>  <span class="kw">rownames</span>(color.dot) &lt;-<span class="st"> </span>DESIGN</span>
-<span id="cb11-14"><a href="Functions.html#cb11-14"></a></span>
-<span id="cb11-15"><a href="Functions.html#cb11-15"></a>  <span class="co"># Factor Map</span></span>
-<span id="cb11-16"><a href="Functions.html#cb11-16"></a>  factor.graph.out &lt;-<span class="st"> </span><span class="kw">createFactorMap</span>(</span>
-<span id="cb11-17"><a href="Functions.html#cb11-17"></a>    <span class="dt">X =</span> fs,</span>
-<span id="cb11-18"><a href="Functions.html#cb11-18"></a>    <span class="dt">axis =</span> d, <span class="dt">axis2 =</span> (d<span class="op">+</span><span class="dv">1</span>),</span>
-<span id="cb11-19"><a href="Functions.html#cb11-19"></a>    <span class="dt">col.points =</span> color.dot,</span>
-<span id="cb11-20"><a href="Functions.html#cb11-20"></a>    <span class="dt">col.labels =</span> color.dot,</span>
-<span id="cb11-21"><a href="Functions.html#cb11-21"></a>    <span class="dt">title =</span> <span class="st">&quot;MFA_Partial_Factor_Map&quot;</span>,</span>
-<span id="cb11-22"><a href="Functions.html#cb11-22"></a>    <span class="dt">display.labels =</span> <span class="ot">FALSE</span>,</span>
-<span id="cb11-23"><a href="Functions.html#cb11-23"></a>    <span class="dt">alpha.points =</span> <span class="fl">0.3</span>,</span>
-<span id="cb11-24"><a href="Functions.html#cb11-24"></a>    <span class="dt">alpha.labels =</span> <span class="fl">0.3</span></span>
-<span id="cb11-25"><a href="Functions.html#cb11-25"></a>  )</span>
-<span id="cb11-26"><a href="Functions.html#cb11-26"></a>  <span class="co"># Labels of Factor Map</span></span>
-<span id="cb11-27"><a href="Functions.html#cb11-27"></a>  labels4RV &lt;-<span class="st"> </span><span class="kw">createxyLabels.gen</span>(d, (d<span class="op">+</span><span class="dv">1</span>),</span>
-<span id="cb11-28"><a href="Functions.html#cb11-28"></a>    <span class="dt">lambda =</span> eigs,</span>
-<span id="cb11-29"><a href="Functions.html#cb11-29"></a>    <span class="dt">tau =</span> tau,</span>
-<span id="cb11-30"><a href="Functions.html#cb11-30"></a>    <span class="dt">axisName =</span> <span class="st">&quot;Dimension &quot;</span></span>
-<span id="cb11-31"><a href="Functions.html#cb11-31"></a>  )</span>
-<span id="cb11-32"><a href="Functions.html#cb11-32"></a>  <span class="co"># Groups</span></span>
-<span id="cb11-33"><a href="Functions.html#cb11-33"></a>  fm.tmp &lt;-<span class="st"> </span><span class="kw">aggregate</span>(fs, <span class="kw">list</span>(DESIGN), mean)</span>
-<span id="cb11-34"><a href="Functions.html#cb11-34"></a>  fm &lt;-<span class="st"> </span>fm.tmp[,<span class="dv">2</span><span class="op">:</span><span class="kw">ncol</span>(fm.tmp)]</span>
-<span id="cb11-35"><a href="Functions.html#cb11-35"></a>  <span class="kw">rownames</span>(fm) &lt;-<span class="st"> </span>fm.tmp[,<span class="dv">1</span>]</span>
-<span id="cb11-36"><a href="Functions.html#cb11-36"></a>  ind &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span>num.de)</span>
-<span id="cb11-37"><a href="Functions.html#cb11-37"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>num.de){</span>
-<span id="cb11-38"><a href="Functions.html#cb11-38"></a>    inde &lt;-<span class="st"> </span><span class="kw">match</span>(<span class="kw">rownames</span>(color.dot), <span class="kw">sort</span>(<span class="kw">rownames</span>(fm)))</span>
-<span id="cb11-39"><a href="Functions.html#cb11-39"></a>    ind[i] &lt;-<span class="st"> </span><span class="kw">which</span>(inde <span class="op">==</span><span class="st"> </span>i)[<span class="dv">1</span>]</span>
-<span id="cb11-40"><a href="Functions.html#cb11-40"></a>  }</span>
-<span id="cb11-41"><a href="Functions.html#cb11-41"></a>  grp.ind &lt;-<span class="st"> </span>ind</span>
-<span id="cb11-42"><a href="Functions.html#cb11-42"></a>  <span class="kw">rownames</span>(fm[<span class="kw">sort</span>(<span class="kw">rownames</span>(fm)),]) &lt;-<span class="st"> </span><span class="kw">sub</span>(<span class="st">&quot;[[:punct:]]&quot;</span>,<span class="st">&quot;&quot;</span>,</span>
-<span id="cb11-43"><a href="Functions.html#cb11-43"></a>                      <span class="kw">rownames</span>(fm[<span class="kw">sort</span>(<span class="kw">rownames</span>(fm)),]))</span>
-<span id="cb11-44"><a href="Functions.html#cb11-44"></a>  </span>
-<span id="cb11-45"><a href="Functions.html#cb11-45"></a>  MapGroup &lt;-<span class="st"> </span>PTCA4CATA<span class="op">::</span><span class="kw">createFactorMap</span>(fm[<span class="kw">sort</span>(<span class="kw">rownames</span>(fm)),],</span>
-<span id="cb11-46"><a href="Functions.html#cb11-46"></a>                            <span class="dt">axis1 =</span> d,</span>
-<span id="cb11-47"><a href="Functions.html#cb11-47"></a>                            <span class="dt">axis2 =</span> (d<span class="op">+</span><span class="dv">1</span>),</span>
-<span id="cb11-48"><a href="Functions.html#cb11-48"></a>                            <span class="dt">constraints =</span> factor.graph.out<span class="op">$</span>constraints,</span>
-<span id="cb11-49"><a href="Functions.html#cb11-49"></a>                            <span class="dt">col.points =</span> color.dot[grp.ind],</span>
-<span id="cb11-50"><a href="Functions.html#cb11-50"></a>                            <span class="dt">cex =</span> <span class="dv">4</span>,  <span class="co"># size of the dot (bigger)</span></span>
-<span id="cb11-51"><a href="Functions.html#cb11-51"></a>                            <span class="dt">col.labels =</span> color.dot[grp.ind],</span>
-<span id="cb11-52"><a href="Functions.html#cb11-52"></a>                            <span class="dt">text.cex =</span> <span class="dv">4</span>,</span>
-<span id="cb11-53"><a href="Functions.html#cb11-53"></a>                            <span class="dt">alpha.points =</span> <span class="fl">0.5</span>)</span>
-<span id="cb11-54"><a href="Functions.html#cb11-54"></a>    </span>
-<span id="cb11-55"><a href="Functions.html#cb11-55"></a>  <span class="co"># partial factor</span></span>
-<span id="cb11-56"><a href="Functions.html#cb11-56"></a>  partial.fi.array &lt;-<span class="st"> </span>partial.fi.array</span>
-<span id="cb11-57"><a href="Functions.html#cb11-57"></a>  MFA.fi.groups.means &lt;-<span class="st"> </span>PTCA4CATA<span class="op">::</span><span class="kw">getMeans</span>(</span>
-<span id="cb11-58"><a href="Functions.html#cb11-58"></a>    fs, </span>
-<span id="cb11-59"><a href="Functions.html#cb11-59"></a>    DESIGN)</span>
-<span id="cb11-60"><a href="Functions.html#cb11-60"></a>  <span class="kw">colnames</span>(MFA.fi.groups.means) &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;Dimension &quot;</span>, </span>
-<span id="cb11-61"><a href="Functions.html#cb11-61"></a>                          <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(MFA.fi.groups.means))</span>
-<span id="cb11-62"><a href="Functions.html#cb11-62"></a>  <span class="co"># new array</span></span>
-<span id="cb11-63"><a href="Functions.html#cb11-63"></a>  MFA.partial.fi.groups.means &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dv">0</span>,<span class="dt">dim=</span><span class="kw">c</span>(<span class="kw">nrow</span>(MFA.fi.groups.means),</span>
-<span id="cb11-64"><a href="Functions.html#cb11-64"></a>                                               <span class="kw">ncol</span>(MFA.fi.groups.means), </span>
-<span id="cb11-65"><a href="Functions.html#cb11-65"></a>                                               mm))</span>
-<span id="cb11-66"><a href="Functions.html#cb11-66"></a>  <span class="co"># for loop to calculate mean</span></span>
-<span id="cb11-67"><a href="Functions.html#cb11-67"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>mm){</span>
-<span id="cb11-68"><a href="Functions.html#cb11-68"></a>    MFA.partial.fi.groups.means[,,i] &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(PTCA4CATA<span class="op">::</span><span class="kw">getMeans</span>(</span>
-<span id="cb11-69"><a href="Functions.html#cb11-69"></a>      partial.fi.array[,,i], </span>
-<span id="cb11-70"><a href="Functions.html#cb11-70"></a>      DESIGN))</span>
-<span id="cb11-71"><a href="Functions.html#cb11-71"></a>  }</span>
-<span id="cb11-72"><a href="Functions.html#cb11-72"></a>  <span class="co"># setting dimnames</span></span>
-<span id="cb11-73"><a href="Functions.html#cb11-73"></a>  <span class="kw">dimnames</span>(MFA.partial.fi.groups.means) &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">rownames</span>(MFA.fi.groups.means),</span>
-<span id="cb11-74"><a href="Functions.html#cb11-74"></a>                                                <span class="kw">colnames</span>(MFA.fi.groups.means), </span>
-<span id="cb11-75"><a href="Functions.html#cb11-75"></a>                                                <span class="kw">paste0</span>(LETTERS[<span class="dv">1</span><span class="op">:</span>mm], <span class="dv">1</span><span class="op">:</span>mm))</span>
-<span id="cb11-76"><a href="Functions.html#cb11-76"></a>  </span>
-<span id="cb11-77"><a href="Functions.html#cb11-77"></a>  map4PFS &lt;-<span class="st"> </span><span class="kw">createPartialFactorScoresMap</span>(</span>
-<span id="cb11-78"><a href="Functions.html#cb11-78"></a>    <span class="dt">factorScores =</span> MFA.fi.groups.means,</span>
-<span id="cb11-79"><a href="Functions.html#cb11-79"></a>    <span class="dt">partialFactorScores =</span> MFA.partial.fi.groups.means,</span>
-<span id="cb11-80"><a href="Functions.html#cb11-80"></a>    <span class="dt">axis1 =</span> d, <span class="dt">axis2 =</span> (d<span class="op">+</span><span class="dv">1</span>),</span>
-<span id="cb11-81"><a href="Functions.html#cb11-81"></a>    <span class="dt">colors4Items =</span> color.dot,</span>
-<span id="cb11-82"><a href="Functions.html#cb11-82"></a>    <span class="dt">colors4Blocks =</span> ,</span>
-<span id="cb11-83"><a href="Functions.html#cb11-83"></a>    <span class="dt">size.points =</span> <span class="fl">1.5</span>,</span>
-<span id="cb11-84"><a href="Functions.html#cb11-84"></a>    <span class="dt">alpha.points =</span> <span class="fl">0.7</span>,</span>
-<span id="cb11-85"><a href="Functions.html#cb11-85"></a>    <span class="dt">alpha.lines =</span> <span class="fl">0.9</span>,</span>
-<span id="cb11-86"><a href="Functions.html#cb11-86"></a>    <span class="dt">size.labels =</span> <span class="dv">3</span>,</span>
-<span id="cb11-87"><a href="Functions.html#cb11-87"></a>    <span class="dt">names4Partial =</span> <span class="kw">dimnames</span>(MFA.partial.fi.groups.means)[[<span class="dv">3</span>]],</span>
-<span id="cb11-88"><a href="Functions.html#cb11-88"></a>    <span class="dt">font.labels =</span> <span class="st">&#39;bold&#39;</span>)</span>
-<span id="cb11-89"><a href="Functions.html#cb11-89"></a>  </span>
-<span id="cb11-90"><a href="Functions.html#cb11-90"></a>  partialFS.map.a &lt;-<span class="st"> </span>factor.graph.out<span class="op">$</span>zeMap_background <span class="op">+</span><span class="st"> </span></span>
-<span id="cb11-91"><a href="Functions.html#cb11-91"></a><span class="st">    </span>factor.graph.out<span class="op">$</span>zeMap_dots <span class="op">+</span></span>
-<span id="cb11-92"><a href="Functions.html#cb11-92"></a><span class="st">    </span>factor.graph.out<span class="op">$</span>zeMap_text <span class="op">+</span></span>
-<span id="cb11-93"><a href="Functions.html#cb11-93"></a><span class="st">    </span>MapGroup<span class="op">$</span>zeMap_dots <span class="op">+</span><span class="st"> </span></span>
-<span id="cb11-94"><a href="Functions.html#cb11-94"></a><span class="st">    </span>MapGroup<span class="op">$</span>zeMap_text <span class="op">+</span><span class="st"> </span></span>
-<span id="cb11-95"><a href="Functions.html#cb11-95"></a><span class="st">    </span>map4PFS<span class="op">$</span>mapColByItems <span class="op">+</span><span class="st"> </span>labels4RV</span>
-<span id="cb11-96"><a href="Functions.html#cb11-96"></a>  partialFS.map.b &lt;-<span class="st"> </span>factor.graph.out<span class="op">$</span>zeMap_background <span class="op">+</span><span class="st"> </span></span>
-<span id="cb11-97"><a href="Functions.html#cb11-97"></a><span class="st">    </span>map4PFS<span class="op">$</span>mapColByBlocks <span class="op">+</span><span class="st"> </span></span>
-<span id="cb11-98"><a href="Functions.html#cb11-98"></a><span class="st">    </span>labels4RV <span class="op">+</span><span class="st"> </span></span>
-<span id="cb11-99"><a href="Functions.html#cb11-99"></a><span class="st">    </span>MapGroup<span class="op">$</span>zeMap_dots <span class="op">+</span><span class="st"> </span></span>
-<span id="cb11-100"><a href="Functions.html#cb11-100"></a><span class="st">    </span>MapGroup<span class="op">$</span>zeMap_text</span>
-<span id="cb11-101"><a href="Functions.html#cb11-101"></a></span>
-<span id="cb11-102"><a href="Functions.html#cb11-102"></a>  partialFS.map.b</span>
-<span id="cb11-103"><a href="Functions.html#cb11-103"></a>}</span></code></pre></div>
+<span id="cb11-9"><a href="Functions.html#cb11-9"></a>    color.dot[<span class="kw">which</span>(color.dot <span class="op">==</span><span class="st"> </span>na.de[i])] &lt;-<span class="st"> </span>index[i]</span>
+<span id="cb11-10"><a href="Functions.html#cb11-10"></a>  }</span>
+<span id="cb11-11"><a href="Functions.html#cb11-11"></a>  color.dot &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(color.dot)</span>
+<span id="cb11-12"><a href="Functions.html#cb11-12"></a>  <span class="kw">rownames</span>(color.dot) &lt;-<span class="st"> </span>DESIGN</span>
+<span id="cb11-13"><a href="Functions.html#cb11-13"></a></span>
+<span id="cb11-14"><a href="Functions.html#cb11-14"></a>  <span class="co"># Factor Map</span></span>
+<span id="cb11-15"><a href="Functions.html#cb11-15"></a>  factor.graph.out &lt;-<span class="st"> </span><span class="kw">createFactorMap</span>(</span>
+<span id="cb11-16"><a href="Functions.html#cb11-16"></a>    <span class="dt">X =</span> fs,</span>
+<span id="cb11-17"><a href="Functions.html#cb11-17"></a>    <span class="dt">axis =</span> d, <span class="dt">axis2 =</span> (d<span class="op">+</span><span class="dv">1</span>),</span>
+<span id="cb11-18"><a href="Functions.html#cb11-18"></a>    <span class="dt">col.points =</span> color.dot,</span>
+<span id="cb11-19"><a href="Functions.html#cb11-19"></a>    <span class="dt">col.labels =</span> color.dot,</span>
+<span id="cb11-20"><a href="Functions.html#cb11-20"></a>    <span class="dt">title =</span> <span class="st">&quot;MFA_Partial_Factor_Map&quot;</span>,</span>
+<span id="cb11-21"><a href="Functions.html#cb11-21"></a>    <span class="dt">display.labels =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb11-22"><a href="Functions.html#cb11-22"></a>    <span class="dt">alpha.points =</span> <span class="fl">0.3</span>,</span>
+<span id="cb11-23"><a href="Functions.html#cb11-23"></a>    <span class="dt">alpha.labels =</span> <span class="fl">0.3</span></span>
+<span id="cb11-24"><a href="Functions.html#cb11-24"></a>  )</span>
+<span id="cb11-25"><a href="Functions.html#cb11-25"></a>  <span class="co"># Labels of Factor Map</span></span>
+<span id="cb11-26"><a href="Functions.html#cb11-26"></a>  labels4RV &lt;-<span class="st"> </span><span class="kw">createxyLabels.gen</span>(d, (d<span class="op">+</span><span class="dv">1</span>),</span>
+<span id="cb11-27"><a href="Functions.html#cb11-27"></a>    <span class="dt">lambda =</span> eigs,</span>
+<span id="cb11-28"><a href="Functions.html#cb11-28"></a>    <span class="dt">tau =</span> tau,</span>
+<span id="cb11-29"><a href="Functions.html#cb11-29"></a>    <span class="dt">axisName =</span> <span class="st">&quot;Dimension &quot;</span></span>
+<span id="cb11-30"><a href="Functions.html#cb11-30"></a>  )</span>
+<span id="cb11-31"><a href="Functions.html#cb11-31"></a>  <span class="co"># Groups</span></span>
+<span id="cb11-32"><a href="Functions.html#cb11-32"></a>  fm.tmp &lt;-<span class="st"> </span><span class="kw">aggregate</span>(fs, <span class="kw">list</span>(DESIGN), mean)</span>
+<span id="cb11-33"><a href="Functions.html#cb11-33"></a>  fm &lt;-<span class="st"> </span>fm.tmp[,<span class="dv">2</span><span class="op">:</span><span class="kw">ncol</span>(fm.tmp)]</span>
+<span id="cb11-34"><a href="Functions.html#cb11-34"></a>  <span class="kw">rownames</span>(fm) &lt;-<span class="st"> </span>fm.tmp[,<span class="dv">1</span>]</span>
+<span id="cb11-35"><a href="Functions.html#cb11-35"></a>  ind &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span>num.de)</span>
+<span id="cb11-36"><a href="Functions.html#cb11-36"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>num.de){</span>
+<span id="cb11-37"><a href="Functions.html#cb11-37"></a>    inde &lt;-<span class="st"> </span><span class="kw">match</span>(<span class="kw">rownames</span>(color.dot), <span class="kw">sort</span>(<span class="kw">rownames</span>(fm)))</span>
+<span id="cb11-38"><a href="Functions.html#cb11-38"></a>    ind[i] &lt;-<span class="st"> </span><span class="kw">which</span>(inde <span class="op">==</span><span class="st"> </span>i)[<span class="dv">1</span>]</span>
+<span id="cb11-39"><a href="Functions.html#cb11-39"></a>  }</span>
+<span id="cb11-40"><a href="Functions.html#cb11-40"></a>  grp.ind &lt;-<span class="st"> </span>ind</span>
+<span id="cb11-41"><a href="Functions.html#cb11-41"></a>  <span class="kw">rownames</span>(fm[<span class="kw">sort</span>(<span class="kw">rownames</span>(fm)),]) &lt;-<span class="st"> </span><span class="kw">sub</span>(<span class="st">&quot;[[:punct:]]&quot;</span>,<span class="st">&quot;&quot;</span>,</span>
+<span id="cb11-42"><a href="Functions.html#cb11-42"></a>                      <span class="kw">rownames</span>(fm[<span class="kw">sort</span>(<span class="kw">rownames</span>(fm)),]))</span>
+<span id="cb11-43"><a href="Functions.html#cb11-43"></a>  </span>
+<span id="cb11-44"><a href="Functions.html#cb11-44"></a>  MapGroup &lt;-<span class="st"> </span>PTCA4CATA<span class="op">::</span><span class="kw">createFactorMap</span>(fm[<span class="kw">sort</span>(<span class="kw">rownames</span>(fm)),],</span>
+<span id="cb11-45"><a href="Functions.html#cb11-45"></a>                            <span class="dt">axis1 =</span> d,</span>
+<span id="cb11-46"><a href="Functions.html#cb11-46"></a>                            <span class="dt">axis2 =</span> (d<span class="op">+</span><span class="dv">1</span>),</span>
+<span id="cb11-47"><a href="Functions.html#cb11-47"></a>                            <span class="dt">constraints =</span> factor.graph.out<span class="op">$</span>constraints,</span>
+<span id="cb11-48"><a href="Functions.html#cb11-48"></a>                            <span class="dt">col.points =</span> color.dot[grp.ind],</span>
+<span id="cb11-49"><a href="Functions.html#cb11-49"></a>                            <span class="dt">cex =</span> <span class="dv">4</span>,  <span class="co"># size of the dot (bigger)</span></span>
+<span id="cb11-50"><a href="Functions.html#cb11-50"></a>                            <span class="dt">col.labels =</span> color.dot[grp.ind],</span>
+<span id="cb11-51"><a href="Functions.html#cb11-51"></a>                            <span class="dt">text.cex =</span> <span class="dv">4</span>,</span>
+<span id="cb11-52"><a href="Functions.html#cb11-52"></a>                            <span class="dt">alpha.points =</span> <span class="fl">0.5</span>)</span>
+<span id="cb11-53"><a href="Functions.html#cb11-53"></a>    </span>
+<span id="cb11-54"><a href="Functions.html#cb11-54"></a>  <span class="co"># partial factor</span></span>
+<span id="cb11-55"><a href="Functions.html#cb11-55"></a>  partial.fi.array &lt;-<span class="st"> </span>partial.fi.array</span>
+<span id="cb11-56"><a href="Functions.html#cb11-56"></a>  MFA.fi.groups.means &lt;-<span class="st"> </span>PTCA4CATA<span class="op">::</span><span class="kw">getMeans</span>(</span>
+<span id="cb11-57"><a href="Functions.html#cb11-57"></a>    fs, </span>
+<span id="cb11-58"><a href="Functions.html#cb11-58"></a>    DESIGN)</span>
+<span id="cb11-59"><a href="Functions.html#cb11-59"></a>  <span class="kw">colnames</span>(MFA.fi.groups.means) &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;Dimension &quot;</span>, </span>
+<span id="cb11-60"><a href="Functions.html#cb11-60"></a>                          <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(MFA.fi.groups.means))</span>
+<span id="cb11-61"><a href="Functions.html#cb11-61"></a>  <span class="co"># new array</span></span>
+<span id="cb11-62"><a href="Functions.html#cb11-62"></a>  MFA.partial.fi.groups.means &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dv">0</span>,<span class="dt">dim=</span><span class="kw">c</span>(<span class="kw">nrow</span>(MFA.fi.groups.means),</span>
+<span id="cb11-63"><a href="Functions.html#cb11-63"></a>                                               <span class="kw">ncol</span>(MFA.fi.groups.means), </span>
+<span id="cb11-64"><a href="Functions.html#cb11-64"></a>                                               mm))</span>
+<span id="cb11-65"><a href="Functions.html#cb11-65"></a>  <span class="co"># for loop to calculate mean</span></span>
+<span id="cb11-66"><a href="Functions.html#cb11-66"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>mm){</span>
+<span id="cb11-67"><a href="Functions.html#cb11-67"></a>    MFA.partial.fi.groups.means[,,i] &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(PTCA4CATA<span class="op">::</span><span class="kw">getMeans</span>(</span>
+<span id="cb11-68"><a href="Functions.html#cb11-68"></a>      partial.fi.array[,,i], </span>
+<span id="cb11-69"><a href="Functions.html#cb11-69"></a>      DESIGN))</span>
+<span id="cb11-70"><a href="Functions.html#cb11-70"></a>  }</span>
+<span id="cb11-71"><a href="Functions.html#cb11-71"></a>  <span class="co"># setting dimnames</span></span>
+<span id="cb11-72"><a href="Functions.html#cb11-72"></a>  <span class="kw">dimnames</span>(MFA.partial.fi.groups.means) &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">rownames</span>(MFA.fi.groups.means),</span>
+<span id="cb11-73"><a href="Functions.html#cb11-73"></a>                                                <span class="kw">colnames</span>(MFA.fi.groups.means), </span>
+<span id="cb11-74"><a href="Functions.html#cb11-74"></a>                                                <span class="kw">paste0</span>(LETTERS[<span class="dv">1</span><span class="op">:</span>mm], <span class="dv">1</span><span class="op">:</span>mm))</span>
+<span id="cb11-75"><a href="Functions.html#cb11-75"></a>  </span>
+<span id="cb11-76"><a href="Functions.html#cb11-76"></a>  map4PFS &lt;-<span class="st"> </span><span class="kw">createPartialFactorScoresMap</span>(</span>
+<span id="cb11-77"><a href="Functions.html#cb11-77"></a>    <span class="dt">factorScores =</span> MFA.fi.groups.means,</span>
+<span id="cb11-78"><a href="Functions.html#cb11-78"></a>    <span class="dt">partialFactorScores =</span> MFA.partial.fi.groups.means,</span>
+<span id="cb11-79"><a href="Functions.html#cb11-79"></a>    <span class="dt">axis1 =</span> d, <span class="dt">axis2 =</span> (d<span class="op">+</span><span class="dv">1</span>),</span>
+<span id="cb11-80"><a href="Functions.html#cb11-80"></a>    <span class="dt">colors4Items =</span> color.dot,</span>
+<span id="cb11-81"><a href="Functions.html#cb11-81"></a>    <span class="dt">colors4Blocks =</span> ,</span>
+<span id="cb11-82"><a href="Functions.html#cb11-82"></a>    <span class="dt">size.points =</span> <span class="fl">1.5</span>,</span>
+<span id="cb11-83"><a href="Functions.html#cb11-83"></a>    <span class="dt">alpha.points =</span> <span class="fl">0.7</span>,</span>
+<span id="cb11-84"><a href="Functions.html#cb11-84"></a>    <span class="dt">alpha.lines =</span> <span class="fl">0.9</span>,</span>
+<span id="cb11-85"><a href="Functions.html#cb11-85"></a>    <span class="dt">size.labels =</span> <span class="dv">3</span>,</span>
+<span id="cb11-86"><a href="Functions.html#cb11-86"></a>    <span class="dt">names4Partial =</span> <span class="kw">dimnames</span>(MFA.partial.fi.groups.means)[[<span class="dv">3</span>]],</span>
+<span id="cb11-87"><a href="Functions.html#cb11-87"></a>    <span class="dt">font.labels =</span> <span class="st">&#39;bold&#39;</span>)</span>
+<span id="cb11-88"><a href="Functions.html#cb11-88"></a>  </span>
+<span id="cb11-89"><a href="Functions.html#cb11-89"></a>  partialFS.map.a &lt;-<span class="st"> </span>factor.graph.out<span class="op">$</span>zeMap_background <span class="op">+</span><span class="st"> </span></span>
+<span id="cb11-90"><a href="Functions.html#cb11-90"></a><span class="st">    </span>factor.graph.out<span class="op">$</span>zeMap_dots <span class="op">+</span></span>
+<span id="cb11-91"><a href="Functions.html#cb11-91"></a><span class="st">    </span>factor.graph.out<span class="op">$</span>zeMap_text <span class="op">+</span></span>
+<span id="cb11-92"><a href="Functions.html#cb11-92"></a><span class="st">    </span>MapGroup<span class="op">$</span>zeMap_dots <span class="op">+</span><span class="st"> </span></span>
+<span id="cb11-93"><a href="Functions.html#cb11-93"></a><span class="st">    </span>MapGroup<span class="op">$</span>zeMap_text <span class="op">+</span><span class="st"> </span></span>
+<span id="cb11-94"><a href="Functions.html#cb11-94"></a><span class="st">    </span>map4PFS<span class="op">$</span>mapColByItems <span class="op">+</span><span class="st"> </span>labels4RV</span>
+<span id="cb11-95"><a href="Functions.html#cb11-95"></a>  partialFS.map.b &lt;-<span class="st"> </span>factor.graph.out<span class="op">$</span>zeMap_background <span class="op">+</span><span class="st"> </span></span>
+<span id="cb11-96"><a href="Functions.html#cb11-96"></a><span class="st">    </span>map4PFS<span class="op">$</span>mapColByBlocks <span class="op">+</span><span class="st"> </span></span>
+<span id="cb11-97"><a href="Functions.html#cb11-97"></a><span class="st">    </span>labels4RV <span class="op">+</span><span class="st"> </span></span>
+<span id="cb11-98"><a href="Functions.html#cb11-98"></a><span class="st">    </span>MapGroup<span class="op">$</span>zeMap_dots <span class="op">+</span><span class="st"> </span></span>
+<span id="cb11-99"><a href="Functions.html#cb11-99"></a><span class="st">    </span>MapGroup<span class="op">$</span>zeMap_text</span>
+<span id="cb11-100"><a href="Functions.html#cb11-100"></a></span>
+<span id="cb11-101"><a href="Functions.html#cb11-101"></a>  partialFS.map.b</span>
+<span id="cb11-102"><a href="Functions.html#cb11-102"></a>}</span></code></pre></div>
 
 </div>
 </div>
