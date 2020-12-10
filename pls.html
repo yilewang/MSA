@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 9 Partial Least Square | Multivariate Statistical Analysis Cookbook with R</title>
+  <meta name="description" content="This is a final cookbook of Multivariate Statistical Analysis" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 9 Partial Least Square | Multivariate Statistical Analysis Cookbook with R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a final cookbook of Multivariate Statistical Analysis" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 9 Partial Least Square | Multivariate Statistical Analysis Cookbook with R" />
+  
+  <meta name="twitter:description" content="This is a final cookbook of Multivariate Statistical Analysis" />
+  
+
+<meta name="author" content="Yile Wang" />
+
+
+<meta name="date" content="2020-12-10" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="mca.html"/>
+<link rel="next" href="distatis.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">MSA</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#main-packages"><i class="fa fa-check"></i><b>1.1</b> Main Packages</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#msa-introduction"><i class="fa fa-check"></i><b>1.2</b> MSA Introduction</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#msadata"><i class="fa fa-check"></i><b>1.3</b> MSA data set</a></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#whoo-hoo"><i class="fa fa-check"></i><b>1.4</b> Whoo-hoo!</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="Functions.html"><a href="Functions.html"><i class="fa fa-check"></i><b>2</b> Functions Introduction</a><ul>
+<li class="chapter" data-level="2.1" data-path="Functions.html"><a href="Functions.html#Scree"><i class="fa fa-check"></i><b>2.1</b> Plotting Scree plot</a></li>
+<li class="chapter" data-level="2.2" data-path="Functions.html"><a href="Functions.html#Permutation"><i class="fa fa-check"></i><b>2.2</b> Plotting Permutation test results</a></li>
+<li class="chapter" data-level="2.3" data-path="Functions.html"><a href="Functions.html#Heatmap"><i class="fa fa-check"></i><b>2.3</b> Plotting Heatmap</a></li>
+<li class="chapter" data-level="2.4" data-path="Functions.html"><a href="Functions.html#FactorScores"><i class="fa fa-check"></i><b>2.4</b> Plotting Row Factor Scores</a></li>
+<li class="chapter" data-level="2.5" data-path="Functions.html"><a href="Functions.html#CFactorScore"><i class="fa fa-check"></i><b>2.5</b> Plotting Column Plot</a></li>
+<li class="chapter" data-level="2.6" data-path="Functions.html"><a href="Functions.html#Loading"><i class="fa fa-check"></i><b>2.6</b> Plotting Loading Plot</a></li>
+<li class="chapter" data-level="2.7" data-path="Functions.html"><a href="Functions.html#Contribution"><i class="fa fa-check"></i><b>2.7</b> Plotting Contribution Barplot</a></li>
+<li class="chapter" data-level="2.8" data-path="Functions.html"><a href="Functions.html#binshelper"><i class="fa fa-check"></i><b>2.8</b> Bins Helper Functions</a></li>
+<li class="chapter" data-level="2.9" data-path="Functions.html"><a href="Functions.html#plotting-latent-variable-plot"><i class="fa fa-check"></i><b>2.9</b> Plotting Latent Variable Plot</a></li>
+<li class="chapter" data-level="2.10" data-path="Functions.html"><a href="Functions.html#plotting-partial-factor-scores"><i class="fa fa-check"></i><b>2.10</b> Plotting Partial Factor Scores</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="Data-Intro.html"><a href="Data-Intro.html"><i class="fa fa-check"></i><b>3</b> Data Introduction</a><ul>
+<li class="chapter" data-level="3.1" data-path="Data-Intro.html"><a href="Data-Intro.html#collect"><i class="fa fa-check"></i><b>3.1</b> Main data set: Collective Action Data Set</a></li>
+<li class="chapter" data-level="3.2" data-path="Data-Intro.html"><a href="Data-Intro.html#sausage"><i class="fa fa-check"></i><b>3.2</b> Low Income Sausage</a></li>
+<li class="chapter" data-level="3.3" data-path="Data-Intro.html"><a href="Data-Intro.html#wines"><i class="fa fa-check"></i><b>3.3</b> Wines</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="pca.html"><a href="pca.html"><i class="fa fa-check"></i><b>4</b> Principal Component Analysis</a><ul>
+<li class="chapter" data-level="4.1" data-path="pca.html"><a href="pca.html#introduction-of-pca"><i class="fa fa-check"></i><b>4.1</b> Introduction of PCA</a></li>
+<li class="chapter" data-level="4.2" data-path="pca.html"><a href="pca.html#computing"><i class="fa fa-check"></i><b>4.2</b> Computing</a></li>
+<li class="chapter" data-level="4.3" data-path="pca.html"><a href="pca.html#heatmap"><i class="fa fa-check"></i><b>4.3</b> Heatmap</a></li>
+<li class="chapter" data-level="4.4" data-path="pca.html"><a href="pca.html#pcaScree"><i class="fa fa-check"></i><b>4.4</b> Scree Plot</a></li>
+<li class="chapter" data-level="4.5" data-path="pca.html"><a href="pca.html#factor-scores"><i class="fa fa-check"></i><b>4.5</b> Factor Scores</a></li>
+<li class="chapter" data-level="4.6" data-path="pca.html"><a href="pca.html#loading"><i class="fa fa-check"></i><b>4.6</b> Loading</a></li>
+<li class="chapter" data-level="4.7" data-path="pca.html"><a href="pca.html#contriution-and-bootstrap-ratio-barplots"><i class="fa fa-check"></i><b>4.7</b> Contriution and Bootstrap Ratio Barplots</a></li>
+<li class="chapter" data-level="4.8" data-path="pca.html"><a href="pca.html#conclusion"><i class="fa fa-check"></i><b>4.8</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ca.html"><a href="ca.html"><i class="fa fa-check"></i><b>5</b> Correspondence Analysis</a><ul>
+<li class="chapter" data-level="5.1" data-path="ca.html"><a href="ca.html#introduction-of-ca"><i class="fa fa-check"></i><b>5.1</b> Introduction of CA</a></li>
+<li class="chapter" data-level="5.2" data-path="ca.html"><a href="ca.html#computation"><i class="fa fa-check"></i><b>5.2</b> Computation</a></li>
+<li class="chapter" data-level="5.3" data-path="ca.html"><a href="ca.html#heatmap-1"><i class="fa fa-check"></i><b>5.3</b> Heatmap</a></li>
+<li class="chapter" data-level="5.4" data-path="ca.html"><a href="ca.html#computation-1"><i class="fa fa-check"></i><b>5.4</b> Computation</a></li>
+<li class="chapter" data-level="5.5" data-path="ca.html"><a href="ca.html#scree-plot"><i class="fa fa-check"></i><b>5.5</b> Scree Plot</a></li>
+<li class="chapter" data-level="5.6" data-path="ca.html"><a href="ca.html#symmetric-asymmetric-plots"><i class="fa fa-check"></i><b>5.6</b> Symmetric &amp; Asymmetric Plots</a></li>
+<li class="chapter" data-level="5.7" data-path="ca.html"><a href="ca.html#contribution-and-bootstrap-ratio-barplot"><i class="fa fa-check"></i><b>5.7</b> Contribution and Bootstrap Ratio Barplot</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="dica.html"><a href="dica.html"><i class="fa fa-check"></i><b>6</b> Discriminant Correspondence Analysis</a><ul>
+<li class="chapter" data-level="6.1" data-path="dica.html"><a href="dica.html#introdcution-of-dica"><i class="fa fa-check"></i><b>6.1</b> Introdcution of DiCA</a></li>
+<li class="chapter" data-level="6.2" data-path="dica.html"><a href="dica.html#histgram-of-binning-variables"><i class="fa fa-check"></i><b>6.2</b> Histgram of Binning Variables</a></li>
+<li class="chapter" data-level="6.3" data-path="dica.html"><a href="dica.html#heatmap-2"><i class="fa fa-check"></i><b>6.3</b> Heatmap</a></li>
+<li class="chapter" data-level="6.4" data-path="dica.html"><a href="dica.html#scree-plot-1"><i class="fa fa-check"></i><b>6.4</b> Scree Plot</a></li>
+<li class="chapter" data-level="6.5" data-path="dica.html"><a href="dica.html#factor-scores-1"><i class="fa fa-check"></i><b>6.5</b> Factor Scores</a></li>
+<li class="chapter" data-level="6.6" data-path="dica.html"><a href="dica.html#confusion-matrix"><i class="fa fa-check"></i><b>6.6</b> Confusion Matrix</a></li>
+<li class="chapter" data-level="6.7" data-path="dica.html"><a href="dica.html#contribution-and-bootstrap-ratio-barplots"><i class="fa fa-check"></i><b>6.7</b> Contribution and Bootstrap Ratio Barplots</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="bada.html"><a href="bada.html"><i class="fa fa-check"></i><b>7</b> Barycentric Discriminant Analysis</a><ul>
+<li class="chapter" data-level="7.1" data-path="bada.html"><a href="bada.html#introduction-of-bada"><i class="fa fa-check"></i><b>7.1</b> Introduction of BADA</a></li>
+<li class="chapter" data-level="7.2" data-path="bada.html"><a href="bada.html#computation-2"><i class="fa fa-check"></i><b>7.2</b> Computation</a></li>
+<li class="chapter" data-level="7.3" data-path="bada.html"><a href="bada.html#heatmap-3"><i class="fa fa-check"></i><b>7.3</b> Heatmap</a></li>
+<li class="chapter" data-level="7.4" data-path="bada.html"><a href="bada.html#scree"><i class="fa fa-check"></i><b>7.4</b> Scree</a></li>
+<li class="chapter" data-level="7.5" data-path="bada.html"><a href="bada.html#factor-scores-2"><i class="fa fa-check"></i><b>7.5</b> Factor Scores</a></li>
+<li class="chapter" data-level="7.6" data-path="bada.html"><a href="bada.html#loading-1"><i class="fa fa-check"></i><b>7.6</b> Loading</a></li>
+<li class="chapter" data-level="7.7" data-path="bada.html"><a href="bada.html#confusion-matrix-1"><i class="fa fa-check"></i><b>7.7</b> Confusion Matrix</a></li>
+<li class="chapter" data-level="7.8" data-path="bada.html"><a href="bada.html#contribution-and-bootstrap-ratio-barplot-1"><i class="fa fa-check"></i><b>7.8</b> Contribution and Bootstrap Ratio Barplot</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="mca.html"><a href="mca.html"><i class="fa fa-check"></i><b>8</b> Multiple Corresponding Analysis</a><ul>
+<li class="chapter" data-level="8.1" data-path="mca.html"><a href="mca.html#introduction-of-mca"><i class="fa fa-check"></i><b>8.1</b> Introduction of MCA</a></li>
+<li class="chapter" data-level="8.2" data-path="mca.html"><a href="mca.html#histgram-of-binning-variables-1"><i class="fa fa-check"></i><b>8.2</b> Histgram of Binning Variables</a></li>
+<li class="chapter" data-level="8.3" data-path="mca.html"><a href="mca.html#computation-3"><i class="fa fa-check"></i><b>8.3</b> Computation</a></li>
+<li class="chapter" data-level="8.4" data-path="mca.html"><a href="mca.html#heatmap-4"><i class="fa fa-check"></i><b>8.4</b> Heatmap</a></li>
+<li class="chapter" data-level="8.5" data-path="mca.html"><a href="mca.html#scree-plot-2"><i class="fa fa-check"></i><b>8.5</b> Scree Plot</a></li>
+<li class="chapter" data-level="8.6" data-path="mca.html"><a href="mca.html#row-factor-scores"><i class="fa fa-check"></i><b>8.6</b> Row Factor Scores</a></li>
+<li class="chapter" data-level="8.7" data-path="mca.html"><a href="mca.html#important-variables-line-plots"><i class="fa fa-check"></i><b>8.7</b> Important Variables Line Plots</a></li>
+<li class="chapter" data-level="8.8" data-path="mca.html"><a href="mca.html#contribution-and-bootstrap-ratio-barplots-1"><i class="fa fa-check"></i><b>8.8</b> Contribution and Bootstrap Ratio Barplots</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="pls.html"><a href="pls.html"><i class="fa fa-check"></i><b>9</b> Partial Least Square</a><ul>
+<li class="chapter" data-level="9.1" data-path="pls.html"><a href="pls.html#introduction-of-pls-c"><i class="fa fa-check"></i><b>9.1</b> Introduction of PLS-C</a></li>
+<li class="chapter" data-level="9.2" data-path="pls.html"><a href="pls.html#computation-4"><i class="fa fa-check"></i><b>9.2</b> Computation</a></li>
+<li class="chapter" data-level="9.3" data-path="pls.html"><a href="pls.html#heatmap-5"><i class="fa fa-check"></i><b>9.3</b> Heatmap</a></li>
+<li class="chapter" data-level="9.4" data-path="pls.html"><a href="pls.html#scree-plot-3"><i class="fa fa-check"></i><b>9.4</b> Scree Plot</a></li>
+<li class="chapter" data-level="9.5" data-path="pls.html"><a href="pls.html#latent-variables"><i class="fa fa-check"></i><b>9.5</b> Latent Variables</a></li>
+<li class="chapter" data-level="9.6" data-path="pls.html"><a href="pls.html#salience"><i class="fa fa-check"></i><b>9.6</b> Salience</a></li>
+<li class="chapter" data-level="9.7" data-path="pls.html"><a href="pls.html#bootstrap-ratio-barplot"><i class="fa fa-check"></i><b>9.7</b> Bootstrap Ratio Barplot</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="distatis.html"><a href="distatis.html"><i class="fa fa-check"></i><b>10</b> DiSTATIS</a><ul>
+<li class="chapter" data-level="10.1" data-path="distatis.html"><a href="distatis.html#introduction-of-distatis"><i class="fa fa-check"></i><b>10.1</b> Introduction of DiSTATIS</a></li>
+<li class="chapter" data-level="10.2" data-path="distatis.html"><a href="distatis.html#computation-5"><i class="fa fa-check"></i><b>10.2</b> Computation</a></li>
+<li class="chapter" data-level="10.3" data-path="distatis.html"><a href="distatis.html#heatmap-6"><i class="fa fa-check"></i><b>10.3</b> HeatMap</a></li>
+<li class="chapter" data-level="10.4" data-path="distatis.html"><a href="distatis.html#scree-plot-4"><i class="fa fa-check"></i><b>10.4</b> Scree Plot</a></li>
+<li class="chapter" data-level="10.5" data-path="distatis.html"><a href="distatis.html#global-factor-scores"><i class="fa fa-check"></i><b>10.5</b> Global Factor Scores</a></li>
+<li class="chapter" data-level="10.6" data-path="distatis.html"><a href="distatis.html#partial-factor-scores"><i class="fa fa-check"></i><b>10.6</b> Partial Factor Scores</a></li>
+<li class="chapter" data-level="10.7" data-path="distatis.html"><a href="distatis.html#vocabulary-graphs"><i class="fa fa-check"></i><b>10.7</b> Vocabulary graphs</a></li>
+<li class="chapter" data-level="10.8" data-path="distatis.html"><a href="distatis.html#contribution-barplots"><i class="fa fa-check"></i><b>10.8</b> Contribution Barplots</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="mfa.html"><a href="mfa.html"><i class="fa fa-check"></i><b>11</b> Multiple Factor Analysis</a><ul>
+<li class="chapter" data-level="11.1" data-path="mfa.html"><a href="mfa.html#introduction-of-mfa"><i class="fa fa-check"></i><b>11.1</b> Introduction of MFA</a></li>
+<li class="chapter" data-level="11.2" data-path="mfa.html"><a href="mfa.html#computation-6"><i class="fa fa-check"></i><b>11.2</b> Computation</a></li>
+<li class="chapter" data-level="11.3" data-path="mfa.html"><a href="mfa.html#heatmap-7"><i class="fa fa-check"></i><b>11.3</b> Heatmap</a></li>
+<li class="chapter" data-level="11.4" data-path="mfa.html"><a href="mfa.html#scree-plot-5"><i class="fa fa-check"></i><b>11.4</b> Scree Plot</a></li>
+<li class="chapter" data-level="11.5" data-path="mfa.html"><a href="mfa.html#global-factor-scores-1"><i class="fa fa-check"></i><b>11.5</b> Global Factor Scores</a></li>
+<li class="chapter" data-level="11.6" data-path="mfa.html"><a href="mfa.html#partial-factor-scores-1"><i class="fa fa-check"></i><b>11.6</b> Partial Factor Scores</a></li>
+<li class="chapter" data-level="11.7" data-path="mfa.html"><a href="mfa.html#contribution-barplots-1"><i class="fa fa-check"></i><b>11.7</b> Contribution Barplots</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="end.html"><a href="end.html"><i class="fa fa-check"></i><b>12</b> The End</a><ul>
+<li class="chapter" data-level="12.1" data-path="end.html"><a href="end.html#final-conclusion"><i class="fa fa-check"></i><b>12.1</b> Final Conclusion</a></li>
+<li class="chapter" data-level="12.2" data-path="end.html"><a href="end.html#appreciation"><i class="fa fa-check"></i><b>12.2</b> Appreciation</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown/_book" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Multivariate Statistical Analysis Cookbook with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="pls" class="section level1">
+<h1><span class="header-section-number">Chapter 9</span> Partial Least Square</h1>
+<div id="introduction-of-pls-c" class="section level2">
+<h2><span class="header-section-number">9.1</span> Introduction of PLS-C</h2>
+<p>The full name of the PLS-C is <strong>Partial Least Square Correlation</strong>, which is a technique to process two different kinds of data tables. Personally I have special interest in this method because it could help me find out the bridge between brain response and behaviors. In one sentence, PLS-C is helping me to extract commonalities between two data sets. During the analysis, PLS will generate latent variables and salience for data sets respectively. The latent variable is as same as the factor scores and the salience is the loading in previous MSA method.</p>
+<p>PLS has several different modalities. When its goal is to predict one data table the other one, it is called partial least square regression; PLS also has a version for qualitative data, which is called PLS-CA. Today in our example, we will focus on PLS-C, to investigate the commonality between two cognitive data table.</p>
+</div>
+<div id="computation-4" class="section level2">
+<h2><span class="header-section-number">9.2</span> Computation</h2>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="pls.html#cb98-1"></a>pls.data1 &lt;-<span class="st"> </span>exp.neg[<span class="dv">7</span><span class="op">:</span><span class="dv">18</span>]</span>
+<span id="cb98-2"><a href="pls.html#cb98-2"></a>pls.data2 &lt;-<span class="st"> </span>exp.neg[<span class="dv">19</span><span class="op">:</span><span class="dv">35</span>]</span>
+<span id="cb98-3"><a href="pls.html#cb98-3"></a></span>
+<span id="cb98-4"><a href="pls.html#cb98-4"></a>res.PLS &lt;-<span class="st"> </span><span class="kw">tepPLS</span>(<span class="dt">DATA1 =</span> pls.data1, </span>
+<span id="cb98-5"><a href="pls.html#cb98-5"></a>                  <span class="dt">scale1 =</span> <span class="st">&quot;SS1&quot;</span>, </span>
+<span id="cb98-6"><a href="pls.html#cb98-6"></a>                  <span class="dt">center1 =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb98-7"><a href="pls.html#cb98-7"></a>                  <span class="dt">DATA2 =</span> pls.data2, </span>
+<span id="cb98-8"><a href="pls.html#cb98-8"></a>                  <span class="dt">scale2 =</span> <span class="st">&quot;SS1&quot;</span>,</span>
+<span id="cb98-9"><a href="pls.html#cb98-9"></a>                  <span class="dt">center2 =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb98-10"><a href="pls.html#cb98-10"></a>                  <span class="dt">DESIGN =</span> exp.neg<span class="op">$</span>group, </span>
+<span id="cb98-11"><a href="pls.html#cb98-11"></a>                  <span class="dt">graphs =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb98-12"><a href="pls.html#cb98-12"></a></span>
+<span id="cb98-13"><a href="pls.html#cb98-13"></a></span>
+<span id="cb98-14"><a href="pls.html#cb98-14"></a>eigs &lt;-<span class="st"> </span>res.PLS<span class="op">$</span>TExPosition.Data<span class="op">$</span>eigs</span>
+<span id="cb98-15"><a href="pls.html#cb98-15"></a>tau &lt;-<span class="st"> </span>res.PLS<span class="op">$</span>TExPosition.Data<span class="op">$</span>t</span>
+<span id="cb98-16"><a href="pls.html#cb98-16"></a>fs &lt;-<span class="st"> </span>res.PLS<span class="op">$</span>TExPosition.Data<span class="op">$</span>fi</span>
+<span id="cb98-17"><a href="pls.html#cb98-17"></a>cj &lt;-<span class="st"> </span>res.PLS<span class="op">$</span>TExPosition.Data<span class="op">$</span>cj</span>
+<span id="cb98-18"><a href="pls.html#cb98-18"></a>ci &lt;-<span class="st"> </span>res.PLS<span class="op">$</span>TExPosition.Data<span class="op">$</span>ci</span>
+<span id="cb98-19"><a href="pls.html#cb98-19"></a>fj &lt;-res.PLS<span class="op">$</span>TExPosition.Data<span class="op">$</span>fj</span>
+<span id="cb98-20"><a href="pls.html#cb98-20"></a>lx &lt;-<span class="st"> </span>res.PLS<span class="op">$</span>TExPosition.Data<span class="op">$</span>lx</span>
+<span id="cb98-21"><a href="pls.html#cb98-21"></a>ly &lt;-<span class="st"> </span>res.PLS<span class="op">$</span>TExPosition.Data<span class="op">$</span>ly</span>
+<span id="cb98-22"><a href="pls.html#cb98-22"></a>p.pls &lt;-<span class="st"> </span>res.PLS<span class="op">$</span>TExPosition.Data<span class="op">$</span>pdq<span class="op">$</span>p</span>
+<span id="cb98-23"><a href="pls.html#cb98-23"></a>q.pls &lt;-<span class="st"> </span>res.PLS<span class="op">$</span>TExPosition.Data<span class="op">$</span>pdq<span class="op">$</span>q</span></code></pre></div>
+</div>
+<div id="heatmap-5" class="section level2">
+<h2><span class="header-section-number">9.3</span> Heatmap</h2>
+<p>From the heatmap, I found out that R1-R6 is significantly negative correlated with time usage R1-R6, which means that the higher game performance the participants have, the low time they used.</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="pls.html#cb99-1"></a>hm.pls &lt;-<span class="st"> </span><span class="kw">pheatmap</span>(<span class="dt">mat=</span><span class="kw">cor</span>(pls.data1, pls.data2), </span>
+<span id="cb99-2"><a href="pls.html#cb99-2"></a>                   <span class="dt">cluster_rows =</span> <span class="ot">FALSE</span>, </span>
+<span id="cb99-3"><a href="pls.html#cb99-3"></a>                   <span class="dt">cluster_cols =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<p><img src="MSA_files/figure-html/plsHeatmap-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="scree-plot-3" class="section level2">
+<h2><span class="header-section-number">9.4</span> Scree Plot</h2>
+<p>The permutation test indicated that the first dimension is more stable than second one.</p>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="pls.html#cb100-1"></a>nIter =<span class="st"> </span><span class="dv">1000</span></span>
+<span id="cb100-2"><a href="pls.html#cb100-2"></a>resPerm4PLSC &lt;-<span class="st"> </span><span class="kw">perm4PLSC</span>(pls.data1, pls.data2, <span class="dt">nIter =</span> nIter)</span>
+<span id="cb100-3"><a href="pls.html#cb100-3"></a></span>
+<span id="cb100-4"><a href="pls.html#cb100-4"></a>eigs.permu &lt;-<span class="st"> </span>resPerm4PLSC<span class="op">$</span>permEigenvalues</span>
+<span id="cb100-5"><a href="pls.html#cb100-5"></a></span>
+<span id="cb100-6"><a href="pls.html#cb100-6"></a><span class="kw">plot.scree</span>(eigs, resPerm4PLSC<span class="op">$</span>pEigenvalues)</span></code></pre></div>
+<p><img src="MSA_files/figure-html/plsScreePlot-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="pls.html#cb101-1"></a><span class="kw">plot.permutation</span>(<span class="dt">eigs.perm =</span> eigs.permu, <span class="dt">eigs =</span> eigs)</span></code></pre></div>
+<p><img src="MSA_files/figure-html/plsScreePlot-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="pls.html#cb102-1"></a><span class="kw">plot.permutation</span>(<span class="dt">eigs.perm =</span> eigs.permu, </span>
+<span id="cb102-2"><a href="pls.html#cb102-2"></a>                 <span class="dt">eigs =</span> eigs,<span class="dt">Dim =</span> <span class="dv">2</span>,<span class="dt">para1 =</span> <span class="dv">3</span>)</span></code></pre></div>
+<p><img src="MSA_files/figure-html/plsScreePlot-3.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="latent-variables" class="section level2">
+<h2><span class="header-section-number">9.5</span> Latent Variables</h2>
+<p>However, from the latent variable plot, I found out that the lv 2 gave me the best separation among groups.</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="pls.html#cb103-1"></a><span class="kw">plot.lv</span>(exp.neg<span class="op">$</span>group, lx, ly, <span class="dt">d=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="MSA_files/figure-html/plsLatent%20Variables-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="pls.html#cb104-1"></a><span class="kw">plot.lv</span>(exp.neg<span class="op">$</span>group, lx, ly, <span class="dt">d=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="MSA_files/figure-html/plsLatent%20Variables-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="salience" class="section level2">
+<h2><span class="header-section-number">9.6</span> Salience</h2>
+<p>The salience results gave back to me similar information with previous analysis.</p>
+<ul>
+<li><p>In the dimension 1:</p>
+<ul>
+<li>data1: contrast of collective behavor and time usage</li>
+<li>data2: helpful, trust vs attitude, take_advantage</li>
+</ul></li>
+<li><p>In the dimension 2:</p>
+<ul>
+<li>data1: the first half of the game vs R6</li>
+<li>data2: SAT &amp; empathy vs helpful, trust and attitude</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="pls.html#cb105-1"></a><span class="co"># PLS-P</span></span>
+<span id="cb105-2"><a href="pls.html#cb105-2"></a></span>
+<span id="cb105-3"><a href="pls.html#cb105-3"></a>laDim =<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb105-4"><a href="pls.html#cb105-4"></a>ctrJ<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">PrettyBarPlot2</span>(p.pls[,laDim],</span>
+<span id="cb105-5"><a href="pls.html#cb105-5"></a>                           <span class="dt">threshold =</span> <span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="kw">NROW</span>(p.pls),</span>
+<span id="cb105-6"><a href="pls.html#cb105-6"></a>                           <span class="dt">font.size =</span> <span class="dv">3</span>,</span>
+<span id="cb105-7"><a href="pls.html#cb105-7"></a>                           <span class="dt">signifOnly =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb105-8"><a href="pls.html#cb105-8"></a>                           <span class="dt">horizontal =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb105-9"><a href="pls.html#cb105-9"></a>                           <span class="dt">color4bar =</span> m.color.design[<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>], </span>
+<span id="cb105-10"><a href="pls.html#cb105-10"></a>                           <span class="dt">main =</span> <span class="st">&#39;Salience&#39;</span>,</span>
+<span id="cb105-11"><a href="pls.html#cb105-11"></a>                           <span class="dt">ylab =</span> <span class="kw">paste0</span>(<span class="st">&#39;Salience&#39;</span>, laDim),</span>
+<span id="cb105-12"><a href="pls.html#cb105-12"></a>                           <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="fl">1.2</span><span class="op">*</span><span class="kw">min</span>(p.pls), <span class="fl">1.2</span><span class="op">*</span><span class="kw">max</span>(p.pls))</span>
+<span id="cb105-13"><a href="pls.html#cb105-13"></a>  ) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;P-PLS&quot;</span>,<span class="dt">subtitle =</span> <span class="kw">paste0</span>(<span class="st">&#39;Component &#39;</span>, laDim))</span>
+<span id="cb105-14"><a href="pls.html#cb105-14"></a></span>
+<span id="cb105-15"><a href="pls.html#cb105-15"></a><span class="co">### plot contributions for component 2</span></span>
+<span id="cb105-16"><a href="pls.html#cb105-16"></a>laDim =<span class="dv">2</span></span>
+<span id="cb105-17"><a href="pls.html#cb105-17"></a>ctrJ<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">PrettyBarPlot2</span>(p.pls[,laDim],</span>
+<span id="cb105-18"><a href="pls.html#cb105-18"></a>                         <span class="dt">threshold =</span> <span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="kw">NROW</span>(p.pls),</span>
+<span id="cb105-19"><a href="pls.html#cb105-19"></a>                         <span class="dt">font.size =</span> <span class="dv">3</span>,</span>
+<span id="cb105-20"><a href="pls.html#cb105-20"></a>                         <span class="dt">color4bar =</span> m.color.design[<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>], </span>
+<span id="cb105-21"><a href="pls.html#cb105-21"></a>                         <span class="dt">signifOnly =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb105-22"><a href="pls.html#cb105-22"></a>                         <span class="dt">horizontal =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb105-23"><a href="pls.html#cb105-23"></a>                         <span class="dt">main =</span> <span class="st">&#39;Salience&#39;</span>,</span>
+<span id="cb105-24"><a href="pls.html#cb105-24"></a>                         <span class="dt">ylab =</span> <span class="kw">paste0</span>(<span class="st">&#39;Salience&#39;</span>, laDim),</span>
+<span id="cb105-25"><a href="pls.html#cb105-25"></a>                         <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="fl">1.2</span><span class="op">*</span><span class="kw">min</span>(p.pls), <span class="fl">1.2</span><span class="op">*</span><span class="kw">max</span>(p.pls))</span>
+<span id="cb105-26"><a href="pls.html#cb105-26"></a>)<span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;&quot;</span>,<span class="dt">subtitle =</span> <span class="kw">paste0</span>(<span class="st">&#39;Component &#39;</span>, laDim))</span>
+<span id="cb105-27"><a href="pls.html#cb105-27"></a>laDim =<span class="dv">3</span></span>
+<span id="cb105-28"><a href="pls.html#cb105-28"></a>ctrJ<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">PrettyBarPlot2</span>(p.pls[,laDim],</span>
+<span id="cb105-29"><a href="pls.html#cb105-29"></a>                         <span class="dt">threshold =</span> <span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="kw">NROW</span>(p.pls),</span>
+<span id="cb105-30"><a href="pls.html#cb105-30"></a>                         <span class="dt">font.size =</span> <span class="dv">3</span>,</span>
+<span id="cb105-31"><a href="pls.html#cb105-31"></a>                         <span class="dt">color4bar =</span> m.color.design[<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>],</span>
+<span id="cb105-32"><a href="pls.html#cb105-32"></a>                         <span class="dt">signifOnly =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb105-33"><a href="pls.html#cb105-33"></a>                         <span class="dt">horizontal =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb105-34"><a href="pls.html#cb105-34"></a>                         <span class="dt">main =</span> <span class="st">&#39;Salience&#39;</span>,</span>
+<span id="cb105-35"><a href="pls.html#cb105-35"></a>                         <span class="dt">ylab =</span> <span class="kw">paste0</span>(<span class="st">&#39;Salience&#39;</span>, laDim),</span>
+<span id="cb105-36"><a href="pls.html#cb105-36"></a>                         <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="fl">1.2</span><span class="op">*</span><span class="kw">min</span>(p.pls), <span class="fl">1.2</span><span class="op">*</span><span class="kw">max</span>(p.pls))</span>
+<span id="cb105-37"><a href="pls.html#cb105-37"></a>)<span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;&quot;</span>,<span class="dt">subtitle =</span> <span class="kw">paste0</span>(<span class="st">&#39;Component &#39;</span>, laDim))</span>
+<span id="cb105-38"><a href="pls.html#cb105-38"></a></span>
+<span id="cb105-39"><a href="pls.html#cb105-39"></a></span>
+<span id="cb105-40"><a href="pls.html#cb105-40"></a>gridExtra<span class="op">::</span><span class="kw">grid.arrange</span>(<span class="kw">as.grob</span>(ctrJ<span class="fl">.1</span>), <span class="kw">as.grob</span>(ctrJ<span class="fl">.2</span>),<span class="kw">as.grob</span>(ctrJ<span class="fl">.3</span>),</span>
+<span id="cb105-41"><a href="pls.html#cb105-41"></a>    <span class="dt">ncol=</span><span class="dv">1</span>, <span class="dt">top =</span> <span class="kw">textGrob</span>(<span class="st">&quot;PLS-P Salience&quot;</span>,<span class="dt">gp=</span><span class="kw">gpar</span>(<span class="dt">fontsize=</span><span class="dv">18</span>,<span class="dt">font=</span><span class="dv">3</span>)))</span></code></pre></div>
+<p><img src="MSA_files/figure-html/plsSalience-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="pls.html#cb106-1"></a><span class="co">## PLS-Q</span></span>
+<span id="cb106-2"><a href="pls.html#cb106-2"></a></span>
+<span id="cb106-3"><a href="pls.html#cb106-3"></a>laDim =<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb106-4"><a href="pls.html#cb106-4"></a>ctrJ<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">PrettyBarPlot2</span>(q.pls[,laDim],</span>
+<span id="cb106-5"><a href="pls.html#cb106-5"></a>                           <span class="dt">threshold =</span> <span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="kw">NROW</span>(q.pls),</span>
+<span id="cb106-6"><a href="pls.html#cb106-6"></a>                           <span class="dt">font.size =</span> <span class="dv">3</span>,</span>
+<span id="cb106-7"><a href="pls.html#cb106-7"></a>                           <span class="dt">signifOnly =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb106-8"><a href="pls.html#cb106-8"></a>                           <span class="dt">horizontal =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb106-9"><a href="pls.html#cb106-9"></a>                           <span class="dt">color4bar =</span> m.color.design[<span class="dv">13</span><span class="op">:</span><span class="dv">29</span>], </span>
+<span id="cb106-10"><a href="pls.html#cb106-10"></a>                           <span class="dt">main =</span> <span class="st">&#39;Salience&#39;</span>,</span>
+<span id="cb106-11"><a href="pls.html#cb106-11"></a>                           <span class="dt">ylab =</span> <span class="kw">paste0</span>(<span class="st">&#39;Salience&#39;</span>, laDim),</span>
+<span id="cb106-12"><a href="pls.html#cb106-12"></a>                           <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="fl">1.2</span><span class="op">*</span><span class="kw">min</span>(q.pls), <span class="fl">1.2</span><span class="op">*</span><span class="kw">max</span>(q.pls))</span>
+<span id="cb106-13"><a href="pls.html#cb106-13"></a>  ) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;Q-PLS&quot;</span>,<span class="dt">subtitle =</span> <span class="kw">paste0</span>(<span class="st">&#39;Component &#39;</span>, laDim))</span>
+<span id="cb106-14"><a href="pls.html#cb106-14"></a></span>
+<span id="cb106-15"><a href="pls.html#cb106-15"></a></span>
+<span id="cb106-16"><a href="pls.html#cb106-16"></a><span class="co">### plot contributions for component 2</span></span>
+<span id="cb106-17"><a href="pls.html#cb106-17"></a>laDim =<span class="dv">2</span></span>
+<span id="cb106-18"><a href="pls.html#cb106-18"></a>ctrJ<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">PrettyBarPlot2</span>(q.pls[,laDim],</span>
+<span id="cb106-19"><a href="pls.html#cb106-19"></a>                         <span class="dt">threshold =</span> <span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="kw">NROW</span>(q.pls),</span>
+<span id="cb106-20"><a href="pls.html#cb106-20"></a>                         <span class="dt">font.size =</span> <span class="dv">3</span>,</span>
+<span id="cb106-21"><a href="pls.html#cb106-21"></a>                         <span class="dt">color4bar =</span> m.color.design[<span class="dv">13</span><span class="op">:</span><span class="dv">29</span>], </span>
+<span id="cb106-22"><a href="pls.html#cb106-22"></a>                         <span class="dt">signifOnly =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb106-23"><a href="pls.html#cb106-23"></a>                         <span class="dt">horizontal =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb106-24"><a href="pls.html#cb106-24"></a>                         <span class="dt">main =</span> <span class="st">&#39;Salience&#39;</span>,</span>
+<span id="cb106-25"><a href="pls.html#cb106-25"></a>                         <span class="dt">ylab =</span> <span class="kw">paste0</span>(<span class="st">&#39;Salience&#39;</span>, laDim),</span>
+<span id="cb106-26"><a href="pls.html#cb106-26"></a>                         <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="fl">1.2</span><span class="op">*</span><span class="kw">min</span>(q.pls), <span class="fl">1.2</span><span class="op">*</span><span class="kw">max</span>(q.pls))</span>
+<span id="cb106-27"><a href="pls.html#cb106-27"></a>)<span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;&quot;</span>,<span class="dt">subtitle =</span> <span class="kw">paste0</span>(<span class="st">&#39;Component &#39;</span>, laDim))</span>
+<span id="cb106-28"><a href="pls.html#cb106-28"></a>laDim =<span class="dv">3</span></span>
+<span id="cb106-29"><a href="pls.html#cb106-29"></a>ctrJ<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">PrettyBarPlot2</span>(q.pls[,laDim],</span>
+<span id="cb106-30"><a href="pls.html#cb106-30"></a>                         <span class="dt">threshold =</span> <span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="kw">NROW</span>(q.pls),</span>
+<span id="cb106-31"><a href="pls.html#cb106-31"></a>                         <span class="dt">font.size =</span> <span class="dv">3</span>,</span>
+<span id="cb106-32"><a href="pls.html#cb106-32"></a>                         <span class="dt">color4bar =</span> m.color.design[<span class="dv">13</span><span class="op">:</span><span class="dv">29</span>],</span>
+<span id="cb106-33"><a href="pls.html#cb106-33"></a>                         <span class="dt">signifOnly =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb106-34"><a href="pls.html#cb106-34"></a>                         <span class="dt">horizontal =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb106-35"><a href="pls.html#cb106-35"></a>                         <span class="dt">main =</span> <span class="st">&#39;Salience&#39;</span>,</span>
+<span id="cb106-36"><a href="pls.html#cb106-36"></a>                         <span class="dt">ylab =</span> <span class="kw">paste0</span>(<span class="st">&#39;Salience&#39;</span>, laDim),</span>
+<span id="cb106-37"><a href="pls.html#cb106-37"></a>                         <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="fl">1.2</span><span class="op">*</span><span class="kw">min</span>(q.pls), <span class="fl">1.2</span><span class="op">*</span><span class="kw">max</span>(q.pls))</span>
+<span id="cb106-38"><a href="pls.html#cb106-38"></a>)<span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;&quot;</span>,<span class="dt">subtitle =</span> <span class="kw">paste0</span>(<span class="st">&#39;Component &#39;</span>, laDim))</span>
+<span id="cb106-39"><a href="pls.html#cb106-39"></a></span>
+<span id="cb106-40"><a href="pls.html#cb106-40"></a></span>
+<span id="cb106-41"><a href="pls.html#cb106-41"></a>gridExtra<span class="op">::</span><span class="kw">grid.arrange</span>(<span class="kw">as.grob</span>(ctrJ<span class="fl">.1</span>), <span class="kw">as.grob</span>(ctrJ<span class="fl">.2</span>),<span class="kw">as.grob</span>(ctrJ<span class="fl">.3</span>),</span>
+<span id="cb106-42"><a href="pls.html#cb106-42"></a>    <span class="dt">ncol=</span><span class="dv">1</span>, <span class="dt">top =</span> <span class="kw">textGrob</span>(<span class="st">&quot;PLS-Q Salience&quot;</span>,<span class="dt">gp=</span><span class="kw">gpar</span>(<span class="dt">fontsize=</span><span class="dv">18</span>,<span class="dt">font=</span><span class="dv">3</span>)))</span></code></pre></div>
+<p><img src="MSA_files/figure-html/plsSalience-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="bootstrap-ratio-barplot" class="section level2">
+<h2><span class="header-section-number">9.7</span> Bootstrap Ratio Barplot</h2>
+<p>The bootstrap ratio gave me back the similar info on the two data sets.</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="pls.html#cb107-1"></a>res.Boot4PLSC &lt;-<span class="st"> </span><span class="kw">Boot4PLSC</span>(pls.data1, <span class="co"># First Data matrix </span></span>
+<span id="cb107-2"><a href="pls.html#cb107-2"></a>                          pls.data2, <span class="co"># Second Data matrix</span></span>
+<span id="cb107-3"><a href="pls.html#cb107-3"></a>                          <span class="dt">nIter =</span> <span class="dv">1000</span>, <span class="co"># How many iterations</span></span>
+<span id="cb107-4"><a href="pls.html#cb107-4"></a>                          <span class="dt">Fi =</span> fs,</span>
+<span id="cb107-5"><a href="pls.html#cb107-5"></a>                          <span class="dt">Fj =</span> fj,</span>
+<span id="cb107-6"><a href="pls.html#cb107-6"></a>                          <span class="dt">nf2keep =</span> <span class="dv">3</span>,</span>
+<span id="cb107-7"><a href="pls.html#cb107-7"></a>                          <span class="dt">critical.value =</span> <span class="dv">2</span>,</span>
+<span id="cb107-8"><a href="pls.html#cb107-8"></a>                          <span class="co"># To be implemented later</span></span>
+<span id="cb107-9"><a href="pls.html#cb107-9"></a>                          <span class="co"># has no effect currently</span></span>
+<span id="cb107-10"><a href="pls.html#cb107-10"></a>                          <span class="dt">alphaLevel =</span> <span class="fl">.05</span>)</span>
+<span id="cb107-11"><a href="pls.html#cb107-11"></a></span>
+<span id="cb107-12"><a href="pls.html#cb107-12"></a><span class="kw">plot.cb</span>(<span class="dt">cj=</span>cj, </span>
+<span id="cb107-13"><a href="pls.html#cb107-13"></a>        <span class="dt">fj=</span>fj, </span>
+<span id="cb107-14"><a href="pls.html#cb107-14"></a>        <span class="dt">col =</span> m.color.design[<span class="dv">13</span><span class="op">:</span><span class="dv">29</span>], </span>
+<span id="cb107-15"><a href="pls.html#cb107-15"></a>        <span class="dt">boot.ratios =</span> res.Boot4PLSC<span class="op">$</span>bootRatios.j,</span>
+<span id="cb107-16"><a href="pls.html#cb107-16"></a>        <span class="dt">fig =</span> <span class="dv">3</span>, </span>
+<span id="cb107-17"><a href="pls.html#cb107-17"></a>        <span class="dt">colrow =</span> <span class="st">&quot;row&quot;</span>, </span>
+<span id="cb107-18"><a href="pls.html#cb107-18"></a>        <span class="dt">horizontal =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb107-19"><a href="pls.html#cb107-19"></a>        <span class="dt">fontsize =</span> <span class="dv">3</span>,</span>
+<span id="cb107-20"><a href="pls.html#cb107-20"></a>        <span class="dt">signifOnly =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="MSA_files/figure-html/plsContribution-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="pls.html#cb108-1"></a><span class="kw">plot.cb</span>(ci, </span>
+<span id="cb108-2"><a href="pls.html#cb108-2"></a>        fs, </span>
+<span id="cb108-3"><a href="pls.html#cb108-3"></a>        <span class="dt">col =</span> m.color.design[<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>], </span>
+<span id="cb108-4"><a href="pls.html#cb108-4"></a>        <span class="dt">boot.ratios =</span> res.Boot4PLSC<span class="op">$</span>bootRatios.i, </span>
+<span id="cb108-5"><a href="pls.html#cb108-5"></a>        <span class="dt">fig =</span> <span class="dv">3</span>, <span class="dt">colrow =</span> <span class="st">&quot;row&quot;</span>, </span>
+<span id="cb108-6"><a href="pls.html#cb108-6"></a>        <span class="dt">horizontal =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb108-7"><a href="pls.html#cb108-7"></a>        <span class="dt">fontsize =</span> <span class="dv">3</span>,</span>
+<span id="cb108-8"><a href="pls.html#cb108-8"></a>        <span class="dt">signifOnly =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="MSA_files/figure-html/plsContribution-2.png" width="672" style="display: block; margin: auto;" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="mca.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="distatis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown/_book/edit/master/09-PLS.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["MSA.pdf", "MSA.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 6 Discriminant Correspondence Analysis | Multivariate Statistical Analysis Cookbook with R</title>
+  <meta name="description" content="This is a final cookbook of Multivariate Statistical Analysis" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 6 Discriminant Correspondence Analysis | Multivariate Statistical Analysis Cookbook with R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a final cookbook of Multivariate Statistical Analysis" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 6 Discriminant Correspondence Analysis | Multivariate Statistical Analysis Cookbook with R" />
+  
+  <meta name="twitter:description" content="This is a final cookbook of Multivariate Statistical Analysis" />
+  
+
+<meta name="author" content="Yile Wang" />
+
+
+<meta name="date" content="2020-12-10" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="ca.html"/>
+<link rel="next" href="bada.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">MSA</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#main-packages"><i class="fa fa-check"></i><b>1.1</b> Main Packages</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#msa-introduction"><i class="fa fa-check"></i><b>1.2</b> MSA Introduction</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#msadata"><i class="fa fa-check"></i><b>1.3</b> MSA data set</a></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#whoo-hoo"><i class="fa fa-check"></i><b>1.4</b> Whoo-hoo!</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="Functions.html"><a href="Functions.html"><i class="fa fa-check"></i><b>2</b> Functions Introduction</a><ul>
+<li class="chapter" data-level="2.1" data-path="Functions.html"><a href="Functions.html#Scree"><i class="fa fa-check"></i><b>2.1</b> Plotting Scree plot</a></li>
+<li class="chapter" data-level="2.2" data-path="Functions.html"><a href="Functions.html#Permutation"><i class="fa fa-check"></i><b>2.2</b> Plotting Permutation test results</a></li>
+<li class="chapter" data-level="2.3" data-path="Functions.html"><a href="Functions.html#Heatmap"><i class="fa fa-check"></i><b>2.3</b> Plotting Heatmap</a></li>
+<li class="chapter" data-level="2.4" data-path="Functions.html"><a href="Functions.html#FactorScores"><i class="fa fa-check"></i><b>2.4</b> Plotting Row Factor Scores</a></li>
+<li class="chapter" data-level="2.5" data-path="Functions.html"><a href="Functions.html#CFactorScore"><i class="fa fa-check"></i><b>2.5</b> Plotting Column Plot</a></li>
+<li class="chapter" data-level="2.6" data-path="Functions.html"><a href="Functions.html#Loading"><i class="fa fa-check"></i><b>2.6</b> Plotting Loading Plot</a></li>
+<li class="chapter" data-level="2.7" data-path="Functions.html"><a href="Functions.html#Contribution"><i class="fa fa-check"></i><b>2.7</b> Plotting Contribution Barplot</a></li>
+<li class="chapter" data-level="2.8" data-path="Functions.html"><a href="Functions.html#binshelper"><i class="fa fa-check"></i><b>2.8</b> Bins Helper Functions</a></li>
+<li class="chapter" data-level="2.9" data-path="Functions.html"><a href="Functions.html#plotting-latent-variable-plot"><i class="fa fa-check"></i><b>2.9</b> Plotting Latent Variable Plot</a></li>
+<li class="chapter" data-level="2.10" data-path="Functions.html"><a href="Functions.html#plotting-partial-factor-scores"><i class="fa fa-check"></i><b>2.10</b> Plotting Partial Factor Scores</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="Data-Intro.html"><a href="Data-Intro.html"><i class="fa fa-check"></i><b>3</b> Data Introduction</a><ul>
+<li class="chapter" data-level="3.1" data-path="Data-Intro.html"><a href="Data-Intro.html#collect"><i class="fa fa-check"></i><b>3.1</b> Main data set: Collective Action Data Set</a></li>
+<li class="chapter" data-level="3.2" data-path="Data-Intro.html"><a href="Data-Intro.html#sausage"><i class="fa fa-check"></i><b>3.2</b> Low Income Sausage</a></li>
+<li class="chapter" data-level="3.3" data-path="Data-Intro.html"><a href="Data-Intro.html#wines"><i class="fa fa-check"></i><b>3.3</b> Wines</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="pca.html"><a href="pca.html"><i class="fa fa-check"></i><b>4</b> Principal Component Analysis</a><ul>
+<li class="chapter" data-level="4.1" data-path="pca.html"><a href="pca.html#introduction-of-pca"><i class="fa fa-check"></i><b>4.1</b> Introduction of PCA</a></li>
+<li class="chapter" data-level="4.2" data-path="pca.html"><a href="pca.html#computing"><i class="fa fa-check"></i><b>4.2</b> Computing</a></li>
+<li class="chapter" data-level="4.3" data-path="pca.html"><a href="pca.html#heatmap"><i class="fa fa-check"></i><b>4.3</b> Heatmap</a></li>
+<li class="chapter" data-level="4.4" data-path="pca.html"><a href="pca.html#pcaScree"><i class="fa fa-check"></i><b>4.4</b> Scree Plot</a></li>
+<li class="chapter" data-level="4.5" data-path="pca.html"><a href="pca.html#factor-scores"><i class="fa fa-check"></i><b>4.5</b> Factor Scores</a></li>
+<li class="chapter" data-level="4.6" data-path="pca.html"><a href="pca.html#loading"><i class="fa fa-check"></i><b>4.6</b> Loading</a></li>
+<li class="chapter" data-level="4.7" data-path="pca.html"><a href="pca.html#contriution-and-bootstrap-ratio-barplots"><i class="fa fa-check"></i><b>4.7</b> Contriution and Bootstrap Ratio Barplots</a></li>
+<li class="chapter" data-level="4.8" data-path="pca.html"><a href="pca.html#conclusion"><i class="fa fa-check"></i><b>4.8</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ca.html"><a href="ca.html"><i class="fa fa-check"></i><b>5</b> Correspondence Analysis</a><ul>
+<li class="chapter" data-level="5.1" data-path="ca.html"><a href="ca.html#introduction-of-ca"><i class="fa fa-check"></i><b>5.1</b> Introduction of CA</a></li>
+<li class="chapter" data-level="5.2" data-path="ca.html"><a href="ca.html#computation"><i class="fa fa-check"></i><b>5.2</b> Computation</a></li>
+<li class="chapter" data-level="5.3" data-path="ca.html"><a href="ca.html#heatmap-1"><i class="fa fa-check"></i><b>5.3</b> Heatmap</a></li>
+<li class="chapter" data-level="5.4" data-path="ca.html"><a href="ca.html#computation-1"><i class="fa fa-check"></i><b>5.4</b> Computation</a></li>
+<li class="chapter" data-level="5.5" data-path="ca.html"><a href="ca.html#scree-plot"><i class="fa fa-check"></i><b>5.5</b> Scree Plot</a></li>
+<li class="chapter" data-level="5.6" data-path="ca.html"><a href="ca.html#symmetric-asymmetric-plots"><i class="fa fa-check"></i><b>5.6</b> Symmetric &amp; Asymmetric Plots</a></li>
+<li class="chapter" data-level="5.7" data-path="ca.html"><a href="ca.html#contribution-and-bootstrap-ratio-barplot"><i class="fa fa-check"></i><b>5.7</b> Contribution and Bootstrap Ratio Barplot</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="dica.html"><a href="dica.html"><i class="fa fa-check"></i><b>6</b> Discriminant Correspondence Analysis</a><ul>
+<li class="chapter" data-level="6.1" data-path="dica.html"><a href="dica.html#introdcution-of-dica"><i class="fa fa-check"></i><b>6.1</b> Introdcution of DiCA</a></li>
+<li class="chapter" data-level="6.2" data-path="dica.html"><a href="dica.html#histgram-of-binning-variables"><i class="fa fa-check"></i><b>6.2</b> Histgram of Binning Variables</a></li>
+<li class="chapter" data-level="6.3" data-path="dica.html"><a href="dica.html#heatmap-2"><i class="fa fa-check"></i><b>6.3</b> Heatmap</a></li>
+<li class="chapter" data-level="6.4" data-path="dica.html"><a href="dica.html#scree-plot-1"><i class="fa fa-check"></i><b>6.4</b> Scree Plot</a></li>
+<li class="chapter" data-level="6.5" data-path="dica.html"><a href="dica.html#factor-scores-1"><i class="fa fa-check"></i><b>6.5</b> Factor Scores</a></li>
+<li class="chapter" data-level="6.6" data-path="dica.html"><a href="dica.html#confusion-matrix"><i class="fa fa-check"></i><b>6.6</b> Confusion Matrix</a></li>
+<li class="chapter" data-level="6.7" data-path="dica.html"><a href="dica.html#contribution-and-bootstrap-ratio-barplots"><i class="fa fa-check"></i><b>6.7</b> Contribution and Bootstrap Ratio Barplots</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="bada.html"><a href="bada.html"><i class="fa fa-check"></i><b>7</b> Barycentric Discriminant Analysis</a><ul>
+<li class="chapter" data-level="7.1" data-path="bada.html"><a href="bada.html#introduction-of-bada"><i class="fa fa-check"></i><b>7.1</b> Introduction of BADA</a></li>
+<li class="chapter" data-level="7.2" data-path="bada.html"><a href="bada.html#computation-2"><i class="fa fa-check"></i><b>7.2</b> Computation</a></li>
+<li class="chapter" data-level="7.3" data-path="bada.html"><a href="bada.html#heatmap-3"><i class="fa fa-check"></i><b>7.3</b> Heatmap</a></li>
+<li class="chapter" data-level="7.4" data-path="bada.html"><a href="bada.html#scree"><i class="fa fa-check"></i><b>7.4</b> Scree</a></li>
+<li class="chapter" data-level="7.5" data-path="bada.html"><a href="bada.html#factor-scores-2"><i class="fa fa-check"></i><b>7.5</b> Factor Scores</a></li>
+<li class="chapter" data-level="7.6" data-path="bada.html"><a href="bada.html#loading-1"><i class="fa fa-check"></i><b>7.6</b> Loading</a></li>
+<li class="chapter" data-level="7.7" data-path="bada.html"><a href="bada.html#confusion-matrix-1"><i class="fa fa-check"></i><b>7.7</b> Confusion Matrix</a></li>
+<li class="chapter" data-level="7.8" data-path="bada.html"><a href="bada.html#contribution-and-bootstrap-ratio-barplot-1"><i class="fa fa-check"></i><b>7.8</b> Contribution and Bootstrap Ratio Barplot</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="mca.html"><a href="mca.html"><i class="fa fa-check"></i><b>8</b> Multiple Corresponding Analysis</a><ul>
+<li class="chapter" data-level="8.1" data-path="mca.html"><a href="mca.html#introduction-of-mca"><i class="fa fa-check"></i><b>8.1</b> Introduction of MCA</a></li>
+<li class="chapter" data-level="8.2" data-path="mca.html"><a href="mca.html#histgram-of-binning-variables-1"><i class="fa fa-check"></i><b>8.2</b> Histgram of Binning Variables</a></li>
+<li class="chapter" data-level="8.3" data-path="mca.html"><a href="mca.html#computation-3"><i class="fa fa-check"></i><b>8.3</b> Computation</a></li>
+<li class="chapter" data-level="8.4" data-path="mca.html"><a href="mca.html#heatmap-4"><i class="fa fa-check"></i><b>8.4</b> Heatmap</a></li>
+<li class="chapter" data-level="8.5" data-path="mca.html"><a href="mca.html#scree-plot-2"><i class="fa fa-check"></i><b>8.5</b> Scree Plot</a></li>
+<li class="chapter" data-level="8.6" data-path="mca.html"><a href="mca.html#row-factor-scores"><i class="fa fa-check"></i><b>8.6</b> Row Factor Scores</a></li>
+<li class="chapter" data-level="8.7" data-path="mca.html"><a href="mca.html#important-variables-line-plots"><i class="fa fa-check"></i><b>8.7</b> Important Variables Line Plots</a></li>
+<li class="chapter" data-level="8.8" data-path="mca.html"><a href="mca.html#contribution-and-bootstrap-ratio-barplots-1"><i class="fa fa-check"></i><b>8.8</b> Contribution and Bootstrap Ratio Barplots</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="pls.html"><a href="pls.html"><i class="fa fa-check"></i><b>9</b> Partial Least Square</a><ul>
+<li class="chapter" data-level="9.1" data-path="pls.html"><a href="pls.html#introduction-of-pls-c"><i class="fa fa-check"></i><b>9.1</b> Introduction of PLS-C</a></li>
+<li class="chapter" data-level="9.2" data-path="pls.html"><a href="pls.html#computation-4"><i class="fa fa-check"></i><b>9.2</b> Computation</a></li>
+<li class="chapter" data-level="9.3" data-path="pls.html"><a href="pls.html#heatmap-5"><i class="fa fa-check"></i><b>9.3</b> Heatmap</a></li>
+<li class="chapter" data-level="9.4" data-path="pls.html"><a href="pls.html#scree-plot-3"><i class="fa fa-check"></i><b>9.4</b> Scree Plot</a></li>
+<li class="chapter" data-level="9.5" data-path="pls.html"><a href="pls.html#latent-variables"><i class="fa fa-check"></i><b>9.5</b> Latent Variables</a></li>
+<li class="chapter" data-level="9.6" data-path="pls.html"><a href="pls.html#salience"><i class="fa fa-check"></i><b>9.6</b> Salience</a></li>
+<li class="chapter" data-level="9.7" data-path="pls.html"><a href="pls.html#bootstrap-ratio-barplot"><i class="fa fa-check"></i><b>9.7</b> Bootstrap Ratio Barplot</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="distatis.html"><a href="distatis.html"><i class="fa fa-check"></i><b>10</b> DiSTATIS</a><ul>
+<li class="chapter" data-level="10.1" data-path="distatis.html"><a href="distatis.html#introduction-of-distatis"><i class="fa fa-check"></i><b>10.1</b> Introduction of DiSTATIS</a></li>
+<li class="chapter" data-level="10.2" data-path="distatis.html"><a href="distatis.html#computation-5"><i class="fa fa-check"></i><b>10.2</b> Computation</a></li>
+<li class="chapter" data-level="10.3" data-path="distatis.html"><a href="distatis.html#heatmap-6"><i class="fa fa-check"></i><b>10.3</b> HeatMap</a></li>
+<li class="chapter" data-level="10.4" data-path="distatis.html"><a href="distatis.html#scree-plot-4"><i class="fa fa-check"></i><b>10.4</b> Scree Plot</a></li>
+<li class="chapter" data-level="10.5" data-path="distatis.html"><a href="distatis.html#global-factor-scores"><i class="fa fa-check"></i><b>10.5</b> Global Factor Scores</a></li>
+<li class="chapter" data-level="10.6" data-path="distatis.html"><a href="distatis.html#partial-factor-scores"><i class="fa fa-check"></i><b>10.6</b> Partial Factor Scores</a></li>
+<li class="chapter" data-level="10.7" data-path="distatis.html"><a href="distatis.html#vocabulary-graphs"><i class="fa fa-check"></i><b>10.7</b> Vocabulary graphs</a></li>
+<li class="chapter" data-level="10.8" data-path="distatis.html"><a href="distatis.html#contribution-barplots"><i class="fa fa-check"></i><b>10.8</b> Contribution Barplots</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="mfa.html"><a href="mfa.html"><i class="fa fa-check"></i><b>11</b> Multiple Factor Analysis</a><ul>
+<li class="chapter" data-level="11.1" data-path="mfa.html"><a href="mfa.html#introduction-of-mfa"><i class="fa fa-check"></i><b>11.1</b> Introduction of MFA</a></li>
+<li class="chapter" data-level="11.2" data-path="mfa.html"><a href="mfa.html#computation-6"><i class="fa fa-check"></i><b>11.2</b> Computation</a></li>
+<li class="chapter" data-level="11.3" data-path="mfa.html"><a href="mfa.html#heatmap-7"><i class="fa fa-check"></i><b>11.3</b> Heatmap</a></li>
+<li class="chapter" data-level="11.4" data-path="mfa.html"><a href="mfa.html#scree-plot-5"><i class="fa fa-check"></i><b>11.4</b> Scree Plot</a></li>
+<li class="chapter" data-level="11.5" data-path="mfa.html"><a href="mfa.html#global-factor-scores-1"><i class="fa fa-check"></i><b>11.5</b> Global Factor Scores</a></li>
+<li class="chapter" data-level="11.6" data-path="mfa.html"><a href="mfa.html#partial-factor-scores-1"><i class="fa fa-check"></i><b>11.6</b> Partial Factor Scores</a></li>
+<li class="chapter" data-level="11.7" data-path="mfa.html"><a href="mfa.html#contribution-barplots-1"><i class="fa fa-check"></i><b>11.7</b> Contribution Barplots</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="end.html"><a href="end.html"><i class="fa fa-check"></i><b>12</b> The End</a><ul>
+<li class="chapter" data-level="12.1" data-path="end.html"><a href="end.html#final-conclusion"><i class="fa fa-check"></i><b>12.1</b> Final Conclusion</a></li>
+<li class="chapter" data-level="12.2" data-path="end.html"><a href="end.html#appreciation"><i class="fa fa-check"></i><b>12.2</b> Appreciation</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown/_book" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Multivariate Statistical Analysis Cookbook with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="dica" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> Discriminant Correspondence Analysis</h1>
+<div id="introdcution-of-dica" class="section level2">
+<h2><span class="header-section-number">6.1</span> Introdcution of DiCA</h2>
+<p>As we can know from the name, DiCA is an extensional branch of CA. The goal of DiCA is always categorize observation into different clusters. Sometimes we will make comparision between BADA and DiCA. An easy way to distinguish the two methods is that BADA is used with quantitative variables and DiCA is used with qualitative variable.</p>
+<p>In this example, we will used quantitative version of our main data set to do the DiCA analysis. For more info about the main data set, you can check <strong>data intro</strong> part in this book <a href="Data-Intro.html#collect">3.1</a>.</p>
+<p>In the data preprocessing stage, we have a difficulty here: The global_warming variable cannot be included into our inference so I have to drop it in my subsequent analysis. The main reason could be that the distribution of global_warming are too skewed.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="dica.html#cb44-1"></a><span class="co"># import data</span></span>
+<span id="cb44-2"><a href="dica.html#cb44-2"></a><span class="co"># data set: bins.data.to.use.sup</span></span>
+<span id="cb44-3"><a href="dica.html#cb44-3"></a></span>
+<span id="cb44-4"><a href="dica.html#cb44-4"></a><span class="co"># design: exp.neg \ exp.pos</span></span>
+<span id="cb44-5"><a href="dica.html#cb44-5"></a></span>
+<span id="cb44-6"><a href="dica.html#cb44-6"></a></span>
+<span id="cb44-7"><a href="dica.html#cb44-7"></a><span class="co"># Cannot analyze this variables, so I have to drop it</span></span>
+<span id="cb44-8"><a href="dica.html#cb44-8"></a>DiCA.raw.data &lt;-<span class="st"> </span><span class="kw">select</span>(bins.exp.neg, <span class="kw">c</span>(<span class="op">-</span><span class="st">&quot;global_warming&quot;</span>))</span>
+<span id="cb44-9"><a href="dica.html#cb44-9"></a></span>
+<span id="cb44-10"><a href="dica.html#cb44-10"></a>res.DiCA &lt;-<span class="st"> </span><span class="kw">tepDICA</span>(<span class="dt">DATA=</span>DiCA.raw.data[,<span class="dv">7</span><span class="op">:</span><span class="dv">34</span>], </span>
+<span id="cb44-11"><a href="dica.html#cb44-11"></a>                    <span class="dt">DESIGN =</span> exp.neg<span class="op">$</span>group, <span class="dt">make_data_nominal =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb44-12"><a href="dica.html#cb44-12"></a>                    <span class="dt">symmetric =</span> <span class="ot">TRUE</span> ,</span>
+<span id="cb44-13"><a href="dica.html#cb44-13"></a>                    <span class="dt">graphs =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb44-14"><a href="dica.html#cb44-14"></a>res.DiCA.inf &lt;-<span class="st"> </span><span class="kw">tepDICA.inference.battery</span>(<span class="dt">DATA=</span> DiCA.raw.data[,<span class="dv">7</span><span class="op">:</span><span class="dv">34</span>], </span>
+<span id="cb44-15"><a href="dica.html#cb44-15"></a>                                          <span class="dt">DESIGN =</span> exp.neg<span class="op">$</span>group,</span>
+<span id="cb44-16"><a href="dica.html#cb44-16"></a>                                          <span class="dt">make_data_nominal =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb44-17"><a href="dica.html#cb44-17"></a>                                          <span class="dt">symmetric =</span> <span class="ot">TRUE</span> ,</span>
+<span id="cb44-18"><a href="dica.html#cb44-18"></a>                                          <span class="dt">graphs =</span> <span class="ot">FALSE</span>, </span>
+<span id="cb44-19"><a href="dica.html#cb44-19"></a>                                          <span class="dt">test.iters =</span> <span class="dv">100</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;It is estimated that your iterations will take 0.05 minutes.&quot;
+## ===============================================================================</code></pre>
+<p>As usual, I will prepare all the matrices and parameters for plotting usage.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="dica.html#cb46-1"></a>fs &lt;-<span class="st"> </span>res.DiCA<span class="op">$</span>TExPosition.Data<span class="op">$</span>fi</span>
+<span id="cb46-2"><a href="dica.html#cb46-2"></a>fj &lt;-<span class="st"> </span>res.DiCA<span class="op">$</span>TExPosition.Data<span class="op">$</span>fj</span>
+<span id="cb46-3"><a href="dica.html#cb46-3"></a>eigs &lt;-<span class="st"> </span>res.DiCA<span class="op">$</span>TExPosition.Data<span class="op">$</span>eigs</span>
+<span id="cb46-4"><a href="dica.html#cb46-4"></a>tau &lt;-<span class="st"> </span>res.DiCA<span class="op">$</span>TExPosition.Data<span class="op">$</span>t</span>
+<span id="cb46-5"><a href="dica.html#cb46-5"></a>cj &lt;-<span class="st"> </span>res.DiCA<span class="op">$</span>TExPosition.Data<span class="op">$</span>cj</span>
+<span id="cb46-6"><a href="dica.html#cb46-6"></a>p.vals &lt;-<span class="st"> </span>res.DiCA.inf<span class="op">$</span>Inference.Data<span class="op">$</span>components<span class="op">$</span>p.vals</span>
+<span id="cb46-7"><a href="dica.html#cb46-7"></a>eigs.permu &lt;-<span class="st"> </span>res.DiCA.inf<span class="op">$</span>Inference.Data<span class="op">$</span>components<span class="op">$</span>eigs.perm</span>
+<span id="cb46-8"><a href="dica.html#cb46-8"></a>boot.ratios &lt;-<span class="st"> </span>res.DiCA.inf<span class="op">$</span>Inference.Data<span class="op">$</span>boot.data<span class="op">$</span>fj.boot.data<span class="op">$</span>tests<span class="op">$</span>boot.ratios</span>
+<span id="cb46-9"><a href="dica.html#cb46-9"></a>fii &lt;-<span class="st"> </span>res.DiCA<span class="op">$</span>TExPosition.Data<span class="op">$</span>fii</span></code></pre></div>
+</div>
+<div id="histgram-of-binning-variables" class="section level2">
+<h2><span class="header-section-number">6.2</span> Histgram of Binning Variables</h2>
+<p>I will use bins variable in this example instead of the continuous data table. If you are interested in the details about how I bin these variables, please see the functions <code>Bins_Helper</code><sup><a href="Functions.html#binshelper">2.8</a></sup></p>
+<div class="figure" style="text-align: center"><span id="fig:dicaHist"></span>
+<img src="figure/bins.png" alt="Multiple Histgram of Binning Data"  />
+<p class="caption">
+Figure 6.1: Multiple Histgram of Binning Data
+</p>
+</div>
+</div>
+<div id="heatmap-2" class="section level2">
+<h2><span class="header-section-number">6.3</span> Heatmap</h2>
+<p>In the heatmap, I used a trick to get means and scale them in rows. As I can know from the results, The High_High group (high social intelligence and high general intelligence) will be positively correlated to their SAT scores, and also the empathy ability. It is expected because I am using college GPA and emotional processing ability as the grouping variables. It is not surprised that they are correlated in pairs (GPA with SAT; empathy with emotional processing).</p>
+<p>Don’t forget about the collective action, which is the main characters in this story: It is interesting that Low social intelligence but High general intelligence group has negative correlation with all the R-R6 game performance. It may imply something in our results.</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="dica.html#cb47-1"></a><span class="co"># as.matrix((t(DESIGN %*% X)))</span></span>
+<span id="cb47-2"><a href="dica.html#cb47-2"></a></span>
+<span id="cb47-3"><a href="dica.html#cb47-3"></a>raw.dica &lt;-<span class="st"> </span><span class="kw">scale</span>(exp.neg[<span class="dv">7</span><span class="op">:</span><span class="dv">35</span>], </span>
+<span id="cb47-4"><a href="dica.html#cb47-4"></a>                  <span class="dt">scale =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb47-5"><a href="dica.html#cb47-5"></a>                  <span class="dt">center =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb47-6"><a href="dica.html#cb47-6"></a>tmp &lt;-<span class="st"> </span><span class="kw">aggregate</span>(raw.dica, <span class="kw">list</span>(exp.neg<span class="op">$</span>group), </span>
+<span id="cb47-7"><a href="dica.html#cb47-7"></a>                 mean)</span>
+<span id="cb47-8"><a href="dica.html#cb47-8"></a>mean.dica.raw &lt;-<span class="st"> </span>tmp[,<span class="dv">2</span><span class="op">:</span><span class="kw">ncol</span>(tmp)]</span>
+<span id="cb47-9"><a href="dica.html#cb47-9"></a><span class="kw">rownames</span>(mean.dica.raw) &lt;-<span class="st"> </span>tmp[,<span class="dv">1</span>]</span>
+<span id="cb47-10"><a href="dica.html#cb47-10"></a></span>
+<span id="cb47-11"><a href="dica.html#cb47-11"></a>dica.hm &lt;-<span class="st"> </span><span class="kw">pheatmap</span>(<span class="dt">mat=</span>mean.dica.raw, </span>
+<span id="cb47-12"><a href="dica.html#cb47-12"></a>                    <span class="dt">fontsize_row =</span><span class="dv">13</span>, </span>
+<span id="cb47-13"><a href="dica.html#cb47-13"></a>                    <span class="dt">fontsize =</span><span class="dv">10</span>, </span>
+<span id="cb47-14"><a href="dica.html#cb47-14"></a>                    <span class="dt">cellheight =</span> <span class="dv">10</span>, </span>
+<span id="cb47-15"><a href="dica.html#cb47-15"></a>                    <span class="dt">cellwidth =</span> <span class="dv">10</span>, </span>
+<span id="cb47-16"><a href="dica.html#cb47-16"></a>                    <span class="dt">angle_col =</span> <span class="dv">90</span>, </span>
+<span id="cb47-17"><a href="dica.html#cb47-17"></a>                    <span class="dt">cluster_rows =</span> <span class="ot">FALSE</span>, </span>
+<span id="cb47-18"><a href="dica.html#cb47-18"></a>                    <span class="dt">cluster_cols =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb47-19"><a href="dica.html#cb47-19"></a>dica.hm</span></code></pre></div>
+<p><img src="MSA_files/figure-html/dicaHeatmap-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="scree-plot-1" class="section level2">
+<h2><span class="header-section-number">6.4</span> Scree Plot</h2>
+<p>From the scree plot, as usual, it will tell me how much variance explained by each component. From the permutation test, I can know I can reject the null hypothesis <sup><a href="#pcascree"><strong>??</strong></a></sup>.</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="dica.html#cb48-1"></a><span class="kw">plot.scree</span>(<span class="dt">eigs =</span> eigs, <span class="dt">p.vals =</span> p.vals)</span></code></pre></div>
+<p><img src="MSA_files/figure-html/dicaScreePlot-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="dica.html#cb49-1"></a><span class="kw">plot.permutation</span>(<span class="dt">eigs.perm =</span> eigs.permu, </span>
+<span id="cb49-2"><a href="dica.html#cb49-2"></a>                 eigs, </span>
+<span id="cb49-3"><a href="dica.html#cb49-3"></a>                 <span class="dt">para1 =</span> <span class="fl">0.1</span>,</span>
+<span id="cb49-4"><a href="dica.html#cb49-4"></a>                 <span class="dt">Dim =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="MSA_files/figure-html/dicaScreePlot-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="dica.html#cb50-1"></a><span class="kw">plot.permutation</span>(<span class="dt">eigs.perm =</span> eigs.permu, </span>
+<span id="cb50-2"><a href="dica.html#cb50-2"></a>                 eigs, </span>
+<span id="cb50-3"><a href="dica.html#cb50-3"></a>                 <span class="dt">para1 =</span> <span class="fl">0.1</span>,</span>
+<span id="cb50-4"><a href="dica.html#cb50-4"></a>                 <span class="dt">Dim =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="MSA_files/figure-html/dicaScreePlot-3.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="factor-scores-1" class="section level2">
+<h2><span class="header-section-number">6.5</span> Factor Scores</h2>
+<p>In DiCA’s factor scores results, it is quite different with traditional PCA results. In PCA’s factor score, generally I will have row factor scores for each observation and column factor scores for each variables. However, since I used bin coding in DiCA, I will have several levels for each variables (0-low, 1-medium, 2-high). In the row factor scores plot, I chose <code>hull</code> mode over <code>CI</code> (confidence interval) to better illustrate the overlap among groups. For the column factor scores, as it is shown below, it is quite messy if we don’t select important variables. However, we can still see that the low levels and high levels are distributed in opposite directions. The line graph illustrated the linear relationship in levels for each important variable more clearly.</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="dica.html#cb51-1"></a><span class="co"># get some color</span></span>
+<span id="cb51-2"><a href="dica.html#cb51-2"></a></span>
+<span id="cb51-3"><a href="dica.html#cb51-3"></a><span class="co"># special version of dica</span></span>
+<span id="cb51-4"><a href="dica.html#cb51-4"></a>m.color.design.dica &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(m.color.design[<span class="dv">1</span><span class="op">:</span>(<span class="kw">nrow</span>(m.color.design)<span class="op">-</span><span class="dv">1</span>)])</span>
+<span id="cb51-5"><a href="dica.html#cb51-5"></a></span>
+<span id="cb51-6"><a href="dica.html#cb51-6"></a>col4Levels &lt;-<span class="st"> </span>data4PCCAR<span class="op">::</span><span class="kw">coloringLevels</span>(</span>
+<span id="cb51-7"><a href="dica.html#cb51-7"></a>  <span class="kw">rownames</span>(fj), m.color.design.dica)</span>
+<span id="cb51-8"><a href="dica.html#cb51-8"></a>col4Labels &lt;-<span class="st"> </span>col4Levels<span class="op">$</span>color4Levels</span>
+<span id="cb51-9"><a href="dica.html#cb51-9"></a></span>
+<span id="cb51-10"><a href="dica.html#cb51-10"></a></span>
+<span id="cb51-11"><a href="dica.html#cb51-11"></a><span class="co"># important variables</span></span>
+<span id="cb51-12"><a href="dica.html#cb51-12"></a></span>
+<span id="cb51-13"><a href="dica.html#cb51-13"></a>varCtr &lt;-<span class="st"> </span>data4PCCAR<span class="op">::</span><span class="kw">ctr4Variables</span>(cj)</span>
+<span id="cb51-14"><a href="dica.html#cb51-14"></a><span class="kw">rownames</span>(m.color.design.dica) &lt;-<span class="st"> </span><span class="kw">rownames</span>(varCtr)</span>
+<span id="cb51-15"><a href="dica.html#cb51-15"></a>var12 &lt;-<span class="st"> </span>data4PCCAR<span class="op">::</span><span class="kw">getImportantCtr</span>(<span class="dt">ctr =</span> varCtr,</span>
+<span id="cb51-16"><a href="dica.html#cb51-16"></a>                                     <span class="dt">eig =</span> eigs)</span>
+<span id="cb51-17"><a href="dica.html#cb51-17"></a>importantVar &lt;-<span class="st"> </span>var12<span class="op">$</span>importantCtr<span class="fl">.1</span>or2</span>
+<span id="cb51-18"><a href="dica.html#cb51-18"></a>col4ImportantVar &lt;-<span class="st"> </span>m.color.design.dica</span>
+<span id="cb51-19"><a href="dica.html#cb51-19"></a>col4NS &lt;-<span class="st">&#39;gray90&#39;</span></span>
+<span id="cb51-20"><a href="dica.html#cb51-20"></a>col4ImportantVar[<span class="op">!</span>importantVar] &lt;-<span class="st"> </span>col4NS</span>
+<span id="cb51-21"><a href="dica.html#cb51-21"></a>col4Levels.imp &lt;-<span class="st"> </span>data4PCCAR<span class="op">::</span><span class="kw">coloringLevels</span>(<span class="kw">rownames</span>(fj),</span>
+<span id="cb51-22"><a href="dica.html#cb51-22"></a>                  col4ImportantVar)</span>
+<span id="cb51-23"><a href="dica.html#cb51-23"></a></span>
+<span id="cb51-24"><a href="dica.html#cb51-24"></a><span class="co"># plot</span></span>
+<span id="cb51-25"><a href="dica.html#cb51-25"></a></span>
+<span id="cb51-26"><a href="dica.html#cb51-26"></a><span class="kw">plot.fs</span>(exp.neg<span class="op">$</span>group, </span>
+<span id="cb51-27"><a href="dica.html#cb51-27"></a>        <span class="dt">fs=</span>fii, </span>
+<span id="cb51-28"><a href="dica.html#cb51-28"></a>        <span class="dt">eigs=</span>eigs, </span>
+<span id="cb51-29"><a href="dica.html#cb51-29"></a>        <span class="dt">tau=</span>tau, </span>
+<span id="cb51-30"><a href="dica.html#cb51-30"></a>        <span class="dt">d=</span><span class="dv">1</span>, </span>
+<span id="cb51-31"><a href="dica.html#cb51-31"></a>        <span class="dt">mode =</span> <span class="st">&quot;hull&quot;</span>,</span>
+<span id="cb51-32"><a href="dica.html#cb51-32"></a>        <span class="dt">method =</span> <span class="st">&quot;DiCA&quot;</span>)</span></code></pre></div>
+<p><img src="MSA_files/figure-html/dicaRowFactorScores-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="dica.html#cb52-1"></a><span class="kw">plot.cfs</span>(<span class="dt">fj=</span>fj, </span>
+<span id="cb52-2"><a href="dica.html#cb52-2"></a>         <span class="dt">eigs=</span>eigs, </span>
+<span id="cb52-3"><a href="dica.html#cb52-3"></a>         <span class="dt">tau=</span>tau, </span>
+<span id="cb52-4"><a href="dica.html#cb52-4"></a>         <span class="dt">d=</span><span class="dv">1</span>, </span>
+<span id="cb52-5"><a href="dica.html#cb52-5"></a>         <span class="dt">col =</span> col4Labels, </span>
+<span id="cb52-6"><a href="dica.html#cb52-6"></a>         <span class="dt">method =</span> <span class="st">&quot;DiCA&quot;</span>)</span></code></pre></div>
+<p><img src="MSA_files/figure-html/dicaRowFactorScores-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="dica.html#cb53-1"></a><span class="co"># plot important line plot</span></span>
+<span id="cb53-2"><a href="dica.html#cb53-2"></a>labels4MCA &lt;-<span class="st"> </span><span class="kw">createxyLabels.gen</span>(<span class="dt">x_axis =</span> <span class="dv">1</span>, </span>
+<span id="cb53-3"><a href="dica.html#cb53-3"></a>                                 <span class="dt">y_axis =</span> <span class="dv">2</span>,</span>
+<span id="cb53-4"><a href="dica.html#cb53-4"></a>                                 <span class="dt">lambda =</span> eigs,</span>
+<span id="cb53-5"><a href="dica.html#cb53-5"></a>                                 <span class="dt">tau =</span> <span class="kw">round</span>(tau))</span>
+<span id="cb53-6"><a href="dica.html#cb53-6"></a></span>
+<span id="cb53-7"><a href="dica.html#cb53-7"></a>fj.imp &lt;-<span class="st"> </span><span class="kw">createFactorMap</span>(<span class="dt">X =</span> fj, </span>
+<span id="cb53-8"><a href="dica.html#cb53-8"></a>                    <span class="dt">axis1 =</span> <span class="dv">1</span>,</span>
+<span id="cb53-9"><a href="dica.html#cb53-9"></a>                    <span class="dt">axis2 =</span> <span class="dv">2</span>,</span>
+<span id="cb53-10"><a href="dica.html#cb53-10"></a>                    <span class="dt">title =</span> <span class="st">&quot;DiCA.Important Column Variables&quot;</span>,</span>
+<span id="cb53-11"><a href="dica.html#cb53-11"></a>                    <span class="dt">col.points =</span> col4Levels.imp<span class="op">$</span>color4Levels,</span>
+<span id="cb53-12"><a href="dica.html#cb53-12"></a>                    <span class="dt">cex =</span> <span class="dv">1</span>,</span>
+<span id="cb53-13"><a href="dica.html#cb53-13"></a>                    <span class="dt">col.labels =</span> col4Levels.imp<span class="op">$</span>color4Levels,</span>
+<span id="cb53-14"><a href="dica.html#cb53-14"></a>                    <span class="dt">text.cex =</span> <span class="dv">2</span>,</span>
+<span id="cb53-15"><a href="dica.html#cb53-15"></a>                    <span class="dt">force =</span> <span class="dv">2</span>)</span>
+<span id="cb53-16"><a href="dica.html#cb53-16"></a>fj.base &lt;-<span class="st"> </span>fj.imp<span class="op">$</span>zeMap <span class="op">+</span><span class="st"> </span>labels4MCA</span>
+<span id="cb53-17"><a href="dica.html#cb53-17"></a></span>
+<span id="cb53-18"><a href="dica.html#cb53-18"></a>zeNames &lt;-<span class="st"> </span><span class="kw">getVarNames</span>(<span class="kw">rownames</span>(fj))</span>
+<span id="cb53-19"><a href="dica.html#cb53-19"></a>importantsLabels &lt;-<span class="st"> </span>zeNames<span class="op">$</span>stripedNames <span class="op">%in%</span><span class="st"> </span></span>
+<span id="cb53-20"><a href="dica.html#cb53-20"></a><span class="st">  </span>zeNames<span class="op">$</span>variableNames[importantVar]</span>
+<span id="cb53-21"><a href="dica.html#cb53-21"></a>fj.imp &lt;-<span class="st"> </span>fj[importantsLabels,]</span>
+<span id="cb53-22"><a href="dica.html#cb53-22"></a>lines4J.imp &lt;-<span class="st"> </span><span class="kw">addLines4MCA</span>(fj.imp,</span>
+<span id="cb53-23"><a href="dica.html#cb53-23"></a>                <span class="dt">col4Var =</span> col4Levels<span class="op">$</span>color4Variables[<span class="kw">which</span>(importantVar)],</span>
+<span id="cb53-24"><a href="dica.html#cb53-24"></a>                <span class="dt">size =</span> <span class="fl">.5</span>,</span>
+<span id="cb53-25"><a href="dica.html#cb53-25"></a>                <span class="dt">linetype =</span> <span class="dv">3</span>,</span>
+<span id="cb53-26"><a href="dica.html#cb53-26"></a>                <span class="dt">alpha =</span> <span class="fl">.5</span>)</span>
+<span id="cb53-27"><a href="dica.html#cb53-27"></a>fj.dica &lt;-<span class="st"> </span>fj.base <span class="op">+</span><span class="st"> </span>lines4J.imp</span>
+<span id="cb53-28"><a href="dica.html#cb53-28"></a>fj.dica</span></code></pre></div>
+<p><img src="MSA_files/figure-html/dicaRowFactorScores-3.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="confusion-matrix" class="section level2">
+<h2><span class="header-section-number">6.6</span> Confusion Matrix</h2>
+<p>As a statistical method designed to do discriminative jobs, DiCA could also provide us confusion matrix info. From the tables below, we know that the predictive accuracy for fixed effect is good but the generalized ability is poor. The fixed confusion accuracy can reach <strong>72%</strong> but the random confusion matrix can only be 42%.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="dica.html#cb54-1"></a>fixed.confusion &lt;-<span class="st"> </span>res.DiCA.inf<span class="op">$</span>Inference.Data<span class="op">$</span>loo.data<span class="op">$</span>fixed.confuse</span>
+<span id="cb54-2"><a href="dica.html#cb54-2"></a>random.confusion &lt;-<span class="st"> </span>res.DiCA.inf<span class="op">$</span>Inference.Data<span class="op">$</span>loo.data<span class="op">$</span>loo.confuse</span>
+<span id="cb54-3"><a href="dica.html#cb54-3"></a>fixed.acc &lt;-<span class="st"> </span>res.DiCA.inf<span class="op">$</span>Inference.Data<span class="op">$</span>loo.data<span class="op">$</span>fixed.acc</span>
+<span id="cb54-4"><a href="dica.html#cb54-4"></a>random.acc &lt;-<span class="st"> </span>res.DiCA.inf<span class="op">$</span>Inference.Data<span class="op">$</span>loo.data<span class="op">$</span>loo.acc</span>
+<span id="cb54-5"><a href="dica.html#cb54-5"></a></span>
+<span id="cb54-6"><a href="dica.html#cb54-6"></a><span class="co"># rename</span></span>
+<span id="cb54-7"><a href="dica.html#cb54-7"></a><span class="kw">rownames</span>(fixed.confusion) &lt;-<span class="st"> </span><span class="kw">sub</span>(<span class="st">&quot;[[:punct:]]&quot;</span>,<span class="st">&quot;&quot;</span>,</span>
+<span id="cb54-8"><a href="dica.html#cb54-8"></a>                                 <span class="kw">rownames</span>(fixed.confusion))</span>
+<span id="cb54-9"><a href="dica.html#cb54-9"></a><span class="kw">rownames</span>(random.confusion) &lt;-<span class="st"> </span><span class="kw">sub</span>(<span class="st">&quot;[[:punct:]]&quot;</span>,<span class="st">&quot;&quot;</span>,</span>
+<span id="cb54-10"><a href="dica.html#cb54-10"></a>                                  <span class="kw">rownames</span>(random.confusion))</span>
+<span id="cb54-11"><a href="dica.html#cb54-11"></a><span class="kw">colnames</span>(fixed.confusion)&lt;-<span class="st"> </span><span class="kw">sub</span>(<span class="st">&quot;[[:punct:]]&quot;</span>,<span class="st">&quot;&quot;</span>,</span>
+<span id="cb54-12"><a href="dica.html#cb54-12"></a>                                <span class="kw">colnames</span>(fixed.confusion))</span>
+<span id="cb54-13"><a href="dica.html#cb54-13"></a><span class="kw">colnames</span>(random.confusion)&lt;-<span class="st"> </span><span class="kw">sub</span>(<span class="st">&quot;[[:punct:]]&quot;</span>,<span class="st">&quot;&quot;</span>,</span>
+<span id="cb54-14"><a href="dica.html#cb54-14"></a>                                 <span class="kw">colnames</span>(random.confusion))</span>
+<span id="cb54-15"><a href="dica.html#cb54-15"></a><span class="kw">rownames</span>(fixed.confusion) &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="kw">rownames</span>(fixed.confusion), </span>
+<span id="cb54-16"><a href="dica.html#cb54-16"></a>                                    <span class="st">&quot;.predicted&quot;</span>)</span>
+<span id="cb54-17"><a href="dica.html#cb54-17"></a><span class="kw">colnames</span>(fixed.confusion) &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="kw">colnames</span>(fixed.confusion),</span>
+<span id="cb54-18"><a href="dica.html#cb54-18"></a>                                    <span class="st">&quot;.actual&quot;</span>)</span>
+<span id="cb54-19"><a href="dica.html#cb54-19"></a></span>
+<span id="cb54-20"><a href="dica.html#cb54-20"></a></span>
+<span id="cb54-21"><a href="dica.html#cb54-21"></a><span class="co"># print table and accurarcy</span></span>
+<span id="cb54-22"><a href="dica.html#cb54-22"></a><span class="kw">kable</span>(fixed.confusion, </span>
+<span id="cb54-23"><a href="dica.html#cb54-23"></a>      <span class="dt">caption =</span> <span class="st">&quot;Fixed Confustion Matrix&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:dicaConfusion">Table 6.1: </span>Fixed Confustion Matrix</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">LS_LG.actual</th>
+<th align="right">HS_LG.actual</th>
+<th align="right">LS_HG.actual</th>
+<th align="right">HS_HG.actual</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">LS_LG.predicted</td>
+<td align="right">21</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">HS_LG.predicted</td>
+<td align="right">4</td>
+<td align="right">14</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">LS_HG.predicted</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">11</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">HS_HG.predicted</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">16</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="dica.html#cb55-1"></a><span class="kw">cat</span>(<span class="st">&quot;fixed accurarcy: &quot;</span>, </span>
+<span id="cb55-2"><a href="dica.html#cb55-2"></a>    fixed.acc)</span></code></pre></div>
+<pre><code>## fixed accurarcy:  0.7209302</code></pre>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="dica.html#cb57-1"></a><span class="kw">kable</span>(random.confusion, </span>
+<span id="cb57-2"><a href="dica.html#cb57-2"></a>      <span class="dt">caption =</span> <span class="st">&quot;Random Confusion Matrix&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:dicaConfusion">Table 6.1: </span>Random Confusion Matrix</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">LS_LG.actual</th>
+<th align="right">HS_LG.actual</th>
+<th align="right">LS_HG.actual</th>
+<th align="right">HS_HG.actual</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">LS_LG.predicted</td>
+<td align="right">16</td>
+<td align="right">10</td>
+<td align="right">5</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">HS_LG.predicted</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="left">LS_HG.predicted</td>
+<td align="right">7</td>
+<td align="right">2</td>
+<td align="right">7</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left">HS_HG.predicted</td>
+<td align="right">4</td>
+<td align="right">6</td>
+<td align="right">3</td>
+<td align="right">11</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="dica.html#cb58-1"></a><span class="kw">cat</span>(<span class="st">&quot;random accurarcy: &quot;</span>, </span>
+<span id="cb58-2"><a href="dica.html#cb58-2"></a>    random.acc)</span></code></pre></div>
+<pre><code>## random accurarcy:  0.4186047</code></pre>
+</div>
+<div id="contribution-and-bootstrap-ratio-barplots" class="section level2">
+<h2><span class="header-section-number">6.7</span> Contribution and Bootstrap Ratio Barplots</h2>
+<p>For the contribution barplot, I focused on the first three components and the important variables instead of all the variables. From the component2, we can know that the high performance of first half game (R1.high and R3.high) is related with high Math ability, low comprehension and high take_advantage. It is reasonable because at the beginning stage, everyone is not much familiar with how the game played (although there are practice session) and everyone in the team is stranger. The situation is better through game going (R4.high and R5.high have same direction with trust and low take_advantage).</p>
+<p>In conclusion, from the DiCA results, the relationship between each level of collective game playing and personality are revealed. However, since the data set is a quantitative data instead of qualitative data, I may expect more on BADA’s result in the following chapter.</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="dica.html#cb60-1"></a><span class="co"># Computational Convenience: using my function:</span></span>
+<span id="cb60-2"><a href="dica.html#cb60-2"></a><span class="kw">plot.cb</span>(cj, </span>
+<span id="cb60-3"><a href="dica.html#cb60-3"></a>        fj, </span>
+<span id="cb60-4"><a href="dica.html#cb60-4"></a>        <span class="dt">col=</span>col4Labels, </span>
+<span id="cb60-5"><a href="dica.html#cb60-5"></a>        boot.ratios, </span>
+<span id="cb60-6"><a href="dica.html#cb60-6"></a>        <span class="dt">signifOnly =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb60-7"><a href="dica.html#cb60-7"></a>        <span class="dt">fig =</span> <span class="dv">3</span>, </span>
+<span id="cb60-8"><a href="dica.html#cb60-8"></a>        <span class="dt">horizontal =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb60-9"><a href="dica.html#cb60-9"></a>        <span class="dt">colrow =</span> <span class="st">&quot;row&quot;</span>,</span>
+<span id="cb60-10"><a href="dica.html#cb60-10"></a>        <span class="dt">fontsize =</span> <span class="dv">3</span>)</span></code></pre></div>
+<p><img src="MSA_files/figure-html/dicaContributionBootstrap_self_function-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="dica.html#cb61-1"></a>signed.ctrJ &lt;-<span class="st"> </span>cj <span class="op">*</span><span class="st"> </span><span class="kw">sign</span>(fj)</span>
+<span id="cb61-2"><a href="dica.html#cb61-2"></a>laDim =<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb61-3"><a href="dica.html#cb61-3"></a>ctrJ<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">PrettyBarPlot2</span>(signed.ctrJ[,laDim],</span>
+<span id="cb61-4"><a href="dica.html#cb61-4"></a>                 <span class="dt">threshold =</span> <span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="kw">NROW</span>(signed.ctrJ),</span>
+<span id="cb61-5"><a href="dica.html#cb61-5"></a>                 <span class="dt">font.size =</span> <span class="dv">3</span>,</span>
+<span id="cb61-6"><a href="dica.html#cb61-6"></a>                 <span class="dt">signifOnly =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb61-7"><a href="dica.html#cb61-7"></a>                 <span class="dt">horizontal =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb61-8"><a href="dica.html#cb61-8"></a>                 <span class="dt">color4bar =</span> col4Labels,</span>
+<span id="cb61-9"><a href="dica.html#cb61-9"></a>                 <span class="dt">main =</span> <span class="st">&#39;Variable Contributions (Signed)&#39;</span>,</span>
+<span id="cb61-10"><a href="dica.html#cb61-10"></a>                 <span class="dt">ylab =</span> <span class="kw">paste0</span>(<span class="st">&#39;Contributions Barplot&#39;</span>, </span>
+<span id="cb61-11"><a href="dica.html#cb61-11"></a>                                         laDim),</span>
+<span id="cb61-12"><a href="dica.html#cb61-12"></a>                 <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="fl">1.2</span><span class="op">*</span><span class="kw">min</span>(signed.ctrJ), </span>
+<span id="cb61-13"><a href="dica.html#cb61-13"></a>                          <span class="fl">1.2</span><span class="op">*</span><span class="kw">max</span>(signed.ctrJ))</span>
+<span id="cb61-14"><a href="dica.html#cb61-14"></a>  ) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;Contribution&quot;</span>,<span class="dt">subtitle =</span> <span class="kw">paste0</span>(<span class="st">&#39;Component &#39;</span>,</span>
+<span id="cb61-15"><a href="dica.html#cb61-15"></a>                                               laDim))</span>
+<span id="cb61-16"><a href="dica.html#cb61-16"></a></span>
+<span id="cb61-17"><a href="dica.html#cb61-17"></a><span class="co">### plot contributions for component 2</span></span>
+<span id="cb61-18"><a href="dica.html#cb61-18"></a>laDim =<span class="dv">2</span></span>
+<span id="cb61-19"><a href="dica.html#cb61-19"></a>ctrJ<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">PrettyBarPlot2</span>(signed.ctrJ[,laDim],</span>
+<span id="cb61-20"><a href="dica.html#cb61-20"></a>                 <span class="dt">threshold =</span> <span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="kw">NROW</span>(signed.ctrJ),</span>
+<span id="cb61-21"><a href="dica.html#cb61-21"></a>                 <span class="dt">font.size =</span> <span class="dv">3</span>,</span>
+<span id="cb61-22"><a href="dica.html#cb61-22"></a>                 <span class="dt">color4bar =</span> col4Labels, </span>
+<span id="cb61-23"><a href="dica.html#cb61-23"></a>                 <span class="dt">signifOnly =</span><span class="ot">TRUE</span>,</span>
+<span id="cb61-24"><a href="dica.html#cb61-24"></a>                 <span class="dt">horizontal =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb61-25"><a href="dica.html#cb61-25"></a>                 <span class="dt">main =</span> <span class="st">&#39;Variable Contributions (Signed)&#39;</span>,</span>
+<span id="cb61-26"><a href="dica.html#cb61-26"></a>                 <span class="dt">ylab =</span> <span class="kw">paste0</span>(<span class="st">&#39;Contributions Barplot&#39;</span>, </span>
+<span id="cb61-27"><a href="dica.html#cb61-27"></a>                               laDim),</span>
+<span id="cb61-28"><a href="dica.html#cb61-28"></a>                 <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="fl">1.2</span><span class="op">*</span><span class="kw">min</span>(signed.ctrJ), </span>
+<span id="cb61-29"><a href="dica.html#cb61-29"></a>                          <span class="fl">1.2</span><span class="op">*</span><span class="kw">max</span>(signed.ctrJ))</span>
+<span id="cb61-30"><a href="dica.html#cb61-30"></a>)<span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;&quot;</span>,<span class="dt">subtitle =</span> <span class="kw">paste0</span>(<span class="st">&#39;Component &#39;</span>, laDim))</span>
+<span id="cb61-31"><a href="dica.html#cb61-31"></a>laDim =<span class="dv">3</span></span>
+<span id="cb61-32"><a href="dica.html#cb61-32"></a>ctrJ<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">PrettyBarPlot2</span>(signed.ctrJ[,laDim],</span>
+<span id="cb61-33"><a href="dica.html#cb61-33"></a>               <span class="dt">threshold =</span> <span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="kw">NROW</span>(signed.ctrJ),</span>
+<span id="cb61-34"><a href="dica.html#cb61-34"></a>               <span class="dt">font.size =</span> <span class="dv">3</span>,</span>
+<span id="cb61-35"><a href="dica.html#cb61-35"></a>               <span class="dt">color4bar =</span> col4Labels, <span class="co"># we need hex code</span></span>
+<span id="cb61-36"><a href="dica.html#cb61-36"></a>               <span class="dt">signifOnly =</span> <span class="ot">TRUE</span>,        </span>
+<span id="cb61-37"><a href="dica.html#cb61-37"></a>               <span class="dt">horizontal =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb61-38"><a href="dica.html#cb61-38"></a>               <span class="dt">main =</span> <span class="st">&#39;Variable Contributions (Signed)&#39;</span>,</span>
+<span id="cb61-39"><a href="dica.html#cb61-39"></a>               <span class="dt">ylab =</span> <span class="kw">paste0</span>(<span class="st">&#39;Contributions Barplot&#39;</span>, laDim),</span>
+<span id="cb61-40"><a href="dica.html#cb61-40"></a>               <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="fl">1.2</span><span class="op">*</span><span class="kw">min</span>(signed.ctrJ), <span class="fl">1.2</span><span class="op">*</span><span class="kw">max</span>(signed.ctrJ))</span>
+<span id="cb61-41"><a href="dica.html#cb61-41"></a>)<span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;&quot;</span>,<span class="dt">subtitle =</span> <span class="kw">paste0</span>(<span class="st">&#39;Component &#39;</span>, laDim))</span>
+<span id="cb61-42"><a href="dica.html#cb61-42"></a></span>
+<span id="cb61-43"><a href="dica.html#cb61-43"></a></span>
+<span id="cb61-44"><a href="dica.html#cb61-44"></a>gridExtra<span class="op">::</span><span class="kw">grid.arrange</span>(<span class="kw">as.grob</span>(ctrJ<span class="fl">.1</span>), </span>
+<span id="cb61-45"><a href="dica.html#cb61-45"></a>                <span class="kw">as.grob</span>(ctrJ<span class="fl">.2</span>), </span>
+<span id="cb61-46"><a href="dica.html#cb61-46"></a>                <span class="kw">as.grob</span>(ctrJ<span class="fl">.3</span>),</span>
+<span id="cb61-47"><a href="dica.html#cb61-47"></a>                <span class="dt">ncol=</span><span class="dv">1</span>, </span>
+<span id="cb61-48"><a href="dica.html#cb61-48"></a>                <span class="dt">top =</span> <span class="kw">textGrob</span>(<span class="st">&quot;Contribution barplots&quot;</span>,</span>
+<span id="cb61-49"><a href="dica.html#cb61-49"></a>                <span class="dt">gp=</span><span class="kw">gpar</span>(<span class="dt">fontsize=</span><span class="dv">18</span>,<span class="dt">font=</span><span class="dv">3</span>)))</span></code></pre></div>
+<p><img src="MSA_files/figure-html/dicaContributionBootstrap_original-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="dica.html#cb62-1"></a><span class="co">### Bootstrap of columns vectors</span></span>
+<span id="cb62-2"><a href="dica.html#cb62-2"></a>BR &lt;-<span class="st"> </span>boot.ratios</span>
+<span id="cb62-3"><a href="dica.html#cb62-3"></a>laDim =<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb62-4"><a href="dica.html#cb62-4"></a></span>
+<span id="cb62-5"><a href="dica.html#cb62-5"></a><span class="co"># Plot the bootstrap ratios for Dimension 1</span></span>
+<span id="cb62-6"><a href="dica.html#cb62-6"></a>ba001.BR1 &lt;-<span class="st"> </span><span class="kw">PrettyBarPlot2</span>(BR[,laDim],</span>
+<span id="cb62-7"><a href="dica.html#cb62-7"></a>                  <span class="dt">threshold =</span> <span class="dv">2</span>,</span>
+<span id="cb62-8"><a href="dica.html#cb62-8"></a>                  <span class="dt">font.size =</span> <span class="dv">3</span>,</span>
+<span id="cb62-9"><a href="dica.html#cb62-9"></a>                  <span class="dt">signifOnly =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb62-10"><a href="dica.html#cb62-10"></a>                  <span class="dt">horizontal =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb62-11"><a href="dica.html#cb62-11"></a>                  <span class="dt">color4bar =</span> col4Labels, <span class="co"># we need hex code</span></span>
+<span id="cb62-12"><a href="dica.html#cb62-12"></a>                  <span class="dt">ylab =</span> <span class="st">&#39;Bootstrap ratios&#39;</span>,</span>
+<span id="cb62-13"><a href="dica.html#cb62-13"></a>                  <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="fl">1.2</span><span class="op">*</span><span class="kw">min</span>(BR[,laDim]), </span>
+<span id="cb62-14"><a href="dica.html#cb62-14"></a>                           <span class="fl">1.2</span><span class="op">*</span><span class="kw">max</span>(BR[,laDim]))</span>
+<span id="cb62-15"><a href="dica.html#cb62-15"></a>) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;Bootstrap ratios&quot;</span>, <span class="dt">subtitle =</span> <span class="kw">paste0</span>(<span class="st">&#39;Component &#39;</span>, </span>
+<span id="cb62-16"><a href="dica.html#cb62-16"></a>                                                  laDim))</span>
+<span id="cb62-17"><a href="dica.html#cb62-17"></a></span>
+<span id="cb62-18"><a href="dica.html#cb62-18"></a><span class="co"># Plot the bootstrap ratios for Dimension 2</span></span>
+<span id="cb62-19"><a href="dica.html#cb62-19"></a>laDim =<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb62-20"><a href="dica.html#cb62-20"></a>ba002.BR2 &lt;-<span class="st"> </span><span class="kw">PrettyBarPlot2</span>(BR[,laDim],</span>
+<span id="cb62-21"><a href="dica.html#cb62-21"></a>                <span class="dt">threshold =</span> <span class="dv">2</span>,</span>
+<span id="cb62-22"><a href="dica.html#cb62-22"></a>                <span class="dt">font.size =</span> <span class="dv">3</span>,</span>
+<span id="cb62-23"><a href="dica.html#cb62-23"></a>                <span class="dt">signifOnly =</span> <span class="ot">TRUE</span>,                             </span>
+<span id="cb62-24"><a href="dica.html#cb62-24"></a>                <span class="dt">horizontal =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb62-25"><a href="dica.html#cb62-25"></a>                <span class="dt">color4bar =</span>  col4Labels, <span class="co"># we need hex code</span></span>
+<span id="cb62-26"><a href="dica.html#cb62-26"></a>                <span class="dt">ylab =</span> <span class="st">&#39;Bootstrap ratios&#39;</span>,</span>
+<span id="cb62-27"><a href="dica.html#cb62-27"></a>                <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="fl">1.2</span><span class="op">*</span><span class="kw">min</span>(BR[,laDim]), </span>
+<span id="cb62-28"><a href="dica.html#cb62-28"></a>                         <span class="fl">1.2</span><span class="op">*</span><span class="kw">max</span>(BR[,laDim]))</span>
+<span id="cb62-29"><a href="dica.html#cb62-29"></a>) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;&quot;</span>,<span class="dt">subtitle =</span> <span class="kw">paste0</span>(<span class="st">&#39;Component &#39;</span>, laDim))</span>
+<span id="cb62-30"><a href="dica.html#cb62-30"></a></span>
+<span id="cb62-31"><a href="dica.html#cb62-31"></a>laDim =<span class="st"> </span><span class="dv">3</span></span>
+<span id="cb62-32"><a href="dica.html#cb62-32"></a>ba003.BR3 &lt;-<span class="st"> </span><span class="kw">PrettyBarPlot2</span>(BR[,laDim],</span>
+<span id="cb62-33"><a href="dica.html#cb62-33"></a>                <span class="dt">threshold =</span> <span class="dv">2</span>,</span>
+<span id="cb62-34"><a href="dica.html#cb62-34"></a>                <span class="dt">font.size =</span> <span class="dv">3</span>,</span>
+<span id="cb62-35"><a href="dica.html#cb62-35"></a>                <span class="dt">signifOnly =</span> <span class="ot">TRUE</span>,                             </span>
+<span id="cb62-36"><a href="dica.html#cb62-36"></a>                <span class="dt">horizontal =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb62-37"><a href="dica.html#cb62-37"></a>                <span class="dt">color4bar =</span>  col4Labels, <span class="co"># we need hex code</span></span>
+<span id="cb62-38"><a href="dica.html#cb62-38"></a>                <span class="dt">ylab =</span> <span class="st">&#39;Bootstrap ratios&#39;</span>,</span>
+<span id="cb62-39"><a href="dica.html#cb62-39"></a>                <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="fl">1.2</span><span class="op">*</span><span class="kw">min</span>(BR[,laDim]), </span>
+<span id="cb62-40"><a href="dica.html#cb62-40"></a>                         <span class="fl">1.2</span><span class="op">*</span><span class="kw">max</span>(BR[,laDim]))</span>
+<span id="cb62-41"><a href="dica.html#cb62-41"></a>) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;&quot;</span>,<span class="dt">subtitle =</span> <span class="kw">paste0</span>(<span class="st">&#39;Component &#39;</span>, laDim))</span>
+<span id="cb62-42"><a href="dica.html#cb62-42"></a></span>
+<span id="cb62-43"><a href="dica.html#cb62-43"></a></span>
+<span id="cb62-44"><a href="dica.html#cb62-44"></a>contr &lt;-<span class="st"> </span><span class="kw">grid.arrange</span>(</span>
+<span id="cb62-45"><a href="dica.html#cb62-45"></a>  <span class="kw">as.grob</span>(ba001.BR1),</span>
+<span id="cb62-46"><a href="dica.html#cb62-46"></a>  <span class="kw">as.grob</span>(ba002.BR2),</span>
+<span id="cb62-47"><a href="dica.html#cb62-47"></a>  <span class="kw">as.grob</span>(ba003.BR3),</span>
+<span id="cb62-48"><a href="dica.html#cb62-48"></a>  <span class="dt">ncol =</span> <span class="dv">1</span>,</span>
+<span id="cb62-49"><a href="dica.html#cb62-49"></a>  <span class="dt">top =</span> <span class="kw">textGrob</span>(<span class="st">&quot;Barplots for variables&quot;</span>, </span>
+<span id="cb62-50"><a href="dica.html#cb62-50"></a>                 <span class="dt">gp =</span> <span class="kw">gpar</span>(<span class="dt">fontsize =</span> <span class="dv">18</span>, </span>
+<span id="cb62-51"><a href="dica.html#cb62-51"></a>                           <span class="dt">font =</span> <span class="dv">3</span>))</span>
+<span id="cb62-52"><a href="dica.html#cb62-52"></a>)</span></code></pre></div>
+<p><img src="MSA_files/figure-html/dicaContributionBootstrap_original-2.png" width="672" style="display: block; margin: auto;" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ca.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="bada.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown/_book/edit/master/06-DiCA.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["MSA.pdf", "MSA.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

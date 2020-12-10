@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Data Introduction | Multivariate Statistical Analysis Cookbook with R</title>
+  <meta name="description" content="This is a final cookbook of Multivariate Statistical Analysis" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Data Introduction | Multivariate Statistical Analysis Cookbook with R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a final cookbook of Multivariate Statistical Analysis" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Data Introduction | Multivariate Statistical Analysis Cookbook with R" />
+  
+  <meta name="twitter:description" content="This is a final cookbook of Multivariate Statistical Analysis" />
+  
+
+<meta name="author" content="Yile Wang" />
+
+
+<meta name="date" content="2020-12-10" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="Functions.html"/>
+<link rel="next" href="pca.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">MSA</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#main-packages"><i class="fa fa-check"></i><b>1.1</b> Main Packages</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#msa-introduction"><i class="fa fa-check"></i><b>1.2</b> MSA Introduction</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#msadata"><i class="fa fa-check"></i><b>1.3</b> MSA data set</a></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#whoo-hoo"><i class="fa fa-check"></i><b>1.4</b> Whoo-hoo!</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="Functions.html"><a href="Functions.html"><i class="fa fa-check"></i><b>2</b> Functions Introduction</a><ul>
+<li class="chapter" data-level="2.1" data-path="Functions.html"><a href="Functions.html#Scree"><i class="fa fa-check"></i><b>2.1</b> Plotting Scree plot</a></li>
+<li class="chapter" data-level="2.2" data-path="Functions.html"><a href="Functions.html#Permutation"><i class="fa fa-check"></i><b>2.2</b> Plotting Permutation test results</a></li>
+<li class="chapter" data-level="2.3" data-path="Functions.html"><a href="Functions.html#Heatmap"><i class="fa fa-check"></i><b>2.3</b> Plotting Heatmap</a></li>
+<li class="chapter" data-level="2.4" data-path="Functions.html"><a href="Functions.html#FactorScores"><i class="fa fa-check"></i><b>2.4</b> Plotting Row Factor Scores</a></li>
+<li class="chapter" data-level="2.5" data-path="Functions.html"><a href="Functions.html#CFactorScore"><i class="fa fa-check"></i><b>2.5</b> Plotting Column Plot</a></li>
+<li class="chapter" data-level="2.6" data-path="Functions.html"><a href="Functions.html#Loading"><i class="fa fa-check"></i><b>2.6</b> Plotting Loading Plot</a></li>
+<li class="chapter" data-level="2.7" data-path="Functions.html"><a href="Functions.html#Contribution"><i class="fa fa-check"></i><b>2.7</b> Plotting Contribution Barplot</a></li>
+<li class="chapter" data-level="2.8" data-path="Functions.html"><a href="Functions.html#binshelper"><i class="fa fa-check"></i><b>2.8</b> Bins Helper Functions</a></li>
+<li class="chapter" data-level="2.9" data-path="Functions.html"><a href="Functions.html#plotting-latent-variable-plot"><i class="fa fa-check"></i><b>2.9</b> Plotting Latent Variable Plot</a></li>
+<li class="chapter" data-level="2.10" data-path="Functions.html"><a href="Functions.html#plotting-partial-factor-scores"><i class="fa fa-check"></i><b>2.10</b> Plotting Partial Factor Scores</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="Data-Intro.html"><a href="Data-Intro.html"><i class="fa fa-check"></i><b>3</b> Data Introduction</a><ul>
+<li class="chapter" data-level="3.1" data-path="Data-Intro.html"><a href="Data-Intro.html#collect"><i class="fa fa-check"></i><b>3.1</b> Main data set: Collective Action Data Set</a></li>
+<li class="chapter" data-level="3.2" data-path="Data-Intro.html"><a href="Data-Intro.html#sausage"><i class="fa fa-check"></i><b>3.2</b> Low Income Sausage</a></li>
+<li class="chapter" data-level="3.3" data-path="Data-Intro.html"><a href="Data-Intro.html#wines"><i class="fa fa-check"></i><b>3.3</b> Wines</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="pca.html"><a href="pca.html"><i class="fa fa-check"></i><b>4</b> Principal Component Analysis</a><ul>
+<li class="chapter" data-level="4.1" data-path="pca.html"><a href="pca.html#introduction-of-pca"><i class="fa fa-check"></i><b>4.1</b> Introduction of PCA</a></li>
+<li class="chapter" data-level="4.2" data-path="pca.html"><a href="pca.html#computing"><i class="fa fa-check"></i><b>4.2</b> Computing</a></li>
+<li class="chapter" data-level="4.3" data-path="pca.html"><a href="pca.html#heatmap"><i class="fa fa-check"></i><b>4.3</b> Heatmap</a></li>
+<li class="chapter" data-level="4.4" data-path="pca.html"><a href="pca.html#pcaScree"><i class="fa fa-check"></i><b>4.4</b> Scree Plot</a></li>
+<li class="chapter" data-level="4.5" data-path="pca.html"><a href="pca.html#factor-scores"><i class="fa fa-check"></i><b>4.5</b> Factor Scores</a></li>
+<li class="chapter" data-level="4.6" data-path="pca.html"><a href="pca.html#loading"><i class="fa fa-check"></i><b>4.6</b> Loading</a></li>
+<li class="chapter" data-level="4.7" data-path="pca.html"><a href="pca.html#contriution-and-bootstrap-ratio-barplots"><i class="fa fa-check"></i><b>4.7</b> Contriution and Bootstrap Ratio Barplots</a></li>
+<li class="chapter" data-level="4.8" data-path="pca.html"><a href="pca.html#conclusion"><i class="fa fa-check"></i><b>4.8</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ca.html"><a href="ca.html"><i class="fa fa-check"></i><b>5</b> Correspondence Analysis</a><ul>
+<li class="chapter" data-level="5.1" data-path="ca.html"><a href="ca.html#introduction-of-ca"><i class="fa fa-check"></i><b>5.1</b> Introduction of CA</a></li>
+<li class="chapter" data-level="5.2" data-path="ca.html"><a href="ca.html#computation"><i class="fa fa-check"></i><b>5.2</b> Computation</a></li>
+<li class="chapter" data-level="5.3" data-path="ca.html"><a href="ca.html#heatmap-1"><i class="fa fa-check"></i><b>5.3</b> Heatmap</a></li>
+<li class="chapter" data-level="5.4" data-path="ca.html"><a href="ca.html#computation-1"><i class="fa fa-check"></i><b>5.4</b> Computation</a></li>
+<li class="chapter" data-level="5.5" data-path="ca.html"><a href="ca.html#scree-plot"><i class="fa fa-check"></i><b>5.5</b> Scree Plot</a></li>
+<li class="chapter" data-level="5.6" data-path="ca.html"><a href="ca.html#symmetric-asymmetric-plots"><i class="fa fa-check"></i><b>5.6</b> Symmetric &amp; Asymmetric Plots</a></li>
+<li class="chapter" data-level="5.7" data-path="ca.html"><a href="ca.html#contribution-and-bootstrap-ratio-barplot"><i class="fa fa-check"></i><b>5.7</b> Contribution and Bootstrap Ratio Barplot</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="dica.html"><a href="dica.html"><i class="fa fa-check"></i><b>6</b> Discriminant Correspondence Analysis</a><ul>
+<li class="chapter" data-level="6.1" data-path="dica.html"><a href="dica.html#introdcution-of-dica"><i class="fa fa-check"></i><b>6.1</b> Introdcution of DiCA</a></li>
+<li class="chapter" data-level="6.2" data-path="dica.html"><a href="dica.html#histgram-of-binning-variables"><i class="fa fa-check"></i><b>6.2</b> Histgram of Binning Variables</a></li>
+<li class="chapter" data-level="6.3" data-path="dica.html"><a href="dica.html#heatmap-2"><i class="fa fa-check"></i><b>6.3</b> Heatmap</a></li>
+<li class="chapter" data-level="6.4" data-path="dica.html"><a href="dica.html#scree-plot-1"><i class="fa fa-check"></i><b>6.4</b> Scree Plot</a></li>
+<li class="chapter" data-level="6.5" data-path="dica.html"><a href="dica.html#factor-scores-1"><i class="fa fa-check"></i><b>6.5</b> Factor Scores</a></li>
+<li class="chapter" data-level="6.6" data-path="dica.html"><a href="dica.html#confusion-matrix"><i class="fa fa-check"></i><b>6.6</b> Confusion Matrix</a></li>
+<li class="chapter" data-level="6.7" data-path="dica.html"><a href="dica.html#contribution-and-bootstrap-ratio-barplots"><i class="fa fa-check"></i><b>6.7</b> Contribution and Bootstrap Ratio Barplots</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="bada.html"><a href="bada.html"><i class="fa fa-check"></i><b>7</b> Barycentric Discriminant Analysis</a><ul>
+<li class="chapter" data-level="7.1" data-path="bada.html"><a href="bada.html#introduction-of-bada"><i class="fa fa-check"></i><b>7.1</b> Introduction of BADA</a></li>
+<li class="chapter" data-level="7.2" data-path="bada.html"><a href="bada.html#computation-2"><i class="fa fa-check"></i><b>7.2</b> Computation</a></li>
+<li class="chapter" data-level="7.3" data-path="bada.html"><a href="bada.html#heatmap-3"><i class="fa fa-check"></i><b>7.3</b> Heatmap</a></li>
+<li class="chapter" data-level="7.4" data-path="bada.html"><a href="bada.html#scree"><i class="fa fa-check"></i><b>7.4</b> Scree</a></li>
+<li class="chapter" data-level="7.5" data-path="bada.html"><a href="bada.html#factor-scores-2"><i class="fa fa-check"></i><b>7.5</b> Factor Scores</a></li>
+<li class="chapter" data-level="7.6" data-path="bada.html"><a href="bada.html#loading-1"><i class="fa fa-check"></i><b>7.6</b> Loading</a></li>
+<li class="chapter" data-level="7.7" data-path="bada.html"><a href="bada.html#confusion-matrix-1"><i class="fa fa-check"></i><b>7.7</b> Confusion Matrix</a></li>
+<li class="chapter" data-level="7.8" data-path="bada.html"><a href="bada.html#contribution-and-bootstrap-ratio-barplot-1"><i class="fa fa-check"></i><b>7.8</b> Contribution and Bootstrap Ratio Barplot</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="mca.html"><a href="mca.html"><i class="fa fa-check"></i><b>8</b> Multiple Corresponding Analysis</a><ul>
+<li class="chapter" data-level="8.1" data-path="mca.html"><a href="mca.html#introduction-of-mca"><i class="fa fa-check"></i><b>8.1</b> Introduction of MCA</a></li>
+<li class="chapter" data-level="8.2" data-path="mca.html"><a href="mca.html#histgram-of-binning-variables-1"><i class="fa fa-check"></i><b>8.2</b> Histgram of Binning Variables</a></li>
+<li class="chapter" data-level="8.3" data-path="mca.html"><a href="mca.html#computation-3"><i class="fa fa-check"></i><b>8.3</b> Computation</a></li>
+<li class="chapter" data-level="8.4" data-path="mca.html"><a href="mca.html#heatmap-4"><i class="fa fa-check"></i><b>8.4</b> Heatmap</a></li>
+<li class="chapter" data-level="8.5" data-path="mca.html"><a href="mca.html#scree-plot-2"><i class="fa fa-check"></i><b>8.5</b> Scree Plot</a></li>
+<li class="chapter" data-level="8.6" data-path="mca.html"><a href="mca.html#row-factor-scores"><i class="fa fa-check"></i><b>8.6</b> Row Factor Scores</a></li>
+<li class="chapter" data-level="8.7" data-path="mca.html"><a href="mca.html#important-variables-line-plots"><i class="fa fa-check"></i><b>8.7</b> Important Variables Line Plots</a></li>
+<li class="chapter" data-level="8.8" data-path="mca.html"><a href="mca.html#contribution-and-bootstrap-ratio-barplots-1"><i class="fa fa-check"></i><b>8.8</b> Contribution and Bootstrap Ratio Barplots</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="pls.html"><a href="pls.html"><i class="fa fa-check"></i><b>9</b> Partial Least Square</a><ul>
+<li class="chapter" data-level="9.1" data-path="pls.html"><a href="pls.html#introduction-of-pls-c"><i class="fa fa-check"></i><b>9.1</b> Introduction of PLS-C</a></li>
+<li class="chapter" data-level="9.2" data-path="pls.html"><a href="pls.html#computation-4"><i class="fa fa-check"></i><b>9.2</b> Computation</a></li>
+<li class="chapter" data-level="9.3" data-path="pls.html"><a href="pls.html#heatmap-5"><i class="fa fa-check"></i><b>9.3</b> Heatmap</a></li>
+<li class="chapter" data-level="9.4" data-path="pls.html"><a href="pls.html#scree-plot-3"><i class="fa fa-check"></i><b>9.4</b> Scree Plot</a></li>
+<li class="chapter" data-level="9.5" data-path="pls.html"><a href="pls.html#latent-variables"><i class="fa fa-check"></i><b>9.5</b> Latent Variables</a></li>
+<li class="chapter" data-level="9.6" data-path="pls.html"><a href="pls.html#salience"><i class="fa fa-check"></i><b>9.6</b> Salience</a></li>
+<li class="chapter" data-level="9.7" data-path="pls.html"><a href="pls.html#bootstrap-ratio-barplot"><i class="fa fa-check"></i><b>9.7</b> Bootstrap Ratio Barplot</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="distatis.html"><a href="distatis.html"><i class="fa fa-check"></i><b>10</b> DiSTATIS</a><ul>
+<li class="chapter" data-level="10.1" data-path="distatis.html"><a href="distatis.html#introduction-of-distatis"><i class="fa fa-check"></i><b>10.1</b> Introduction of DiSTATIS</a></li>
+<li class="chapter" data-level="10.2" data-path="distatis.html"><a href="distatis.html#computation-5"><i class="fa fa-check"></i><b>10.2</b> Computation</a></li>
+<li class="chapter" data-level="10.3" data-path="distatis.html"><a href="distatis.html#heatmap-6"><i class="fa fa-check"></i><b>10.3</b> HeatMap</a></li>
+<li class="chapter" data-level="10.4" data-path="distatis.html"><a href="distatis.html#scree-plot-4"><i class="fa fa-check"></i><b>10.4</b> Scree Plot</a></li>
+<li class="chapter" data-level="10.5" data-path="distatis.html"><a href="distatis.html#global-factor-scores"><i class="fa fa-check"></i><b>10.5</b> Global Factor Scores</a></li>
+<li class="chapter" data-level="10.6" data-path="distatis.html"><a href="distatis.html#partial-factor-scores"><i class="fa fa-check"></i><b>10.6</b> Partial Factor Scores</a></li>
+<li class="chapter" data-level="10.7" data-path="distatis.html"><a href="distatis.html#vocabulary-graphs"><i class="fa fa-check"></i><b>10.7</b> Vocabulary graphs</a></li>
+<li class="chapter" data-level="10.8" data-path="distatis.html"><a href="distatis.html#contribution-barplots"><i class="fa fa-check"></i><b>10.8</b> Contribution Barplots</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="mfa.html"><a href="mfa.html"><i class="fa fa-check"></i><b>11</b> Multiple Factor Analysis</a><ul>
+<li class="chapter" data-level="11.1" data-path="mfa.html"><a href="mfa.html#introduction-of-mfa"><i class="fa fa-check"></i><b>11.1</b> Introduction of MFA</a></li>
+<li class="chapter" data-level="11.2" data-path="mfa.html"><a href="mfa.html#computation-6"><i class="fa fa-check"></i><b>11.2</b> Computation</a></li>
+<li class="chapter" data-level="11.3" data-path="mfa.html"><a href="mfa.html#heatmap-7"><i class="fa fa-check"></i><b>11.3</b> Heatmap</a></li>
+<li class="chapter" data-level="11.4" data-path="mfa.html"><a href="mfa.html#scree-plot-5"><i class="fa fa-check"></i><b>11.4</b> Scree Plot</a></li>
+<li class="chapter" data-level="11.5" data-path="mfa.html"><a href="mfa.html#global-factor-scores-1"><i class="fa fa-check"></i><b>11.5</b> Global Factor Scores</a></li>
+<li class="chapter" data-level="11.6" data-path="mfa.html"><a href="mfa.html#partial-factor-scores-1"><i class="fa fa-check"></i><b>11.6</b> Partial Factor Scores</a></li>
+<li class="chapter" data-level="11.7" data-path="mfa.html"><a href="mfa.html#contribution-barplots-1"><i class="fa fa-check"></i><b>11.7</b> Contribution Barplots</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="end.html"><a href="end.html"><i class="fa fa-check"></i><b>12</b> The End</a><ul>
+<li class="chapter" data-level="12.1" data-path="end.html"><a href="end.html#final-conclusion"><i class="fa fa-check"></i><b>12.1</b> Final Conclusion</a></li>
+<li class="chapter" data-level="12.2" data-path="end.html"><a href="end.html#appreciation"><i class="fa fa-check"></i><b>12.2</b> Appreciation</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown/_book" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Multivariate Statistical Analysis Cookbook with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="Data_Intro" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Data Introduction</h1>
+<p>Data preprocessing is one of the most important steps for our research. The quality of data preprocessing is directly related with quality of the data analysis. Most of time, the raw data is really messy and disorganized. What I need to is to make the data organized and split it into different data tables for different analysis. For one data table, life is easy because all I need to do is to put variable of interest into a huge matrix. For multiple data table, I need to split it into different data tables based on their basic features (variables measuring similar features, such as friends number and social network size). Most importantly, I need to make a design matrix for the data table, aka <strong>grouping strategy</strong>. Based on different grouping strategies, we can have completely different results in our plot and conclusion. However, it is totally up to you to choose the grouping variables: in my current data set, I can group participants according to their social intelligence, general intelligence, age, sex, gpa, and so on. It is highly recommended to read related article before choose the best group variables for your analysis.</p>
+<p>In the rest of this chapter, I will introduce three data sets used in this book, <em>Collective Action Data set</em>, <em>Low Income Sausage</em> and <em>Wines</em>. The main data set is corresponding to <span style="color:red;">PCA, BADA, PLS, MCA, MFA</span>; The second one is for <span style="color:#33FF8B;">CA</span> and the last one is for <span style="color:blue;">DiSTATIS</span>.</p>
+<div id="collect" class="section level2">
+<h2><span class="header-section-number">3.1</span> Main data set: Collective Action Data Set</h2>
+<p>The main data set we are using is from an <a href="https://www.pnas.org/content/117/14/7712">research article</a> published on PNAS last year. Several part of different data tables consist the data set:</p>
+<ul>
+<li><ol style="list-style-type: decimal">
+<li>The first part is experimental data:</li>
+</ol>
+<ul>
+<li><ol style="list-style-type: decimal">
+<li>The game performance for each round</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: decimal">
+<li>The time usage for each round</li>
+</ol></li>
+</ul></li>
+<li><ol start="2" style="list-style-type: decimal">
+<li>Emotional &amp; Social Intelligence test</li>
+</ol>
+<ul>
+<li><ol style="list-style-type: decimal">
+<li>State of reasoning</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: decimal">
+<li>Comprehension</li>
+</ol></li>
+<li><ol start="3" style="list-style-type: decimal">
+<li>Spontaneous</li>
+</ol></li>
+</ul></li>
+<li><ol start="3" style="list-style-type: decimal">
+<li>Academic results</li>
+</ol>
+<ul>
+<li><ol style="list-style-type: decimal">
+<li>SAT&amp;ACT overall</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: decimal">
+<li>SAT&amp;ACT Math</li>
+</ol></li>
+<li><ol start="3" style="list-style-type: decimal">
+<li>SAT&amp;ACT Verbal</li>
+</ol></li>
+<li><ol start="4" style="list-style-type: decimal">
+<li>GPA</li>
+</ol></li>
+</ul></li>
+<li><ol start="4" style="list-style-type: decimal">
+<li>Attitude</li>
+</ol>
+<ul>
+<li><ol style="list-style-type: decimal">
+<li>Global_warming</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: decimal">
+<li>Government</li>
+</ol></li>
+<li><ol start="3" style="list-style-type: decimal">
+<li>Environmental ecology</li>
+</ol></li>
+</ul></li>
+<li><ol start="5" style="list-style-type: decimal">
+<li>Social relationship</li>
+</ol>
+<ul>
+<li><ol style="list-style-type: decimal">
+<li>Close friends number</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: decimal">
+<li>Social network size</li>
+</ol></li>
+</ul></li>
+<li><ol start="6" style="list-style-type: decimal">
+<li>Personality</li>
+</ol>
+<ul>
+<li><ol style="list-style-type: decimal">
+<li>Helpful</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: decimal">
+<li>Trust</li>
+</ol></li>
+<li><ol start="3" style="list-style-type: decimal">
+<li>Hard working</li>
+</ol></li>
+<li><ol start="4" style="list-style-type: decimal">
+<li>Volunteer</li>
+</ol></li>
+<li><ol start="5" style="list-style-type: decimal">
+<li>Take advantage</li>
+</ol></li>
+</ul></li>
+<li><ol start="7" style="list-style-type: decimal">
+<li>Demographoc</li>
+</ol>
+<ul>
+<li><ol style="list-style-type: decimal">
+<li>Age</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: decimal">
+<li>Sex</li>
+</ol></li>
+<li><ol start="3" style="list-style-type: decimal">
+<li>Parent Education</li>
+</ol></li>
+<li><ol start="4" style="list-style-type: decimal">
+<li>Parents’ job1</li>
+</ol></li>
+<li><ol start="5" style="list-style-type: decimal">
+<li>Parents’ job2</li>
+</ol></li>
+<li><ol start="6" style="list-style-type: decimal">
+<li>Race</li>
+</ol></li>
+<li><ol start="7" style="list-style-type: decimal">
+<li>Income</li>
+</ol></li>
+<li><ol start="8" style="list-style-type: decimal">
+<li>Language</li>
+</ol></li>
+<li><ol start="9" style="list-style-type: decimal">
+<li>Major</li>
+</ol></li>
+<li><ol start="10" style="list-style-type: decimal">
+<li>religious</li>
+</ol></li>
+</ul></li>
+<li><ol start="8" style="list-style-type: decimal">
+<li>Emotional processing ability</li>
+</ol>
+<ul>
+<li><ol style="list-style-type: decimal">
+<li>Eyetest scores</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: decimal">
+<li>Quizzes scores</li>
+</ol></li>
+</ul></li>
+</ul>
+<p>All these variables are easy to understand except the experiment and emotional processing abilities. Generally, the experiment is a token collection game. Its aim is to collect token as many as possible. The token will automatically generate following a rule. If you and your teammates are following this rule to play the game, you will have higher generate rate of the token during this game; However, if you don’t follow it, you will end the game soon with less number of tokens in your packet.</p>
+<p>For the emotional processing ability, it used a classic paradigm in psychology: participants are required to watch only eyes parts of many face pictures and make decision on what’s the emotions on the faces behind. For the social intelligence part, it is similar but participants are required to read paragraphs and make response, which is called <em>Short Story Test (SST)</em>, to measure how much capacity participants can empathize with others.</p>
+<p>All these variables have detailed illustration on website. Please see this <a href="https://www.pnas.org/content/pnas/suppl/2020/03/24/1915824117.DCSupplemental/pnas.1915824117.sapp.pdf">supplementary information document</a> in PNAS. In my data preprocessing, you will notice that <strong>I only use Negative Condition</strong> as example in this book. The reason why I didn’t include Positive and Negative two conditions is that I am running out of time to submit my final project… Definitely I will finish it after the class.</p>
+<ul>
+<li><ol style="list-style-type: decimal">
+<li>Negative Condition: R1-R3, HIGH resource, LOW group members;
+R4-R6, LOW resource, HIGH group members</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: decimal">
+<li>Positive Condition: R1-R3, LOW resource, HIGH group members;
+R4-R6, HIGH resource, LOW group members</li>
+</ol></li>
+</ul>
+<p>In the following chunk, I showed a detailed process of how I did data cleaning and preprocessing in raw data (raw data can be downloaded here <sup><a href="intro.html#msadata">1.3</a></sup>).</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="Data-Intro.html#cb12-1"></a><span class="co"># Data preprocessing----</span></span>
+<span id="cb12-2"><a href="Data-Intro.html#cb12-2"></a><span class="kw">load</span>(<span class="kw">url</span>(<span class="st">&quot;https://github.com/yilewang/MSA/blob/main/Dataset/CogCollect.RData?raw=true&quot;</span>))</span>
+<span id="cb12-3"><a href="Data-Intro.html#cb12-3"></a></span>
+<span id="cb12-4"><a href="Data-Intro.html#cb12-4"></a><span class="co"># Data Cleaning: Missing values</span></span>
+<span id="cb12-5"><a href="Data-Intro.html#cb12-5"></a><span class="kw">rownames</span>(data.tab3) &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">360</span></span>
+<span id="cb12-6"><a href="Data-Intro.html#cb12-6"></a>data.tab3<span class="op">$</span>q2[<span class="dv">212</span>] &lt;-<span class="st"> </span><span class="fl">3.08</span></span>
+<span id="cb12-7"><a href="Data-Intro.html#cb12-7"></a>data.tab3<span class="op">$</span>q2[<span class="dv">300</span>] &lt;-<span class="st"> </span><span class="fl">1.7</span></span>
+<span id="cb12-8"><a href="Data-Intro.html#cb12-8"></a></span>
+<span id="cb12-9"><a href="Data-Intro.html#cb12-9"></a><span class="co"># Binding all the data sets</span></span>
+<span id="cb12-10"><a href="Data-Intro.html#cb12-10"></a>all.cog &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">data.frame</span>(data.info_demo), <span class="kw">data.frame</span>(data.pca), <span class="kw">data.frame</span>(data.tab2[<span class="dv">3</span><span class="op">:</span><span class="dv">8</span>]), </span>
+<span id="cb12-11"><a href="Data-Intro.html#cb12-11"></a> <span class="kw">data.frame</span>(data.tab3[<span class="dv">3</span><span class="op">:</span><span class="dv">19</span>]))</span>
+<span id="cb12-12"><a href="Data-Intro.html#cb12-12"></a></span>
+<span id="cb12-13"><a href="Data-Intro.html#cb12-13"></a>all.cog &lt;-<span class="st"> </span>all.cog[<span class="kw">order</span>(all.cog[, <span class="st">&quot;ANumber&quot;</span>]), ]</span>
+<span id="cb12-14"><a href="Data-Intro.html#cb12-14"></a><span class="kw">rownames</span>(all.cog) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">360</span>)</span>
+<span id="cb12-15"><a href="Data-Intro.html#cb12-15"></a></span>
+<span id="cb12-16"><a href="Data-Intro.html#cb12-16"></a><span class="co"># Give Colnames</span></span>
+<span id="cb12-17"><a href="Data-Intro.html#cb12-17"></a><span class="kw">colnames</span>(all.cog)[<span class="dv">46</span><span class="op">:</span><span class="dv">59</span>] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;GPA&quot;</span>, <span class="st">&quot;close_friends&quot;</span>, <span class="st">&quot;social_network&quot;</span>, <span class="st">&quot;instruction&quot;</span>, </span>
+<span id="cb12-18"><a href="Data-Intro.html#cb12-18"></a> <span class="st">&quot;take_advantage&quot;</span>, <span class="st">&quot;helpful&quot;</span>, <span class="st">&quot;trust&quot;</span>, <span class="st">&quot;volunteer&quot;</span>, <span class="st">&quot;global_warming&quot;</span>, <span class="st">&quot;hard_work&quot;</span>, </span>
+<span id="cb12-19"><a href="Data-Intro.html#cb12-19"></a> <span class="st">&quot;government&quot;</span>, <span class="st">&quot;environment_eco&quot;</span>, <span class="st">&quot;parent_edu&quot;</span>)</span>
+<span id="cb12-20"><a href="Data-Intro.html#cb12-20"></a></span>
+<span id="cb12-21"><a href="Data-Intro.html#cb12-21"></a><span class="kw">colnames</span>(all.cog)[<span class="dv">18</span><span class="op">:</span><span class="dv">25</span>] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;religions&quot;</span>, <span class="st">&quot;language&quot;</span>, <span class="st">&quot;races&quot;</span>, <span class="st">&quot;incomes&quot;</span>, <span class="st">&quot;majors&quot;</span>, </span>
+<span id="cb12-22"><a href="Data-Intro.html#cb12-22"></a> <span class="st">&quot;sex&quot;</span>, <span class="st">&quot;parent_job_1&quot;</span>, <span class="st">&quot;parent_job_2&quot;</span>)</span>
+<span id="cb12-23"><a href="Data-Intro.html#cb12-23"></a></span>
+<span id="cb12-24"><a href="Data-Intro.html#cb12-24"></a><span class="co"># create sub data tables</span></span>
+<span id="cb12-25"><a href="Data-Intro.html#cb12-25"></a>sub.token.collection &lt;-<span class="st"> </span><span class="kw">cbind</span>(all.cog[, <span class="dv">26</span><span class="op">:</span><span class="dv">27</span>], all.cog[, <span class="dv">30</span><span class="op">:</span><span class="dv">36</span>])</span>
+<span id="cb12-26"><a href="Data-Intro.html#cb12-26"></a></span>
+<span id="cb12-27"><a href="Data-Intro.html#cb12-27"></a>sub.token.collection.time &lt;-<span class="st"> </span><span class="kw">cbind</span>(all.cog[, <span class="dv">26</span><span class="op">:</span><span class="dv">27</span>], all.cog[, <span class="dv">37</span><span class="op">:</span><span class="dv">42</span>])</span>
+<span id="cb12-28"><a href="Data-Intro.html#cb12-28"></a></span>
+<span id="cb12-29"><a href="Data-Intro.html#cb12-29"></a>sub.empathy &lt;-<span class="st"> </span><span class="kw">cbind</span>(all.cog[, <span class="dv">26</span><span class="op">:</span><span class="dv">27</span>], all.cog[, <span class="dv">43</span><span class="op">:</span><span class="dv">45</span>], all.cog[, <span class="st">&quot;Spontaneous&quot;</span>])</span>
+<span id="cb12-30"><a href="Data-Intro.html#cb12-30"></a><span class="kw">colnames</span>(sub.empathy)[<span class="dv">6</span>] &lt;-<span class="st"> &quot;Spontaneous&quot;</span></span>
+<span id="cb12-31"><a href="Data-Intro.html#cb12-31"></a></span>
+<span id="cb12-32"><a href="Data-Intro.html#cb12-32"></a></span>
+<span id="cb12-33"><a href="Data-Intro.html#cb12-33"></a>sub.emotion &lt;-<span class="st"> </span><span class="kw">cbind</span>(all.cog[, <span class="dv">26</span><span class="op">:</span><span class="dv">27</span>], all.cog[, <span class="dv">28</span><span class="op">:</span><span class="dv">29</span>])</span>
+<span id="cb12-34"><a href="Data-Intro.html#cb12-34"></a></span>
+<span id="cb12-35"><a href="Data-Intro.html#cb12-35"></a>sub.personality &lt;-<span class="st"> </span><span class="kw">cbind</span>(all.cog[, <span class="dv">26</span><span class="op">:</span><span class="dv">27</span>], all.cog[, <span class="dv">51</span><span class="op">:</span><span class="dv">54</span>], all.cog[, <span class="dv">56</span>])</span>
+<span id="cb12-36"><a href="Data-Intro.html#cb12-36"></a><span class="kw">colnames</span>(sub.personality)[<span class="dv">7</span>] &lt;-<span class="st"> &quot;hard_work&quot;</span></span>
+<span id="cb12-37"><a href="Data-Intro.html#cb12-37"></a></span>
+<span id="cb12-38"><a href="Data-Intro.html#cb12-38"></a>sub.attitude &lt;-<span class="st"> </span><span class="kw">cbind</span>(all.cog[, <span class="dv">26</span><span class="op">:</span><span class="dv">27</span>], all.cog[, <span class="dv">55</span>], all.cog[, <span class="dv">57</span><span class="op">:</span><span class="dv">58</span>])</span>
+<span id="cb12-39"><a href="Data-Intro.html#cb12-39"></a><span class="kw">colnames</span>(sub.attitude)[<span class="dv">3</span>] &lt;-<span class="st"> &quot;global_warming&quot;</span></span>
+<span id="cb12-40"><a href="Data-Intro.html#cb12-40"></a></span>
+<span id="cb12-41"><a href="Data-Intro.html#cb12-41"></a>sub.friends &lt;-<span class="st"> </span><span class="kw">cbind</span>(all.cog[, <span class="dv">26</span><span class="op">:</span><span class="dv">27</span>], all.cog[, <span class="dv">48</span><span class="op">:</span><span class="dv">49</span>])</span>
+<span id="cb12-42"><a href="Data-Intro.html#cb12-42"></a></span>
+<span id="cb12-43"><a href="Data-Intro.html#cb12-43"></a>sub.demographic &lt;-<span class="st"> </span><span class="kw">cbind</span>(all.cog[, <span class="dv">26</span><span class="op">:</span><span class="dv">27</span>], all.cog[, <span class="dv">46</span>], all.cog[, <span class="dv">18</span><span class="op">:</span><span class="dv">25</span>], all.cog[, </span>
+<span id="cb12-44"><a href="Data-Intro.html#cb12-44"></a> <span class="st">&quot;parent_edu&quot;</span>])</span>
+<span id="cb12-45"><a href="Data-Intro.html#cb12-45"></a><span class="kw">colnames</span>(sub.demographic)[<span class="dv">12</span>] &lt;-<span class="st"> &quot;parent_edu&quot;</span></span>
+<span id="cb12-46"><a href="Data-Intro.html#cb12-46"></a><span class="kw">colnames</span>(sub.demographic)[<span class="dv">3</span>] &lt;-<span class="st"> &quot;age&quot;</span></span>
+<span id="cb12-47"><a href="Data-Intro.html#cb12-47"></a></span>
+<span id="cb12-48"><a href="Data-Intro.html#cb12-48"></a></span>
+<span id="cb12-49"><a href="Data-Intro.html#cb12-49"></a><span class="co">## ****ACT converts to SAT**** ACT DATA</span></span>
+<span id="cb12-50"><a href="Data-Intro.html#cb12-50"></a>ACT.math.table &lt;-<span class="st"> </span>all.cog[<span class="kw">which</span>(all.cog<span class="op">$</span>ACT.MATH.SCORE <span class="op">&lt;</span><span class="st"> </span><span class="dv">40</span>), ]</span>
+<span id="cb12-51"><a href="Data-Intro.html#cb12-51"></a>ACT.reading.table &lt;-<span class="st"> </span>all.cog[<span class="kw">which</span>(all.cog<span class="op">$</span>ACT.READING.SCORE <span class="op">&lt;</span><span class="st"> </span><span class="dv">40</span>), ]</span>
+<span id="cb12-52"><a href="Data-Intro.html#cb12-52"></a>ACT.english.table &lt;-<span class="st"> </span>all.cog[<span class="kw">which</span>(all.cog<span class="op">$</span>ACT.ENGLISH.SCORE <span class="op">&lt;</span><span class="st"> </span><span class="dv">40</span>), ]</span>
+<span id="cb12-53"><a href="Data-Intro.html#cb12-53"></a><span class="co"># ACT_MATH</span></span>
+<span id="cb12-54"><a href="Data-Intro.html#cb12-54"></a>ACT.math &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">as.matrix</span>(ACT.math.table<span class="op">$</span>ANumber), <span class="kw">as.matrix</span>(ACT.math.table<span class="op">$</span>ACT.MATH.SCORE))</span>
+<span id="cb12-55"><a href="Data-Intro.html#cb12-55"></a><span class="co"># ACT_Verbal</span></span>
+<span id="cb12-56"><a href="Data-Intro.html#cb12-56"></a>ACT.verbal &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, <span class="dt">nrow =</span> <span class="kw">length</span>(ACT.english.table<span class="op">$</span>ACT.ENGLISH.SCORE))</span>
+<span id="cb12-57"><a href="Data-Intro.html#cb12-57"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(ACT.english.table<span class="op">$</span>ACT.ENGLISH.SCORE))</span>
+<span id="cb12-58"><a href="Data-Intro.html#cb12-58"></a>{</span>
+<span id="cb12-59"><a href="Data-Intro.html#cb12-59"></a> ACT.verbal[i] &lt;-<span class="st"> </span><span class="kw">sum</span>(ACT.reading.table<span class="op">$</span>ACT.READING.SCORE[i] <span class="op">+</span><span class="st"> </span>ACT.english.table<span class="op">$</span>ACT.ENGLISH.SCORE[i])</span>
+<span id="cb12-60"><a href="Data-Intro.html#cb12-60"></a>}</span>
+<span id="cb12-61"><a href="Data-Intro.html#cb12-61"></a>ACT.verbal &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">as.matrix</span>(ACT.reading.table<span class="op">$</span>ANumber), ACT.verbal)</span>
+<span id="cb12-62"><a href="Data-Intro.html#cb12-62"></a><span class="co"># SAT DATA</span></span>
+<span id="cb12-63"><a href="Data-Intro.html#cb12-63"></a>SAT.math.table &lt;-<span class="st"> </span>all.cog[<span class="kw">which</span>(all.cog<span class="op">$</span>SAT.MATH.SCORE <span class="op">&lt;</span><span class="st"> </span><span class="dv">801</span>), ]</span>
+<span id="cb12-64"><a href="Data-Intro.html#cb12-64"></a>SAT.verbal.table &lt;-<span class="st"> </span>all.cog[<span class="kw">which</span>(all.cog<span class="op">$</span>SAT.VERBAL.SCORE <span class="op">&lt;</span><span class="st"> </span><span class="dv">801</span>), ]</span>
+<span id="cb12-65"><a href="Data-Intro.html#cb12-65"></a><span class="co"># SAT_MATH</span></span>
+<span id="cb12-66"><a href="Data-Intro.html#cb12-66"></a>SAT.math &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">as.matrix</span>(SAT.math.table<span class="op">$</span>ANumber), <span class="kw">as.matrix</span>(SAT.math.table<span class="op">$</span>SAT.MATH.SCORE))</span>
+<span id="cb12-67"><a href="Data-Intro.html#cb12-67"></a><span class="co"># SAT_VERBAL</span></span>
+<span id="cb12-68"><a href="Data-Intro.html#cb12-68"></a>SAT.verbal &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">as.matrix</span>(SAT.verbal.table<span class="op">$</span>ANumber), <span class="kw">as.matrix</span>(SAT.verbal.table<span class="op">$</span>SAT.VERBAL.SCORE))</span>
+<span id="cb12-69"><a href="Data-Intro.html#cb12-69"></a><span class="co"># Create a calculator to convert ACT to SAT Read data from github</span></span>
+<span id="cb12-70"><a href="Data-Intro.html#cb12-70"></a>x.math &lt;-<span class="st"> </span><span class="kw">getURL</span>(<span class="st">&quot;https://raw.githubusercontent.com/yilewang/MSA/main/Dataset/ACT_MATH.csv&quot;</span>)</span>
+<span id="cb12-71"><a href="Data-Intro.html#cb12-71"></a>math_con &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">text =</span> x.math)</span>
+<span id="cb12-72"><a href="Data-Intro.html#cb12-72"></a><span class="kw">colnames</span>(math_con)[<span class="dv">1</span>] &lt;-<span class="st"> &quot;ACT_MATH&quot;</span>  <span class="co">## Avoid UTF-8 error</span></span>
+<span id="cb12-73"><a href="Data-Intro.html#cb12-73"></a>x.verbal &lt;-<span class="st"> </span><span class="kw">getURL</span>(<span class="st">&quot;https://raw.githubusercontent.com/yilewang/MSA/main/Dataset/ACT_VERBAL.csv&quot;</span>)</span>
+<span id="cb12-74"><a href="Data-Intro.html#cb12-74"></a>verbal_con &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">text =</span> x.verbal)</span>
+<span id="cb12-75"><a href="Data-Intro.html#cb12-75"></a><span class="kw">colnames</span>(verbal_con)[<span class="dv">1</span>] &lt;-<span class="st"> &quot;ACT_VERBAL&quot;</span>  <span class="co">## Avoid UTF-8 error</span></span>
+<span id="cb12-76"><a href="Data-Intro.html#cb12-76"></a><span class="co"># Create a workspace to store the new MATH and VERBAL info</span></span>
+<span id="cb12-77"><a href="Data-Intro.html#cb12-77"></a>act.math.con &lt;-<span class="st"> </span>ACT.math</span>
+<span id="cb12-78"><a href="Data-Intro.html#cb12-78"></a>act.verbal.con &lt;-<span class="st"> </span>ACT.verbal</span>
+<span id="cb12-79"><a href="Data-Intro.html#cb12-79"></a>act.comp.con &lt;-<span class="st"> </span><span class="kw">cbind</span>(all.cog[, <span class="dv">26</span>], all.cog[, <span class="dv">7</span>])</span>
+<span id="cb12-80"><a href="Data-Intro.html#cb12-80"></a><span class="kw">colnames</span>(act.comp.con) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;ANumber&quot;</span>, <span class="st">&quot;Composite&quot;</span>)</span>
+<span id="cb12-81"><a href="Data-Intro.html#cb12-81"></a><span class="co"># Make a calculator to convert ACT scores to SAT scores</span></span>
+<span id="cb12-82"><a href="Data-Intro.html#cb12-82"></a>calculator.math &lt;-<span class="st"> </span><span class="cf">function</span>(score)</span>
+<span id="cb12-83"><a href="Data-Intro.html#cb12-83"></a>{</span>
+<span id="cb12-84"><a href="Data-Intro.html#cb12-84"></a> index &lt;-<span class="st"> </span><span class="kw">which</span>(math_con <span class="op">==</span><span class="st"> </span>score)</span>
+<span id="cb12-85"><a href="Data-Intro.html#cb12-85"></a> <span class="kw">return</span>(math_con[index, <span class="dv">2</span>])</span>
+<span id="cb12-86"><a href="Data-Intro.html#cb12-86"></a>}</span>
+<span id="cb12-87"><a href="Data-Intro.html#cb12-87"></a>calculator.verbal &lt;-<span class="st"> </span><span class="cf">function</span>(score)</span>
+<span id="cb12-88"><a href="Data-Intro.html#cb12-88"></a>{</span>
+<span id="cb12-89"><a href="Data-Intro.html#cb12-89"></a> index &lt;-<span class="st"> </span><span class="kw">which</span>(verbal_con <span class="op">==</span><span class="st"> </span>score)</span>
+<span id="cb12-90"><a href="Data-Intro.html#cb12-90"></a> <span class="kw">return</span>(verbal_con[index, <span class="dv">2</span>])</span>
+<span id="cb12-91"><a href="Data-Intro.html#cb12-91"></a>}</span>
+<span id="cb12-92"><a href="Data-Intro.html#cb12-92"></a><span class="co"># For loop to convert the ACT score to SAT score</span></span>
+<span id="cb12-93"><a href="Data-Intro.html#cb12-93"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(ACT.math[, <span class="dv">1</span>]))</span>
+<span id="cb12-94"><a href="Data-Intro.html#cb12-94"></a>{</span>
+<span id="cb12-95"><a href="Data-Intro.html#cb12-95"></a> act.math.con[i, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">calculator.math</span>(ACT.math[i, <span class="dv">2</span>])</span>
+<span id="cb12-96"><a href="Data-Intro.html#cb12-96"></a>}</span>
+<span id="cb12-97"><a href="Data-Intro.html#cb12-97"></a></span>
+<span id="cb12-98"><a href="Data-Intro.html#cb12-98"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(ACT.verbal[, <span class="dv">1</span>]))</span>
+<span id="cb12-99"><a href="Data-Intro.html#cb12-99"></a>{</span>
+<span id="cb12-100"><a href="Data-Intro.html#cb12-100"></a> act.verbal.con[i, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">calculator.verbal</span>(ACT.verbal[i, <span class="dv">2</span>])</span>
+<span id="cb12-101"><a href="Data-Intro.html#cb12-101"></a>}</span>
+<span id="cb12-102"><a href="Data-Intro.html#cb12-102"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(all.cog[, <span class="dv">1</span>]))</span>
+<span id="cb12-103"><a href="Data-Intro.html#cb12-103"></a>{</span>
+<span id="cb12-104"><a href="Data-Intro.html#cb12-104"></a> act.comp.con[i, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">calculator.math</span>(all.cog<span class="op">$</span>ACT.COMPOSITE.SCORE[i])</span>
+<span id="cb12-105"><a href="Data-Intro.html#cb12-105"></a>}</span>
+<span id="cb12-106"><a href="Data-Intro.html#cb12-106"></a></span>
+<span id="cb12-107"><a href="Data-Intro.html#cb12-107"></a></span>
+<span id="cb12-108"><a href="Data-Intro.html#cb12-108"></a><span class="co"># Merge data</span></span>
+<span id="cb12-109"><a href="Data-Intro.html#cb12-109"></a>MATH &lt;-<span class="st"> </span><span class="kw">rbind</span>(act.math.con, SAT.math)</span>
+<span id="cb12-110"><a href="Data-Intro.html#cb12-110"></a>VERBAL &lt;-<span class="st"> </span><span class="kw">rbind</span>(act.verbal.con, SAT.verbal)</span>
+<span id="cb12-111"><a href="Data-Intro.html#cb12-111"></a>COMP &lt;-<span class="st"> </span>act.comp.con</span>
+<span id="cb12-112"><a href="Data-Intro.html#cb12-112"></a><span class="co"># Get the RANK</span></span>
+<span id="cb12-113"><a href="Data-Intro.html#cb12-113"></a>MATH &lt;-<span class="st"> </span>MATH[<span class="kw">order</span>(MATH[, <span class="dv">1</span>]), ]</span>
+<span id="cb12-114"><a href="Data-Intro.html#cb12-114"></a>MATH &lt;-<span class="st"> </span>MATH[<span class="op">-</span><span class="dv">54</span>, ]</span>
+<span id="cb12-115"><a href="Data-Intro.html#cb12-115"></a>VERBAL &lt;-<span class="st"> </span>VERBAL[<span class="kw">order</span>(VERBAL[, <span class="dv">1</span>]), ]</span>
+<span id="cb12-116"><a href="Data-Intro.html#cb12-116"></a>VERBAL &lt;-<span class="st"> </span>VERBAL[<span class="op">-</span><span class="dv">54</span>, ]</span>
+<span id="cb12-117"><a href="Data-Intro.html#cb12-117"></a>COMP &lt;-<span class="st"> </span>COMP[<span class="kw">order</span>(COMP[, <span class="dv">1</span>]), ]</span>
+<span id="cb12-118"><a href="Data-Intro.html#cb12-118"></a>sub.grades &lt;-<span class="st"> </span><span class="kw">cbind</span>(all.cog[, <span class="dv">26</span><span class="op">:</span><span class="dv">27</span>], COMP[, <span class="dv">2</span>], MATH[, <span class="dv">2</span>], VERBAL[, <span class="dv">2</span>], all.cog<span class="op">$</span>GPA)</span>
+<span id="cb12-119"><a href="Data-Intro.html#cb12-119"></a><span class="kw">colnames</span>(sub.grades)[<span class="dv">6</span>] &lt;-<span class="st"> &quot;GPA&quot;</span></span>
+<span id="cb12-120"><a href="Data-Intro.html#cb12-120"></a><span class="kw">colnames</span>(sub.grades)[<span class="dv">3</span><span class="op">:</span><span class="dv">5</span>] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;SAT.COMP&quot;</span>, <span class="st">&quot;SAT.MATH&quot;</span>, <span class="st">&quot;SAT.VERBAL&quot;</span>)</span>
+<span id="cb12-121"><a href="Data-Intro.html#cb12-121"></a></span>
+<span id="cb12-122"><a href="Data-Intro.html#cb12-122"></a></span>
+<span id="cb12-123"><a href="Data-Intro.html#cb12-123"></a><span class="co"># the data we can use for our analysis</span></span>
+<span id="cb12-124"><a href="Data-Intro.html#cb12-124"></a>data.to.use &lt;-<span class="st"> </span><span class="kw">cbind</span>(sub.token.collection[, <span class="dv">1</span><span class="op">:</span><span class="dv">8</span>], sub.token.collection.time[, <span class="dv">3</span><span class="op">:</span><span class="dv">8</span>], </span>
+<span id="cb12-125"><a href="Data-Intro.html#cb12-125"></a> sub.friends[, <span class="dv">3</span><span class="op">:</span><span class="dv">4</span>], sub.grades[, <span class="dv">3</span><span class="op">:</span><span class="dv">5</span>], sub.empathy[, <span class="dv">3</span><span class="op">:</span><span class="dv">6</span>], sub.personality[, </span>
+<span id="cb12-126"><a href="Data-Intro.html#cb12-126"></a>  <span class="dv">3</span><span class="op">:</span><span class="dv">7</span>], sub.attitude[, <span class="dv">3</span><span class="op">:</span><span class="dv">5</span>])</span>
+<span id="cb12-127"><a href="Data-Intro.html#cb12-127"></a>supplement.token &lt;-<span class="st"> </span><span class="kw">cbind</span>(all.cog[, <span class="dv">26</span>], all.cog[, <span class="dv">36</span>])</span>
+<span id="cb12-128"><a href="Data-Intro.html#cb12-128"></a><span class="kw">colnames</span>(supplement.token)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;ANumber&quot;</span>, <span class="st">&quot;total_earning&quot;</span>)</span>
+<span id="cb12-129"><a href="Data-Intro.html#cb12-129"></a>supplement.token &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(supplement.token)</span>
+<span id="cb12-130"><a href="Data-Intro.html#cb12-130"></a></span>
+<span id="cb12-131"><a href="Data-Intro.html#cb12-131"></a>sub.group &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, <span class="dt">ncol =</span> <span class="dv">4</span>, <span class="dt">nrow =</span> <span class="dv">360</span>)</span>
+<span id="cb12-132"><a href="Data-Intro.html#cb12-132"></a><span class="kw">colnames</span>(sub.group) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;gpa&quot;</span>, <span class="st">&quot;emo&quot;</span>, <span class="st">&quot;group&quot;</span>, <span class="st">&quot;col&quot;</span>)</span>
+<span id="cb12-133"><a href="Data-Intro.html#cb12-133"></a><span class="kw">rownames</span>(sub.group) &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">360</span></span>
+<span id="cb12-134"><a href="Data-Intro.html#cb12-134"></a>sub.group &lt;-<span class="st"> </span><span class="kw">cbind</span>(all.cog[, <span class="dv">26</span><span class="op">:</span><span class="dv">27</span>], sub.group)</span>
+<span id="cb12-135"><a href="Data-Intro.html#cb12-135"></a></span>
+<span id="cb12-136"><a href="Data-Intro.html#cb12-136"></a><span class="co"># Grouping variable: GPA</span></span>
+<span id="cb12-137"><a href="Data-Intro.html#cb12-137"></a>sub.gpa &lt;-<span class="st"> </span><span class="kw">cbind</span>(all.cog[, <span class="dv">26</span><span class="op">:</span><span class="dv">27</span>], all.cog<span class="op">$</span>GPA)</span>
+<span id="cb12-138"><a href="Data-Intro.html#cb12-138"></a><span class="kw">colnames</span>(sub.gpa)[<span class="dv">3</span>] &lt;-<span class="st"> &quot;general&quot;</span></span>
+<span id="cb12-139"><a href="Data-Intro.html#cb12-139"></a>quan.gpa &lt;-<span class="st"> </span><span class="kw">quantile</span>(<span class="kw">as.numeric</span>(all.cog<span class="op">$</span>GPA), <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">3</span>))</span>
+<span id="cb12-140"><a href="Data-Intro.html#cb12-140"></a>under &lt;-<span class="st"> </span><span class="kw">which</span>(sub.gpa[, <span class="dv">3</span>] <span class="op">&lt;=</span><span class="st"> </span>quan.gpa[<span class="dv">2</span>])</span>
+<span id="cb12-141"><a href="Data-Intro.html#cb12-141"></a>between &lt;-<span class="st"> </span><span class="kw">which</span>(sub.gpa[, <span class="dv">3</span>] <span class="op">&gt;</span><span class="st"> </span>quan.gpa[<span class="dv">2</span>] <span class="op">&amp;</span><span class="st"> </span>sub.gpa[, <span class="dv">3</span>] <span class="op">&lt;=</span><span class="st"> </span>quan.gpa[<span class="dv">3</span>])</span>
+<span id="cb12-142"><a href="Data-Intro.html#cb12-142"></a>over &lt;-<span class="st"> </span><span class="kw">which</span>(sub.gpa[, <span class="dv">3</span>] <span class="op">&gt;</span><span class="st"> </span>quan.gpa[<span class="dv">3</span>])</span>
+<span id="cb12-143"><a href="Data-Intro.html#cb12-143"></a>sub.group[, <span class="dv">3</span>][under] &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb12-144"><a href="Data-Intro.html#cb12-144"></a>sub.group[, <span class="dv">3</span>][between] &lt;-<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb12-145"><a href="Data-Intro.html#cb12-145"></a>sub.group[, <span class="dv">3</span>][over] &lt;-<span class="st"> </span><span class="dv">3</span></span>
+<span id="cb12-146"><a href="Data-Intro.html#cb12-146"></a></span>
+<span id="cb12-147"><a href="Data-Intro.html#cb12-147"></a></span>
+<span id="cb12-148"><a href="Data-Intro.html#cb12-148"></a><span class="co"># Grouping variable: Emo</span></span>
+<span id="cb12-149"><a href="Data-Intro.html#cb12-149"></a>sub.emo &lt;-<span class="st"> </span><span class="kw">cbind</span>(all.cog[, <span class="dv">26</span><span class="op">:</span><span class="dv">27</span>], all.cog<span class="op">$</span>EyesTestScore)</span>
+<span id="cb12-150"><a href="Data-Intro.html#cb12-150"></a><span class="kw">colnames</span>(sub.emo)[<span class="dv">3</span>] &lt;-<span class="st"> &quot;general&quot;</span></span>
+<span id="cb12-151"><a href="Data-Intro.html#cb12-151"></a>quan.emo &lt;-<span class="st"> </span><span class="kw">quantile</span>(<span class="kw">as.numeric</span>(all.cog<span class="op">$</span>EyesTestScore), <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">3</span>))</span>
+<span id="cb12-152"><a href="Data-Intro.html#cb12-152"></a>under &lt;-<span class="st"> </span><span class="kw">which</span>(sub.emo[, <span class="dv">3</span>] <span class="op">&lt;=</span><span class="st"> </span>quan.emo[<span class="dv">2</span>])</span>
+<span id="cb12-153"><a href="Data-Intro.html#cb12-153"></a>between &lt;-<span class="st"> </span><span class="kw">which</span>(sub.emo[, <span class="dv">3</span>] <span class="op">&gt;</span><span class="st"> </span>quan.emo[<span class="dv">2</span>] <span class="op">&amp;</span><span class="st"> </span>sub.emo[, <span class="dv">3</span>] <span class="op">&lt;=</span><span class="st"> </span>quan.emo[<span class="dv">3</span>])</span>
+<span id="cb12-154"><a href="Data-Intro.html#cb12-154"></a>over &lt;-<span class="st"> </span><span class="kw">which</span>(sub.emo[, <span class="dv">3</span>] <span class="op">&gt;</span><span class="st"> </span>quan.emo[<span class="dv">3</span>])</span>
+<span id="cb12-155"><a href="Data-Intro.html#cb12-155"></a>sub.group[, <span class="dv">4</span>][under] &lt;-<span class="st"> </span><span class="dv">100</span></span>
+<span id="cb12-156"><a href="Data-Intro.html#cb12-156"></a>sub.group[, <span class="dv">4</span>][between] &lt;-<span class="st"> </span><span class="dv">200</span></span>
+<span id="cb12-157"><a href="Data-Intro.html#cb12-157"></a>sub.group[, <span class="dv">4</span>][over] &lt;-<span class="st"> </span><span class="dv">300</span></span>
+<span id="cb12-158"><a href="Data-Intro.html#cb12-158"></a></span>
+<span id="cb12-159"><a href="Data-Intro.html#cb12-159"></a><span class="co"># spearman correlation results &gt; 0.90</span></span>
+<span id="cb12-160"><a href="Data-Intro.html#cb12-160"></a>spearman.gpa &lt;-<span class="st"> </span><span class="kw">cor</span>(sub.gpa[, <span class="dv">3</span>], sub.group[, <span class="dv">3</span>], <span class="dt">method =</span> <span class="st">&quot;spearman&quot;</span>)</span>
+<span id="cb12-161"><a href="Data-Intro.html#cb12-161"></a>spearman.emo &lt;-<span class="st"> </span><span class="kw">cor</span>(sub.emo[, <span class="dv">3</span>], sub.group[, <span class="dv">4</span>], <span class="dt">method =</span> <span class="st">&quot;spearman&quot;</span>)</span>
+<span id="cb12-162"><a href="Data-Intro.html#cb12-162"></a></span>
+<span id="cb12-163"><a href="Data-Intro.html#cb12-163"></a><span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;corr gpa:&quot;</span>, spearman.gpa))</span></code></pre></div>
+<pre><code>[1] &quot;corr gpa: 0.931355248926045&quot;</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="Data-Intro.html#cb14-1"></a><span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;corr emotional&quot;</span>, spearman.emo))</span></code></pre></div>
+<pre><code>[1] &quot;corr emotional 0.945673602462476&quot;</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="Data-Intro.html#cb16-1"></a>sub.group[, <span class="dv">5</span>] &lt;-<span class="st"> </span>sub.group[, <span class="dv">3</span>] <span class="op">+</span><span class="st"> </span>sub.group[, <span class="dv">4</span>]</span>
+<span id="cb16-2"><a href="Data-Intro.html#cb16-2"></a></span>
+<span id="cb16-3"><a href="Data-Intro.html#cb16-3"></a><span class="co"># for each condition low-median-high</span></span>
+<span id="cb16-4"><a href="Data-Intro.html#cb16-4"></a>condition1 &lt;-<span class="st"> </span><span class="kw">which</span>(sub.group[, <span class="dv">5</span>] <span class="op">==</span><span class="st"> </span><span class="dv">101</span>)</span>
+<span id="cb16-5"><a href="Data-Intro.html#cb16-5"></a>condition2 &lt;-<span class="st"> </span><span class="kw">which</span>(sub.group[, <span class="dv">5</span>] <span class="op">==</span><span class="st"> </span><span class="dv">102</span>)</span>
+<span id="cb16-6"><a href="Data-Intro.html#cb16-6"></a>condition3 &lt;-<span class="st"> </span><span class="kw">which</span>(sub.group[, <span class="dv">5</span>] <span class="op">==</span><span class="st"> </span><span class="dv">103</span>)</span>
+<span id="cb16-7"><a href="Data-Intro.html#cb16-7"></a>condition4 &lt;-<span class="st"> </span><span class="kw">which</span>(sub.group[, <span class="dv">5</span>] <span class="op">==</span><span class="st"> </span><span class="dv">201</span>)</span>
+<span id="cb16-8"><a href="Data-Intro.html#cb16-8"></a>condition5 &lt;-<span class="st"> </span><span class="kw">which</span>(sub.group[, <span class="dv">5</span>] <span class="op">==</span><span class="st"> </span><span class="dv">202</span>)</span>
+<span id="cb16-9"><a href="Data-Intro.html#cb16-9"></a>condition6 &lt;-<span class="st"> </span><span class="kw">which</span>(sub.group[, <span class="dv">5</span>] <span class="op">==</span><span class="st"> </span><span class="dv">203</span>)</span>
+<span id="cb16-10"><a href="Data-Intro.html#cb16-10"></a>condition7 &lt;-<span class="st"> </span><span class="kw">which</span>(sub.group[, <span class="dv">5</span>] <span class="op">==</span><span class="st"> </span><span class="dv">301</span>)</span>
+<span id="cb16-11"><a href="Data-Intro.html#cb16-11"></a>condition8 &lt;-<span class="st"> </span><span class="kw">which</span>(sub.group[, <span class="dv">5</span>] <span class="op">==</span><span class="st"> </span><span class="dv">302</span>)</span>
+<span id="cb16-12"><a href="Data-Intro.html#cb16-12"></a>condition9 &lt;-<span class="st"> </span><span class="kw">which</span>(sub.group[, <span class="dv">5</span>] <span class="op">==</span><span class="st"> </span><span class="dv">303</span>)</span>
+<span id="cb16-13"><a href="Data-Intro.html#cb16-13"></a></span>
+<span id="cb16-14"><a href="Data-Intro.html#cb16-14"></a><span class="co"># give names</span></span>
+<span id="cb16-15"><a href="Data-Intro.html#cb16-15"></a>sub.group[, <span class="dv">5</span>][condition1] &lt;-<span class="st"> &quot;LS_LG&quot;</span></span>
+<span id="cb16-16"><a href="Data-Intro.html#cb16-16"></a>sub.group[, <span class="dv">5</span>][condition2] &lt;-<span class="st"> &quot;LS_MG&quot;</span></span>
+<span id="cb16-17"><a href="Data-Intro.html#cb16-17"></a>sub.group[, <span class="dv">5</span>][condition3] &lt;-<span class="st"> &quot;LS_HG&quot;</span></span>
+<span id="cb16-18"><a href="Data-Intro.html#cb16-18"></a>sub.group[, <span class="dv">5</span>][condition4] &lt;-<span class="st"> &quot;MS_LG&quot;</span></span>
+<span id="cb16-19"><a href="Data-Intro.html#cb16-19"></a>sub.group[, <span class="dv">5</span>][condition5] &lt;-<span class="st"> &quot;MS_MG&quot;</span></span>
+<span id="cb16-20"><a href="Data-Intro.html#cb16-20"></a>sub.group[, <span class="dv">5</span>][condition6] &lt;-<span class="st"> &quot;MS_HG&quot;</span></span>
+<span id="cb16-21"><a href="Data-Intro.html#cb16-21"></a>sub.group[, <span class="dv">5</span>][condition7] &lt;-<span class="st"> &quot;HS_LG&quot;</span></span>
+<span id="cb16-22"><a href="Data-Intro.html#cb16-22"></a>sub.group[, <span class="dv">5</span>][condition8] &lt;-<span class="st"> &quot;HS_MG&quot;</span></span>
+<span id="cb16-23"><a href="Data-Intro.html#cb16-23"></a>sub.group[, <span class="dv">5</span>][condition9] &lt;-<span class="st"> &quot;HS_HG&quot;</span></span>
+<span id="cb16-24"><a href="Data-Intro.html#cb16-24"></a></span>
+<span id="cb16-25"><a href="Data-Intro.html#cb16-25"></a><span class="co"># choose 4 conditions</span></span>
+<span id="cb16-26"><a href="Data-Intro.html#cb16-26"></a>sub.conditions<span class="fl">.1</span> &lt;-<span class="st"> </span>sub.group[<span class="kw">which</span>(sub.group[, <span class="dv">5</span>] <span class="op">==</span><span class="st"> &quot;LS_LG&quot;</span>), ]</span>
+<span id="cb16-27"><a href="Data-Intro.html#cb16-27"></a>sub.conditions<span class="fl">.2</span> &lt;-<span class="st"> </span>sub.group[<span class="kw">which</span>(sub.group[, <span class="dv">5</span>] <span class="op">==</span><span class="st"> &quot;HS_LG&quot;</span>), ]</span>
+<span id="cb16-28"><a href="Data-Intro.html#cb16-28"></a>sub.conditions<span class="fl">.3</span> &lt;-<span class="st"> </span>sub.group[<span class="kw">which</span>(sub.group[, <span class="dv">5</span>] <span class="op">==</span><span class="st"> &quot;HS_HG&quot;</span>), ]</span>
+<span id="cb16-29"><a href="Data-Intro.html#cb16-29"></a>sub.conditions<span class="fl">.4</span> &lt;-<span class="st"> </span>sub.group[<span class="kw">which</span>(sub.group[, <span class="dv">5</span>] <span class="op">==</span><span class="st"> &quot;LS_HG&quot;</span>), ]</span>
+<span id="cb16-30"><a href="Data-Intro.html#cb16-30"></a></span>
+<span id="cb16-31"><a href="Data-Intro.html#cb16-31"></a><span class="co"># put them into a group</span></span>
+<span id="cb16-32"><a href="Data-Intro.html#cb16-32"></a>sub.conditions<span class="fl">.1</span><span class="op">$</span>group &lt;-<span class="st"> </span><span class="kw">as.factor</span>(sub.conditions<span class="fl">.1</span><span class="op">$</span>group)</span>
+<span id="cb16-33"><a href="Data-Intro.html#cb16-33"></a>sub.conditions<span class="fl">.2</span><span class="op">$</span>group &lt;-<span class="st"> </span><span class="kw">as.factor</span>(sub.conditions<span class="fl">.2</span><span class="op">$</span>group)</span>
+<span id="cb16-34"><a href="Data-Intro.html#cb16-34"></a>sub.conditions<span class="fl">.3</span><span class="op">$</span>group &lt;-<span class="st"> </span><span class="kw">as.factor</span>(sub.conditions<span class="fl">.3</span><span class="op">$</span>group)</span>
+<span id="cb16-35"><a href="Data-Intro.html#cb16-35"></a>sub.conditions<span class="fl">.4</span><span class="op">$</span>group &lt;-<span class="st"> </span><span class="kw">as.factor</span>(sub.conditions<span class="fl">.4</span><span class="op">$</span>group)</span>
+<span id="cb16-36"><a href="Data-Intro.html#cb16-36"></a></span>
+<span id="cb16-37"><a href="Data-Intro.html#cb16-37"></a><span class="co"># make sub condition and organize them</span></span>
+<span id="cb16-38"><a href="Data-Intro.html#cb16-38"></a>sub.condition &lt;-<span class="st"> </span><span class="kw">rbind</span>(sub.conditions<span class="fl">.1</span>, sub.conditions<span class="fl">.2</span>, sub.conditions<span class="fl">.3</span>, sub.conditions<span class="fl">.4</span>)</span>
+<span id="cb16-39"><a href="Data-Intro.html#cb16-39"></a>data.to.use.sup &lt;-<span class="st"> </span><span class="kw">cbind</span>(data.to.use, supplement.token<span class="op">$</span>total_earning)</span>
+<span id="cb16-40"><a href="Data-Intro.html#cb16-40"></a><span class="kw">colnames</span>(data.to.use.sup)[<span class="dv">32</span>] &lt;-<span class="st"> &quot;total_earning&quot;</span></span>
+<span id="cb16-41"><a href="Data-Intro.html#cb16-41"></a>final.table &lt;-<span class="st"> </span><span class="kw">merge</span>(sub.condition, data.to.use.sup, <span class="dt">by =</span> <span class="st">&quot;ANumber&quot;</span>)</span>
+<span id="cb16-42"><a href="Data-Intro.html#cb16-42"></a>final.table &lt;-<span class="st"> </span><span class="kw">select</span>(final.table, <span class="op">-</span><span class="kw">c</span>(<span class="st">&quot;SessionType.y&quot;</span>))</span>
+<span id="cb16-43"><a href="Data-Intro.html#cb16-43"></a><span class="kw">names</span>(final.table)[<span class="kw">names</span>(final.table) <span class="op">==</span><span class="st"> &quot;SessionType.x&quot;</span>] &lt;-<span class="st"> &quot;SessionType&quot;</span></span>
+<span id="cb16-44"><a href="Data-Intro.html#cb16-44"></a></span>
+<span id="cb16-45"><a href="Data-Intro.html#cb16-45"></a><span class="co">### ________________________________________### different conditions, the two</span></span>
+<span id="cb16-46"><a href="Data-Intro.html#cb16-46"></a><span class="co">### condition, postive and negative we can use for analysis</span></span>
+<span id="cb16-47"><a href="Data-Intro.html#cb16-47"></a>exp.neg &lt;-<span class="st"> </span>final.table[<span class="kw">which</span>(final.table<span class="op">$</span>SessionType <span class="op">==</span><span class="st"> &quot;Low_High&quot;</span> <span class="op">|</span><span class="st"> </span>final.table<span class="op">$</span>SessionType <span class="op">==</span><span class="st"> </span></span>
+<span id="cb16-48"><a href="Data-Intro.html#cb16-48"></a><span class="st"> &quot;8.4&quot;</span>), ]</span>
+<span id="cb16-49"><a href="Data-Intro.html#cb16-49"></a>exp.pos &lt;-<span class="st"> </span>final.table[<span class="kw">which</span>(final.table<span class="op">$</span>SessionType <span class="op">==</span><span class="st"> &quot;High_Low&quot;</span> <span class="op">|</span><span class="st"> </span>final.table<span class="op">$</span>SessionType <span class="op">==</span><span class="st"> </span></span>
+<span id="cb16-50"><a href="Data-Intro.html#cb16-50"></a><span class="st"> &quot;4.8&quot;</span>), ]</span>
+<span id="cb16-51"><a href="Data-Intro.html#cb16-51"></a></span>
+<span id="cb16-52"><a href="Data-Intro.html#cb16-52"></a><span class="co">## color</span></span>
+<span id="cb16-53"><a href="Data-Intro.html#cb16-53"></a></span>
+<span id="cb16-54"><a href="Data-Intro.html#cb16-54"></a>index &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">170</span>, <span class="kw">length</span>(<span class="kw">levels</span>(exp.neg<span class="op">$</span>group)))</span>
+<span id="cb16-55"><a href="Data-Intro.html#cb16-55"></a></span>
+<span id="cb16-56"><a href="Data-Intro.html#cb16-56"></a><span class="co"># manually setting color design</span></span>
+<span id="cb16-57"><a href="Data-Intro.html#cb16-57"></a>m.color.design &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">colnames</span>(exp.neg[<span class="dv">8</span><span class="op">:</span><span class="dv">36</span>]))</span>
+<span id="cb16-58"><a href="Data-Intro.html#cb16-58"></a></span>
+<span id="cb16-59"><a href="Data-Intro.html#cb16-59"></a>m.color.design[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">prettyGraphsColorSelection</span>(<span class="dt">starting.color =</span> <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">170</span>, </span>
+<span id="cb16-60"><a href="Data-Intro.html#cb16-60"></a> <span class="dv">1</span>))</span>
+<span id="cb16-61"><a href="Data-Intro.html#cb16-61"></a>m.color.design[<span class="dv">4</span><span class="op">:</span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">prettyGraphsColorSelection</span>(<span class="dt">starting.color =</span> <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">170</span>, </span>
+<span id="cb16-62"><a href="Data-Intro.html#cb16-62"></a> <span class="dv">1</span>))</span>
+<span id="cb16-63"><a href="Data-Intro.html#cb16-63"></a>m.color.design[<span class="dv">7</span><span class="op">:</span><span class="dv">9</span>] &lt;-<span class="st"> </span>m.color.design[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</span>
+<span id="cb16-64"><a href="Data-Intro.html#cb16-64"></a>m.color.design[<span class="dv">10</span><span class="op">:</span><span class="dv">12</span>] &lt;-<span class="st"> </span>m.color.design[<span class="dv">4</span><span class="op">:</span><span class="dv">6</span>]</span>
+<span id="cb16-65"><a href="Data-Intro.html#cb16-65"></a>m.color.design[<span class="dv">13</span><span class="op">:</span><span class="dv">14</span>] &lt;-<span class="st"> </span><span class="kw">prettyGraphsColorSelection</span>(<span class="dt">starting.color =</span> <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">170</span>, </span>
+<span id="cb16-66"><a href="Data-Intro.html#cb16-66"></a> <span class="dv">1</span>))</span>
+<span id="cb16-67"><a href="Data-Intro.html#cb16-67"></a>m.color.design[<span class="dv">15</span><span class="op">:</span><span class="dv">17</span>] &lt;-<span class="st"> </span><span class="kw">prettyGraphsColorSelection</span>(<span class="dt">starting.color =</span> <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">170</span>, </span>
+<span id="cb16-68"><a href="Data-Intro.html#cb16-68"></a> <span class="dv">1</span>))</span>
+<span id="cb16-69"><a href="Data-Intro.html#cb16-69"></a>m.color.design[<span class="dv">18</span><span class="op">:</span><span class="dv">21</span>] &lt;-<span class="st"> </span><span class="kw">prettyGraphsColorSelection</span>(<span class="dt">starting.color =</span> <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">170</span>, </span>
+<span id="cb16-70"><a href="Data-Intro.html#cb16-70"></a> <span class="dv">1</span>))</span>
+<span id="cb16-71"><a href="Data-Intro.html#cb16-71"></a>m.color.design[<span class="dv">22</span><span class="op">:</span><span class="dv">26</span>] &lt;-<span class="st"> </span><span class="kw">prettyGraphsColorSelection</span>(<span class="dt">starting.color =</span> <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">170</span>, </span>
+<span id="cb16-72"><a href="Data-Intro.html#cb16-72"></a> <span class="dv">1</span>))</span>
+<span id="cb16-73"><a href="Data-Intro.html#cb16-73"></a>m.color.design[<span class="dv">27</span><span class="op">:</span><span class="dv">29</span>] &lt;-<span class="st"> </span><span class="kw">prettyGraphsColorSelection</span>(<span class="dt">starting.color =</span> <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">170</span>, </span>
+<span id="cb16-74"><a href="Data-Intro.html#cb16-74"></a> <span class="dv">1</span>))</span>
+<span id="cb16-75"><a href="Data-Intro.html#cb16-75"></a></span>
+<span id="cb16-76"><a href="Data-Intro.html#cb16-76"></a></span>
+<span id="cb16-77"><a href="Data-Intro.html#cb16-77"></a></span>
+<span id="cb16-78"><a href="Data-Intro.html#cb16-78"></a><span class="co">### ________________________________________###</span></span>
+<span id="cb16-79"><a href="Data-Intro.html#cb16-79"></a></span>
+<span id="cb16-80"><a href="Data-Intro.html#cb16-80"></a><span class="co">## **** ending of the data preprocessing ****</span></span></code></pre></div>
+<p>It is worth to mention that the chunk above is the data preprocessing for quantitative data.</p>
+<p>We used similar strategy for qualitative data preprocessing. The essential part of qualitative data coding is that I need to convert all the quantitative data into categorical format (1,2,3) by using <code>quantile</code> function. I already compile a new function for the bin coding, please see Function Chapter<sup><a href="Functions.html#binshelper">2.8</a></sup> in this book.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="Data-Intro.html#cb17-1"></a>bins.exp.neg &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(exp.neg)</span>
+<span id="cb17-2"><a href="Data-Intro.html#cb17-2"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">7</span><span class="op">:</span><span class="dv">26</span>){</span>
+<span id="cb17-3"><a href="Data-Intro.html#cb17-3"></a>  bins.exp.neg[,i] &lt;-<span class="st"> </span><span class="kw">bins_helper</span>(bins.exp.neg[,i], </span>
+<span id="cb17-4"><a href="Data-Intro.html#cb17-4"></a>                                  <span class="kw">colnames</span>(bins.exp.neg)[i])</span>
+<span id="cb17-5"><a href="Data-Intro.html#cb17-5"></a>}</span></code></pre></div>
+<pre><code>## R1 spearman r: 0.9425675 
+## R2 spearman r: 0.9433265 
+## R3 spearman r: 0.9408037 
+## R4 spearman r: 0.9436019 
+## R5 spearman r: 0.9418503 
+## R6 spearman r: 0.9436669 
+## R1.TimeLeft spearman r: 0.9446858 
+## R2.TimeLeft spearman r: 0.9502324 
+## R3.TimeLeft spearman r: 0.9486652 
+## R4.TimeLeft spearman r: 0.9481581 
+## R5.TimeLeft spearman r: 0.945816 
+## R6.TimeLeft spearman r: 0.9473766 
+## close_friends spearman r: 0.9432373 
+## social_network spearman r: 0.942117 
+## SAT.COMP spearman r: 0.9438146 
+## SAT.MATH spearman r: 0.9404738 
+## SAT.VERBAL spearman r: 0.9433591 
+## Overall spearman r: 0.9451715 
+## Comprehension spearman r: 0.9781535 
+## State.Reasoning spearman r: 0.9233701</code></pre>
+<p>Let’s check the histograms</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="Data-Intro.html#cb19-1"></a>hist.afterbin &lt;-<span class="st"> </span><span class="kw">multi.hist</span>(bins.exp.neg[,<span class="dv">7</span><span class="op">:</span><span class="kw">length</span>(bins.exp.neg[<span class="dv">1</span>,])])</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:afterbin"></span>
+<img src="MSA_files/figure-html/afterbin-1.png" alt="Histogram of Categorical Variables" width="672" />
+<p class="caption">
+Figure 3.1: Histogram of Categorical Variables
+</p>
+</div>
+</div>
+<div id="sausage" class="section level2">
+<h2><span class="header-section-number">3.2</span> Low Income Sausage</h2>
+<p>From this sausage data, we can know that there are five products and 27 emotional words. 20 Judges are required to evaluate these products by these words. The question is: How do you feel when you taste this product? Emotions were presented in a list, and consumers were able to choose as many emotions as they want.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="Data-Intro.html#cb20-1"></a><span class="co"># import data</span></span>
+<span id="cb20-2"><a href="Data-Intro.html#cb20-2"></a>low.income.sausage &lt;-<span class="st"> </span><span class="kw">getURL</span>(<span class="st">&quot;https://raw.githubusercontent.com/yilewang/MSA/main/Dataset/6Lowincomesausages.csv&quot;</span>)</span>
+<span id="cb20-3"><a href="Data-Intro.html#cb20-3"></a>table.sausage &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">text =</span> low.income.sausage)</span>
+<span id="cb20-4"><a href="Data-Intro.html#cb20-4"></a><span class="kw">colnames</span>(table.sausage)[<span class="dv">1</span>] &lt;-<span class="st"> &quot;Product&quot;</span></span>
+<span id="cb20-5"><a href="Data-Intro.html#cb20-5"></a><span class="kw">kable</span>(<span class="kw">head</span>(table.sausage[, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]), <span class="dt">align =</span> <span class="st">&quot;c&quot;</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Product</th>
+<th align="center">Happy</th>
+<th align="center">Pleasantly.surprised</th>
+<th align="center">Unpleasantly.surprised</th>
+<th align="center">Salivating</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Alpino</td>
+<td align="center">27</td>
+<td align="center">21</td>
+<td align="center">11</td>
+<td align="center">19</td>
+</tr>
+<tr class="even">
+<td align="center">Bafar</td>
+<td align="center">28</td>
+<td align="center">20</td>
+<td align="center">6</td>
+<td align="center">19</td>
+</tr>
+<tr class="odd">
+<td align="center">Chimex</td>
+<td align="center">26</td>
+<td align="center">20</td>
+<td align="center">7</td>
+<td align="center">12</td>
+</tr>
+<tr class="even">
+<td align="center">Capistrano</td>
+<td align="center">32</td>
+<td align="center">16</td>
+<td align="center">6</td>
+<td align="center">15</td>
+</tr>
+<tr class="odd">
+<td align="center">Duby</td>
+<td align="center">33</td>
+<td align="center">17</td>
+<td align="center">9</td>
+<td align="center">12</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="wines" class="section level2">
+<h2><span class="header-section-number">3.3</span> Wines</h2>
+<p>There are several wines from two places: South Africa and France. The <code>wines</code> table includes all the rating from Judges; The <code>wines.name</code> is table with list of emotional words in English and French; The <code>wines.flavors</code> table is some emotional words which are used to describe these wines.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="Data-Intro.html#cb21-1"></a><span class="co"># import data</span></span>
+<span id="cb21-2"><a href="Data-Intro.html#cb21-2"></a>wines &lt;-<span class="st"> </span><span class="kw">getURL</span>(<span class="st">&quot;https://raw.githubusercontent.com/yilewang/MSA/main/Dataset/Data_sorting_tri_fr_no_info_translate.csv&quot;</span>)</span>
+<span id="cb21-3"><a href="Data-Intro.html#cb21-3"></a>wines.names &lt;-<span class="st"> </span><span class="kw">getURL</span>(<span class="st">&quot;https://raw.githubusercontent.com/yilewang/MSA/main/Dataset/Dictionary.csv&quot;</span>)</span>
+<span id="cb21-4"><a href="Data-Intro.html#cb21-4"></a>wines.flavors &lt;-<span class="st"> </span><span class="kw">getURL</span>(<span class="st">&quot;https://raw.githubusercontent.com/yilewang/MSA/main/Dataset/Voc.csv&quot;</span>)</span>
+<span id="cb21-5"><a href="Data-Intro.html#cb21-5"></a></span>
+<span id="cb21-6"><a href="Data-Intro.html#cb21-6"></a>table.wines &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">text =</span> wines)</span>
+<span id="cb21-7"><a href="Data-Intro.html#cb21-7"></a>table.wines.names &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">text =</span> wines.names)</span>
+<span id="cb21-8"><a href="Data-Intro.html#cb21-8"></a>table.wines.flavors &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">text =</span> wines.flavors)</span>
+<span id="cb21-9"><a href="Data-Intro.html#cb21-9"></a></span>
+<span id="cb21-10"><a href="Data-Intro.html#cb21-10"></a><span class="co">### Avoid UTF-8 error</span></span>
+<span id="cb21-11"><a href="Data-Intro.html#cb21-11"></a><span class="kw">colnames</span>(table.wines)[<span class="dv">1</span>] &lt;-<span class="st"> &quot;X&quot;</span></span>
+<span id="cb21-12"><a href="Data-Intro.html#cb21-12"></a><span class="kw">colnames</span>(table.wines.names)[<span class="dv">1</span>] &lt;-<span class="st"> &quot;French&quot;</span></span>
+<span id="cb21-13"><a href="Data-Intro.html#cb21-13"></a><span class="kw">colnames</span>(table.wines.flavors)[<span class="dv">1</span>] &lt;-<span class="st"> &quot;X&quot;</span></span>
+<span id="cb21-14"><a href="Data-Intro.html#cb21-14"></a></span>
+<span id="cb21-15"><a href="Data-Intro.html#cb21-15"></a></span>
+<span id="cb21-16"><a href="Data-Intro.html#cb21-16"></a><span class="kw">kable</span>(<span class="kw">head</span>(table.wines[, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]), <span class="dt">align =</span> <span class="st">&quot;c&quot;</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="center">X</th>
+<th align="center">J1</th>
+<th align="center">J2</th>
+<th align="center">J3</th>
+<th align="center">J4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">FCAR</td>
+<td align="center">4</td>
+<td align="center">2</td>
+<td align="center">4</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center">SRUD</td>
+<td align="center">3</td>
+<td align="center">4</td>
+<td align="center">3</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center">FBAU</td>
+<td align="center">5</td>
+<td align="center">4</td>
+<td align="center">2</td>
+<td align="center">2</td>
+</tr>
+<tr class="even">
+<td align="center">FROC</td>
+<td align="center">4</td>
+<td align="center">1</td>
+<td align="center">4</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center">SFED</td>
+<td align="center">5</td>
+<td align="center">4</td>
+<td align="center">2</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center">SREY</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">4</td>
+<td align="center">3</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="Data-Intro.html#cb22-1"></a><span class="kw">kable</span>(<span class="kw">head</span>(table.wines.names), <span class="dt">align =</span> <span class="st">&quot;c&quot;</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="center">French</th>
+<th align="center">English</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">acide</td>
+<td align="center">acidic</td>
+</tr>
+<tr class="even">
+<td align="center">peu acide</td>
+<td align="center">low acidity</td>
+</tr>
+<tr class="odd">
+<td align="center">agressif</td>
+<td align="center">aggressive</td>
+</tr>
+<tr class="even">
+<td align="center">agrumes</td>
+<td align="center">citrus</td>
+</tr>
+<tr class="odd">
+<td align="center">agréable</td>
+<td align="center">pleasant</td>
+</tr>
+<tr class="even">
+<td align="center">alcool</td>
+<td align="center">alcohol</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="Data-Intro.html#cb23-1"></a><span class="kw">kable</span>(<span class="kw">head</span>(table.wines.flavors[, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]), <span class="dt">align =</span> <span class="st">&quot;c&quot;</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="center">X</th>
+<th align="center">acide</th>
+<th align="center">peu.acide</th>
+<th align="center">agressif</th>
+<th align="center">agrumes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">FCAR</td>
+<td align="center">5</td>
+<td align="center">2</td>
+<td align="center">0</td>
+<td align="center">2</td>
+</tr>
+<tr class="even">
+<td align="center">SRUD</td>
+<td align="center">4</td>
+<td align="center">3</td>
+<td align="center">0</td>
+<td align="center">2</td>
+</tr>
+<tr class="odd">
+<td align="center">FBAU</td>
+<td align="center">2</td>
+<td align="center">5</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">FROC</td>
+<td align="center">7</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">SFED</td>
+<td align="center">6</td>
+<td align="center">2</td>
+<td align="center">1</td>
+<td align="center">2</td>
+</tr>
+<tr class="even">
+<td align="center">SREY</td>
+<td align="center">7</td>
+<td align="center">2</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="Functions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="pca.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown/_book/edit/master/03-Data_Introduction.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["MSA.pdf", "MSA.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

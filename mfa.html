@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 11 Multiple Factor Analysis | Multivariate Statistical Analysis Cookbook with R</title>
+  <meta name="description" content="This is a final cookbook of Multivariate Statistical Analysis" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 11 Multiple Factor Analysis | Multivariate Statistical Analysis Cookbook with R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a final cookbook of Multivariate Statistical Analysis" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 11 Multiple Factor Analysis | Multivariate Statistical Analysis Cookbook with R" />
+  
+  <meta name="twitter:description" content="This is a final cookbook of Multivariate Statistical Analysis" />
+  
+
+<meta name="author" content="Yile Wang" />
+
+
+<meta name="date" content="2020-12-10" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="distatis.html"/>
+<link rel="next" href="end.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">MSA</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#main-packages"><i class="fa fa-check"></i><b>1.1</b> Main Packages</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#msa-introduction"><i class="fa fa-check"></i><b>1.2</b> MSA Introduction</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#msadata"><i class="fa fa-check"></i><b>1.3</b> MSA data set</a></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#whoo-hoo"><i class="fa fa-check"></i><b>1.4</b> Whoo-hoo!</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="Functions.html"><a href="Functions.html"><i class="fa fa-check"></i><b>2</b> Functions Introduction</a><ul>
+<li class="chapter" data-level="2.1" data-path="Functions.html"><a href="Functions.html#Scree"><i class="fa fa-check"></i><b>2.1</b> Plotting Scree plot</a></li>
+<li class="chapter" data-level="2.2" data-path="Functions.html"><a href="Functions.html#Permutation"><i class="fa fa-check"></i><b>2.2</b> Plotting Permutation test results</a></li>
+<li class="chapter" data-level="2.3" data-path="Functions.html"><a href="Functions.html#Heatmap"><i class="fa fa-check"></i><b>2.3</b> Plotting Heatmap</a></li>
+<li class="chapter" data-level="2.4" data-path="Functions.html"><a href="Functions.html#FactorScores"><i class="fa fa-check"></i><b>2.4</b> Plotting Row Factor Scores</a></li>
+<li class="chapter" data-level="2.5" data-path="Functions.html"><a href="Functions.html#CFactorScore"><i class="fa fa-check"></i><b>2.5</b> Plotting Column Plot</a></li>
+<li class="chapter" data-level="2.6" data-path="Functions.html"><a href="Functions.html#Loading"><i class="fa fa-check"></i><b>2.6</b> Plotting Loading Plot</a></li>
+<li class="chapter" data-level="2.7" data-path="Functions.html"><a href="Functions.html#Contribution"><i class="fa fa-check"></i><b>2.7</b> Plotting Contribution Barplot</a></li>
+<li class="chapter" data-level="2.8" data-path="Functions.html"><a href="Functions.html#binshelper"><i class="fa fa-check"></i><b>2.8</b> Bins Helper Functions</a></li>
+<li class="chapter" data-level="2.9" data-path="Functions.html"><a href="Functions.html#plotting-latent-variable-plot"><i class="fa fa-check"></i><b>2.9</b> Plotting Latent Variable Plot</a></li>
+<li class="chapter" data-level="2.10" data-path="Functions.html"><a href="Functions.html#plotting-partial-factor-scores"><i class="fa fa-check"></i><b>2.10</b> Plotting Partial Factor Scores</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="Data-Intro.html"><a href="Data-Intro.html"><i class="fa fa-check"></i><b>3</b> Data Introduction</a><ul>
+<li class="chapter" data-level="3.1" data-path="Data-Intro.html"><a href="Data-Intro.html#collect"><i class="fa fa-check"></i><b>3.1</b> Main data set: Collective Action Data Set</a></li>
+<li class="chapter" data-level="3.2" data-path="Data-Intro.html"><a href="Data-Intro.html#sausage"><i class="fa fa-check"></i><b>3.2</b> Low Income Sausage</a></li>
+<li class="chapter" data-level="3.3" data-path="Data-Intro.html"><a href="Data-Intro.html#wines"><i class="fa fa-check"></i><b>3.3</b> Wines</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="pca.html"><a href="pca.html"><i class="fa fa-check"></i><b>4</b> Principal Component Analysis</a><ul>
+<li class="chapter" data-level="4.1" data-path="pca.html"><a href="pca.html#introduction-of-pca"><i class="fa fa-check"></i><b>4.1</b> Introduction of PCA</a></li>
+<li class="chapter" data-level="4.2" data-path="pca.html"><a href="pca.html#computing"><i class="fa fa-check"></i><b>4.2</b> Computing</a></li>
+<li class="chapter" data-level="4.3" data-path="pca.html"><a href="pca.html#heatmap"><i class="fa fa-check"></i><b>4.3</b> Heatmap</a></li>
+<li class="chapter" data-level="4.4" data-path="pca.html"><a href="pca.html#pcaScree"><i class="fa fa-check"></i><b>4.4</b> Scree Plot</a></li>
+<li class="chapter" data-level="4.5" data-path="pca.html"><a href="pca.html#factor-scores"><i class="fa fa-check"></i><b>4.5</b> Factor Scores</a></li>
+<li class="chapter" data-level="4.6" data-path="pca.html"><a href="pca.html#loading"><i class="fa fa-check"></i><b>4.6</b> Loading</a></li>
+<li class="chapter" data-level="4.7" data-path="pca.html"><a href="pca.html#contriution-and-bootstrap-ratio-barplots"><i class="fa fa-check"></i><b>4.7</b> Contriution and Bootstrap Ratio Barplots</a></li>
+<li class="chapter" data-level="4.8" data-path="pca.html"><a href="pca.html#conclusion"><i class="fa fa-check"></i><b>4.8</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ca.html"><a href="ca.html"><i class="fa fa-check"></i><b>5</b> Correspondence Analysis</a><ul>
+<li class="chapter" data-level="5.1" data-path="ca.html"><a href="ca.html#introduction-of-ca"><i class="fa fa-check"></i><b>5.1</b> Introduction of CA</a></li>
+<li class="chapter" data-level="5.2" data-path="ca.html"><a href="ca.html#computation"><i class="fa fa-check"></i><b>5.2</b> Computation</a></li>
+<li class="chapter" data-level="5.3" data-path="ca.html"><a href="ca.html#heatmap-1"><i class="fa fa-check"></i><b>5.3</b> Heatmap</a></li>
+<li class="chapter" data-level="5.4" data-path="ca.html"><a href="ca.html#computation-1"><i class="fa fa-check"></i><b>5.4</b> Computation</a></li>
+<li class="chapter" data-level="5.5" data-path="ca.html"><a href="ca.html#scree-plot"><i class="fa fa-check"></i><b>5.5</b> Scree Plot</a></li>
+<li class="chapter" data-level="5.6" data-path="ca.html"><a href="ca.html#symmetric-asymmetric-plots"><i class="fa fa-check"></i><b>5.6</b> Symmetric &amp; Asymmetric Plots</a></li>
+<li class="chapter" data-level="5.7" data-path="ca.html"><a href="ca.html#contribution-and-bootstrap-ratio-barplot"><i class="fa fa-check"></i><b>5.7</b> Contribution and Bootstrap Ratio Barplot</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="dica.html"><a href="dica.html"><i class="fa fa-check"></i><b>6</b> Discriminant Correspondence Analysis</a><ul>
+<li class="chapter" data-level="6.1" data-path="dica.html"><a href="dica.html#introdcution-of-dica"><i class="fa fa-check"></i><b>6.1</b> Introdcution of DiCA</a></li>
+<li class="chapter" data-level="6.2" data-path="dica.html"><a href="dica.html#histgram-of-binning-variables"><i class="fa fa-check"></i><b>6.2</b> Histgram of Binning Variables</a></li>
+<li class="chapter" data-level="6.3" data-path="dica.html"><a href="dica.html#heatmap-2"><i class="fa fa-check"></i><b>6.3</b> Heatmap</a></li>
+<li class="chapter" data-level="6.4" data-path="dica.html"><a href="dica.html#scree-plot-1"><i class="fa fa-check"></i><b>6.4</b> Scree Plot</a></li>
+<li class="chapter" data-level="6.5" data-path="dica.html"><a href="dica.html#factor-scores-1"><i class="fa fa-check"></i><b>6.5</b> Factor Scores</a></li>
+<li class="chapter" data-level="6.6" data-path="dica.html"><a href="dica.html#confusion-matrix"><i class="fa fa-check"></i><b>6.6</b> Confusion Matrix</a></li>
+<li class="chapter" data-level="6.7" data-path="dica.html"><a href="dica.html#contribution-and-bootstrap-ratio-barplots"><i class="fa fa-check"></i><b>6.7</b> Contribution and Bootstrap Ratio Barplots</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="bada.html"><a href="bada.html"><i class="fa fa-check"></i><b>7</b> Barycentric Discriminant Analysis</a><ul>
+<li class="chapter" data-level="7.1" data-path="bada.html"><a href="bada.html#introduction-of-bada"><i class="fa fa-check"></i><b>7.1</b> Introduction of BADA</a></li>
+<li class="chapter" data-level="7.2" data-path="bada.html"><a href="bada.html#computation-2"><i class="fa fa-check"></i><b>7.2</b> Computation</a></li>
+<li class="chapter" data-level="7.3" data-path="bada.html"><a href="bada.html#heatmap-3"><i class="fa fa-check"></i><b>7.3</b> Heatmap</a></li>
+<li class="chapter" data-level="7.4" data-path="bada.html"><a href="bada.html#scree"><i class="fa fa-check"></i><b>7.4</b> Scree</a></li>
+<li class="chapter" data-level="7.5" data-path="bada.html"><a href="bada.html#factor-scores-2"><i class="fa fa-check"></i><b>7.5</b> Factor Scores</a></li>
+<li class="chapter" data-level="7.6" data-path="bada.html"><a href="bada.html#loading-1"><i class="fa fa-check"></i><b>7.6</b> Loading</a></li>
+<li class="chapter" data-level="7.7" data-path="bada.html"><a href="bada.html#confusion-matrix-1"><i class="fa fa-check"></i><b>7.7</b> Confusion Matrix</a></li>
+<li class="chapter" data-level="7.8" data-path="bada.html"><a href="bada.html#contribution-and-bootstrap-ratio-barplot-1"><i class="fa fa-check"></i><b>7.8</b> Contribution and Bootstrap Ratio Barplot</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="mca.html"><a href="mca.html"><i class="fa fa-check"></i><b>8</b> Multiple Corresponding Analysis</a><ul>
+<li class="chapter" data-level="8.1" data-path="mca.html"><a href="mca.html#introduction-of-mca"><i class="fa fa-check"></i><b>8.1</b> Introduction of MCA</a></li>
+<li class="chapter" data-level="8.2" data-path="mca.html"><a href="mca.html#histgram-of-binning-variables-1"><i class="fa fa-check"></i><b>8.2</b> Histgram of Binning Variables</a></li>
+<li class="chapter" data-level="8.3" data-path="mca.html"><a href="mca.html#computation-3"><i class="fa fa-check"></i><b>8.3</b> Computation</a></li>
+<li class="chapter" data-level="8.4" data-path="mca.html"><a href="mca.html#heatmap-4"><i class="fa fa-check"></i><b>8.4</b> Heatmap</a></li>
+<li class="chapter" data-level="8.5" data-path="mca.html"><a href="mca.html#scree-plot-2"><i class="fa fa-check"></i><b>8.5</b> Scree Plot</a></li>
+<li class="chapter" data-level="8.6" data-path="mca.html"><a href="mca.html#row-factor-scores"><i class="fa fa-check"></i><b>8.6</b> Row Factor Scores</a></li>
+<li class="chapter" data-level="8.7" data-path="mca.html"><a href="mca.html#important-variables-line-plots"><i class="fa fa-check"></i><b>8.7</b> Important Variables Line Plots</a></li>
+<li class="chapter" data-level="8.8" data-path="mca.html"><a href="mca.html#contribution-and-bootstrap-ratio-barplots-1"><i class="fa fa-check"></i><b>8.8</b> Contribution and Bootstrap Ratio Barplots</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="pls.html"><a href="pls.html"><i class="fa fa-check"></i><b>9</b> Partial Least Square</a><ul>
+<li class="chapter" data-level="9.1" data-path="pls.html"><a href="pls.html#introduction-of-pls-c"><i class="fa fa-check"></i><b>9.1</b> Introduction of PLS-C</a></li>
+<li class="chapter" data-level="9.2" data-path="pls.html"><a href="pls.html#computation-4"><i class="fa fa-check"></i><b>9.2</b> Computation</a></li>
+<li class="chapter" data-level="9.3" data-path="pls.html"><a href="pls.html#heatmap-5"><i class="fa fa-check"></i><b>9.3</b> Heatmap</a></li>
+<li class="chapter" data-level="9.4" data-path="pls.html"><a href="pls.html#scree-plot-3"><i class="fa fa-check"></i><b>9.4</b> Scree Plot</a></li>
+<li class="chapter" data-level="9.5" data-path="pls.html"><a href="pls.html#latent-variables"><i class="fa fa-check"></i><b>9.5</b> Latent Variables</a></li>
+<li class="chapter" data-level="9.6" data-path="pls.html"><a href="pls.html#salience"><i class="fa fa-check"></i><b>9.6</b> Salience</a></li>
+<li class="chapter" data-level="9.7" data-path="pls.html"><a href="pls.html#bootstrap-ratio-barplot"><i class="fa fa-check"></i><b>9.7</b> Bootstrap Ratio Barplot</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="distatis.html"><a href="distatis.html"><i class="fa fa-check"></i><b>10</b> DiSTATIS</a><ul>
+<li class="chapter" data-level="10.1" data-path="distatis.html"><a href="distatis.html#introduction-of-distatis"><i class="fa fa-check"></i><b>10.1</b> Introduction of DiSTATIS</a></li>
+<li class="chapter" data-level="10.2" data-path="distatis.html"><a href="distatis.html#computation-5"><i class="fa fa-check"></i><b>10.2</b> Computation</a></li>
+<li class="chapter" data-level="10.3" data-path="distatis.html"><a href="distatis.html#heatmap-6"><i class="fa fa-check"></i><b>10.3</b> HeatMap</a></li>
+<li class="chapter" data-level="10.4" data-path="distatis.html"><a href="distatis.html#scree-plot-4"><i class="fa fa-check"></i><b>10.4</b> Scree Plot</a></li>
+<li class="chapter" data-level="10.5" data-path="distatis.html"><a href="distatis.html#global-factor-scores"><i class="fa fa-check"></i><b>10.5</b> Global Factor Scores</a></li>
+<li class="chapter" data-level="10.6" data-path="distatis.html"><a href="distatis.html#partial-factor-scores"><i class="fa fa-check"></i><b>10.6</b> Partial Factor Scores</a></li>
+<li class="chapter" data-level="10.7" data-path="distatis.html"><a href="distatis.html#vocabulary-graphs"><i class="fa fa-check"></i><b>10.7</b> Vocabulary graphs</a></li>
+<li class="chapter" data-level="10.8" data-path="distatis.html"><a href="distatis.html#contribution-barplots"><i class="fa fa-check"></i><b>10.8</b> Contribution Barplots</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="mfa.html"><a href="mfa.html"><i class="fa fa-check"></i><b>11</b> Multiple Factor Analysis</a><ul>
+<li class="chapter" data-level="11.1" data-path="mfa.html"><a href="mfa.html#introduction-of-mfa"><i class="fa fa-check"></i><b>11.1</b> Introduction of MFA</a></li>
+<li class="chapter" data-level="11.2" data-path="mfa.html"><a href="mfa.html#computation-6"><i class="fa fa-check"></i><b>11.2</b> Computation</a></li>
+<li class="chapter" data-level="11.3" data-path="mfa.html"><a href="mfa.html#heatmap-7"><i class="fa fa-check"></i><b>11.3</b> Heatmap</a></li>
+<li class="chapter" data-level="11.4" data-path="mfa.html"><a href="mfa.html#scree-plot-5"><i class="fa fa-check"></i><b>11.4</b> Scree Plot</a></li>
+<li class="chapter" data-level="11.5" data-path="mfa.html"><a href="mfa.html#global-factor-scores-1"><i class="fa fa-check"></i><b>11.5</b> Global Factor Scores</a></li>
+<li class="chapter" data-level="11.6" data-path="mfa.html"><a href="mfa.html#partial-factor-scores-1"><i class="fa fa-check"></i><b>11.6</b> Partial Factor Scores</a></li>
+<li class="chapter" data-level="11.7" data-path="mfa.html"><a href="mfa.html#contribution-barplots-1"><i class="fa fa-check"></i><b>11.7</b> Contribution Barplots</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="end.html"><a href="end.html"><i class="fa fa-check"></i><b>12</b> The End</a><ul>
+<li class="chapter" data-level="12.1" data-path="end.html"><a href="end.html#final-conclusion"><i class="fa fa-check"></i><b>12.1</b> Final Conclusion</a></li>
+<li class="chapter" data-level="12.2" data-path="end.html"><a href="end.html#appreciation"><i class="fa fa-check"></i><b>12.2</b> Appreciation</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown/_book" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Multivariate Statistical Analysis Cookbook with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="mfa" class="section level1">
+<h1><span class="header-section-number">Chapter 11</span> Multiple Factor Analysis</h1>
+<div id="introduction-of-mfa" class="section level2">
+<h2><span class="header-section-number">11.1</span> Introduction of MFA</h2>
+<p>The Multiple Factor Analysis (MFA) is another external version of the PCA, aka PCA for multiple data set. The principle of the MFA is to do the two steps: * 1. do the PCA and normalize each data table by the first singular value (alpha); * 2. all these normalized data will be compiled into a new grand table for analysis. The advantage of the MFA is that the size of the data table will not take up larger variance in grand data table (it has been normalized). Besides, MFA can provide more details about how each sub data tables contribute/associate with my observation. Compared to other MSA method, MFA has more flexibility on data tables, which is suitable for exploration study. In this chapter, I will use 7 sub data table to conduct the MFA to investigate the realtionship between collective behaviors and social &amp; general intelligence in college students.</p>
+</div>
+<div id="computation-6" class="section level2">
+<h2><span class="header-section-number">11.2</span> Computation</h2>
+<p>It’s worth to mention that the seven sub data tables’ names are listed in the data intro part for your quick reference<sup><a href="Data-Intro.html#collect">3.1</a></sup>.</p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="mfa.html#cb121-1"></a><span class="co"># import data</span></span>
+<span id="cb121-2"><a href="mfa.html#cb121-2"></a>raw.mfa &lt;-<span class="st"> </span>exp.neg[<span class="dv">7</span><span class="op">:</span><span class="dv">35</span>]</span>
+<span id="cb121-3"><a href="mfa.html#cb121-3"></a>raw.col.design &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(raw.mfa[<span class="dv">1</span>,])</span>
+<span id="cb121-4"><a href="mfa.html#cb121-4"></a>raw.col.design[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>] &lt;-<span class="st"> &quot;A1&quot;</span></span>
+<span id="cb121-5"><a href="mfa.html#cb121-5"></a>raw.col.design[<span class="dv">7</span><span class="op">:</span><span class="dv">12</span>] &lt;-<span class="st"> &quot;B1&quot;</span></span>
+<span id="cb121-6"><a href="mfa.html#cb121-6"></a>raw.col.design[<span class="dv">13</span><span class="op">:</span><span class="dv">14</span>] &lt;-<span class="st"> &quot;C1&quot;</span></span>
+<span id="cb121-7"><a href="mfa.html#cb121-7"></a>raw.col.design[<span class="dv">15</span><span class="op">:</span><span class="dv">17</span>] &lt;-<span class="st"> &quot;D1&quot;</span></span>
+<span id="cb121-8"><a href="mfa.html#cb121-8"></a>raw.col.design[<span class="dv">18</span><span class="op">:</span><span class="dv">21</span>] &lt;-<span class="st"> &quot;E1&quot;</span></span>
+<span id="cb121-9"><a href="mfa.html#cb121-9"></a>raw.col.design[<span class="dv">22</span><span class="op">:</span><span class="dv">26</span>] &lt;-<span class="st"> &quot;F1&quot;</span></span>
+<span id="cb121-10"><a href="mfa.html#cb121-10"></a>raw.col.design[<span class="dv">27</span><span class="op">:</span><span class="dv">29</span>] &lt;-<span class="st"> &quot;G1&quot;</span></span>
+<span id="cb121-11"><a href="mfa.html#cb121-11"></a><span class="kw">colnames</span>(raw.mfa) &lt;-<span class="st"> </span><span class="kw">paste0</span>(raw.col.design[<span class="dv">1</span><span class="op">:</span><span class="dv">29</span>],<span class="st">&quot;.&quot;</span>, </span>
+<span id="cb121-12"><a href="mfa.html#cb121-12"></a>                            <span class="kw">colnames</span>(raw.mfa)[<span class="dv">1</span><span class="op">:</span><span class="dv">29</span>])</span>
+<span id="cb121-13"><a href="mfa.html#cb121-13"></a></span>
+<span id="cb121-14"><a href="mfa.html#cb121-14"></a></span>
+<span id="cb121-15"><a href="mfa.html#cb121-15"></a>res.MFA &lt;-<span class="st"> </span><span class="kw">mpMFA</span>(raw.mfa, </span>
+<span id="cb121-16"><a href="mfa.html#cb121-16"></a>                 <span class="dt">column.design =</span> raw.col.design, </span>
+<span id="cb121-17"><a href="mfa.html#cb121-17"></a>                 <span class="dt">DESIGN =</span> exp.neg<span class="op">$</span>group, <span class="dt">graphs =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;Preprocessed the Rows of the data matrix using:  None&quot;
+## [1] &quot;Preprocessed the Columns of the data matrix using:  Center_1Norm&quot;
+## [1] &quot;Preprocessed the Tables of the data matrix using:  MFA_Normalization&quot;
+## [1] &quot;Preprocessing Completed&quot;
+## [1] &quot;Optimizing using:  None&quot;
+## [1] &quot;Processing Complete&quot;</code></pre>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="mfa.html#cb123-1"></a>rv.mfa &lt;-<span class="st"> </span>res.MFA<span class="op">$</span>mexPosition.Data<span class="op">$</span>InnerProduct<span class="op">$</span>RVMatrix</span>
+<span id="cb123-2"><a href="mfa.html#cb123-2"></a>eigs &lt;-<span class="st"> </span>res.MFA<span class="op">$</span>mexPosition.Data<span class="op">$</span>Table<span class="op">$</span>eigs</span>
+<span id="cb123-3"><a href="mfa.html#cb123-3"></a>fs &lt;-<span class="st"> </span>res.MFA<span class="op">$</span>mexPosition.Data<span class="op">$</span>Table<span class="op">$</span>fi</span>
+<span id="cb123-4"><a href="mfa.html#cb123-4"></a>fj &lt;-<span class="st"> </span>res.MFA<span class="op">$</span>mexPosition.Data<span class="op">$</span>Table<span class="op">$</span>Q</span>
+<span id="cb123-5"><a href="mfa.html#cb123-5"></a>cj &lt;-<span class="st"> </span>res.MFA<span class="op">$</span>mexPosition.Data<span class="op">$</span>Table<span class="op">$</span>cj</span>
+<span id="cb123-6"><a href="mfa.html#cb123-6"></a>partial.fi.array &lt;-<span class="st"> </span>res.MFA<span class="op">$</span>mexPosition.Data<span class="op">$</span>Table<span class="op">$</span>partial.fi.array</span>
+<span id="cb123-7"><a href="mfa.html#cb123-7"></a>tau &lt;-<span class="st"> </span>res.MFA<span class="op">$</span>mexPosition.Data<span class="op">$</span>Table<span class="op">$</span>t</span></code></pre></div>
+</div>
+<div id="heatmap-7" class="section level2">
+<h2><span class="header-section-number">11.3</span> Heatmap</h2>
+<p>The RV heatmap will tell me the covariance among these seven data tables. From the heatmap, it is obvious that there are some sub tables have high covariance between each other, <code>friends</code> with <code>token</code>, <code>SAT</code> with <code>friends</code>.</p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="mfa.html#cb124-1"></a><span class="co"># give names</span></span>
+<span id="cb124-2"><a href="mfa.html#cb124-2"></a>names.subtable &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;token&quot;</span>, </span>
+<span id="cb124-3"><a href="mfa.html#cb124-3"></a>                    <span class="st">&quot;token time&quot;</span>, </span>
+<span id="cb124-4"><a href="mfa.html#cb124-4"></a>                    <span class="st">&quot;friends&quot;</span>, </span>
+<span id="cb124-5"><a href="mfa.html#cb124-5"></a>                    <span class="st">&quot;SAT&amp;ACT&quot;</span>, </span>
+<span id="cb124-6"><a href="mfa.html#cb124-6"></a>                    <span class="st">&quot;social intelligence&quot;</span>,</span>
+<span id="cb124-7"><a href="mfa.html#cb124-7"></a>                    <span class="st">&quot;personality&quot;</span>, </span>
+<span id="cb124-8"><a href="mfa.html#cb124-8"></a>                    <span class="st">&quot;attitude&quot;</span>)</span>
+<span id="cb124-9"><a href="mfa.html#cb124-9"></a><span class="kw">rownames</span>(rv.mfa) &lt;-<span class="st"> </span>names.subtable</span>
+<span id="cb124-10"><a href="mfa.html#cb124-10"></a><span class="kw">colnames</span>(rv.mfa) &lt;-<span class="st"> </span>names.subtable</span>
+<span id="cb124-11"><a href="mfa.html#cb124-11"></a></span>
+<span id="cb124-12"><a href="mfa.html#cb124-12"></a><span class="kw">plot.heatmap</span>(<span class="dt">DATA =</span> rv.mfa, <span class="dt">scale =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<p><img src="MSA_files/figure-html/mfaHeatmap-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="scree-plot-5" class="section level2">
+<h2><span class="header-section-number">11.4</span> Scree Plot</h2>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="mfa.html#cb125-1"></a>my.scree &lt;-<span class="st"> </span><span class="kw">PlotScree</span>(<span class="dt">ev =</span> eigs,</span>
+<span id="cb125-2"><a href="mfa.html#cb125-2"></a>  <span class="dt">plotKaiser =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb125-3"><a href="mfa.html#cb125-3"></a>  <span class="dt">title =</span> <span class="st">&quot;Explained Variance per Dimension&quot;</span>)</span></code></pre></div>
+<p><img src="MSA_files/figure-html/mfaScreePlot-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="global-factor-scores-1" class="section level2">
+<h2><span class="header-section-number">11.5</span> Global Factor Scores</h2>
+<p>The plot of global factor scores has shown similar results with PCA before. The only difference is that the dimension 3 looks more meaningful than PCA.</p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="mfa.html#cb126-1"></a><span class="kw">plot.fs</span>(<span class="dt">DESIGN =</span> exp.neg<span class="op">$</span>group, </span>
+<span id="cb126-2"><a href="mfa.html#cb126-2"></a>        <span class="dt">fs=</span>fs, <span class="dt">eigs=</span>eigs, </span>
+<span id="cb126-3"><a href="mfa.html#cb126-3"></a>        <span class="dt">tau=</span>tau, <span class="dt">d =</span> <span class="dv">1</span>, <span class="dt">mode=</span><span class="st">&quot;CI&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;MFA&quot;</span>)</span></code></pre></div>
+<p><img src="MSA_files/figure-html/mfaFactorScores-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="mfa.html#cb127-1"></a><span class="kw">plot.fs</span>(<span class="dt">DESIGN =</span> exp.neg<span class="op">$</span>group, </span>
+<span id="cb127-2"><a href="mfa.html#cb127-2"></a>        <span class="dt">fs=</span>fs, <span class="dt">eigs=</span>eigs, </span>
+<span id="cb127-3"><a href="mfa.html#cb127-3"></a>        <span class="dt">tau=</span>tau, <span class="dt">d =</span> <span class="dv">2</span>, <span class="dt">mode=</span><span class="st">&quot;CI&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;MFA&quot;</span>)</span></code></pre></div>
+<p><img src="MSA_files/figure-html/mfaFactorScores-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="mfa.html#cb128-1"></a><span class="kw">plot.fs</span>(<span class="dt">DESIGN =</span> exp.neg<span class="op">$</span>group, </span>
+<span id="cb128-2"><a href="mfa.html#cb128-2"></a>        <span class="dt">fs=</span>fs, <span class="dt">eigs=</span>eigs, </span>
+<span id="cb128-3"><a href="mfa.html#cb128-3"></a>        <span class="dt">tau=</span>tau, <span class="dt">d =</span> <span class="dv">3</span>, <span class="dt">mode=</span><span class="st">&quot;CI&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;MFA&quot;</span>)</span></code></pre></div>
+<p><img src="MSA_files/figure-html/mfaFactorScores-3.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="partial-factor-scores-1" class="section level2">
+<h2><span class="header-section-number">11.6</span> Partial Factor Scores</h2>
+<p>From the Partial Factor Scores, the most significant sub data table is D4 and E5, which represent <strong>Social Intelligence, empathy</strong> and <strong>General Intelligence, SAT</strong>. Also, A1, the collective game performance contributes much to the separation too. Compared to other results, since all the four groups are clustering at the center so it is hard to tell the specific difference. However, what I know is that most of these sub data tables will have different direction on HIGH_HIGH group and LOW_LOW group.</p>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="mfa.html#cb129-1"></a><span class="kw">plot.partial.fs</span>(<span class="dt">DESIGN =</span> exp.neg<span class="op">$</span>group, </span>
+<span id="cb129-2"><a href="mfa.html#cb129-2"></a>                <span class="dt">fs =</span> fs, </span>
+<span id="cb129-3"><a href="mfa.html#cb129-3"></a>                <span class="dt">eigs =</span> eigs, </span>
+<span id="cb129-4"><a href="mfa.html#cb129-4"></a>                <span class="dt">tau =</span> tau, </span>
+<span id="cb129-5"><a href="mfa.html#cb129-5"></a>                <span class="dt">d=</span><span class="dv">1</span>, </span>
+<span id="cb129-6"><a href="mfa.html#cb129-6"></a>                <span class="dt">partial.fi.array=</span>partial.fi.array, </span>
+<span id="cb129-7"><a href="mfa.html#cb129-7"></a>                <span class="dt">mm =</span> <span class="dv">7</span>)</span></code></pre></div>
+<p><img src="MSA_files/figure-html/mfaPartialFS-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="mfa.html#cb130-1"></a><span class="kw">plot.partial.fs</span>(<span class="dt">DESIGN =</span> exp.neg<span class="op">$</span>group, </span>
+<span id="cb130-2"><a href="mfa.html#cb130-2"></a>                <span class="dt">fs =</span> fs,</span>
+<span id="cb130-3"><a href="mfa.html#cb130-3"></a>                <span class="dt">eigs =</span> eigs, </span>
+<span id="cb130-4"><a href="mfa.html#cb130-4"></a>                <span class="dt">tau =</span> tau, </span>
+<span id="cb130-5"><a href="mfa.html#cb130-5"></a>                <span class="dt">d=</span><span class="dv">2</span>, </span>
+<span id="cb130-6"><a href="mfa.html#cb130-6"></a>                <span class="dt">partial.fi.array=</span>partial.fi.array, </span>
+<span id="cb130-7"><a href="mfa.html#cb130-7"></a>                <span class="dt">mm =</span> <span class="dv">7</span>)</span></code></pre></div>
+<p><img src="MSA_files/figure-html/mfaPartialFS-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="mfa.html#cb131-1"></a><span class="kw">plot.partial.fs</span>(<span class="dt">DESIGN =</span> exp.neg<span class="op">$</span>group, </span>
+<span id="cb131-2"><a href="mfa.html#cb131-2"></a>                <span class="dt">fs =</span> fs, </span>
+<span id="cb131-3"><a href="mfa.html#cb131-3"></a>                <span class="dt">eigs =</span> eigs, </span>
+<span id="cb131-4"><a href="mfa.html#cb131-4"></a>                <span class="dt">tau =</span> tau, </span>
+<span id="cb131-5"><a href="mfa.html#cb131-5"></a>                <span class="dt">d=</span><span class="dv">3</span>, </span>
+<span id="cb131-6"><a href="mfa.html#cb131-6"></a>                <span class="dt">partial.fi.array=</span>partial.fi.array, </span>
+<span id="cb131-7"><a href="mfa.html#cb131-7"></a>                <span class="dt">mm =</span> <span class="dv">7</span>)</span></code></pre></div>
+<p><img src="MSA_files/figure-html/mfaPartialFS-3.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="contribution-barplots-1" class="section level2">
+<h2><span class="header-section-number">11.7</span> Contribution Barplots</h2>
+<p>The results from contribution barplots are quite similar with before.</p>
+<p>In dimension 1, the time usage is negatively associated with collective behavior, and helpful is in same line with time usage</p>
+<p>In dimension 2, attitude is in opposite direction with empathy ability</p>
+<p>In dimension 3, friends is positive related with attitude.</p>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="mfa.html#cb132-1"></a><span class="co"># Contribution Plot</span></span>
+<span id="cb132-2"><a href="mfa.html#cb132-2"></a><span class="co">### plot contributions for component 1</span></span>
+<span id="cb132-3"><a href="mfa.html#cb132-3"></a>col &lt;-<span class="st"> </span>m.color.design</span>
+<span id="cb132-4"><a href="mfa.html#cb132-4"></a>signed.ctrJ &lt;-<span class="st"> </span>cj <span class="op">*</span><span class="st"> </span><span class="kw">sign</span>(fj)</span>
+<span id="cb132-5"><a href="mfa.html#cb132-5"></a>laDim =<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb132-6"><a href="mfa.html#cb132-6"></a>ctrJ<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">PrettyBarPlot2</span>(signed.ctrJ[,laDim],</span>
+<span id="cb132-7"><a href="mfa.html#cb132-7"></a>                   <span class="dt">threshold =</span> <span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="kw">NROW</span>(signed.ctrJ),</span>
+<span id="cb132-8"><a href="mfa.html#cb132-8"></a>                   <span class="dt">font.size =</span> <span class="dv">3</span>,</span>
+<span id="cb132-9"><a href="mfa.html#cb132-9"></a>                   <span class="dt">signifOnly =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb132-10"><a href="mfa.html#cb132-10"></a>                   <span class="dt">horizontal =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb132-11"><a href="mfa.html#cb132-11"></a>                   <span class="dt">color4bar =</span> col, <span class="co"># we need hex code</span></span>
+<span id="cb132-12"><a href="mfa.html#cb132-12"></a>                   <span class="dt">main =</span> <span class="st">&#39;Variable Contributions (Signed)&#39;</span>,</span>
+<span id="cb132-13"><a href="mfa.html#cb132-13"></a>                   <span class="dt">ylab =</span> <span class="kw">paste0</span>(<span class="st">&#39;Contributions Barplot&#39;</span>, laDim),</span>
+<span id="cb132-14"><a href="mfa.html#cb132-14"></a>                   <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="fl">1.2</span><span class="op">*</span><span class="kw">min</span>(signed.ctrJ), <span class="fl">1.2</span><span class="op">*</span><span class="kw">max</span>(signed.ctrJ))</span>
+<span id="cb132-15"><a href="mfa.html#cb132-15"></a>  ) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;&quot;</span>,<span class="dt">subtitle =</span> <span class="kw">paste0</span>(<span class="st">&#39;Component &#39;</span>, laDim))</span>
+<span id="cb132-16"><a href="mfa.html#cb132-16"></a></span>
+<span id="cb132-17"><a href="mfa.html#cb132-17"></a><span class="co">### plot contributions for component 2</span></span>
+<span id="cb132-18"><a href="mfa.html#cb132-18"></a>laDim =<span class="dv">2</span></span>
+<span id="cb132-19"><a href="mfa.html#cb132-19"></a>ctrJ<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">PrettyBarPlot2</span>(signed.ctrJ[,laDim],</span>
+<span id="cb132-20"><a href="mfa.html#cb132-20"></a>                   <span class="dt">threshold =</span> <span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="kw">NROW</span>(signed.ctrJ),</span>
+<span id="cb132-21"><a href="mfa.html#cb132-21"></a>                   <span class="dt">font.size =</span> <span class="dv">3</span>,</span>
+<span id="cb132-22"><a href="mfa.html#cb132-22"></a>                   <span class="dt">color4bar =</span> col, <span class="co"># we need hex code</span></span>
+<span id="cb132-23"><a href="mfa.html#cb132-23"></a>                   <span class="dt">signifOnly =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb132-24"><a href="mfa.html#cb132-24"></a>                   <span class="dt">horizontal =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb132-25"><a href="mfa.html#cb132-25"></a>                   <span class="dt">main =</span> <span class="st">&#39;Variable Contributions (Signed)&#39;</span>,</span>
+<span id="cb132-26"><a href="mfa.html#cb132-26"></a>                   <span class="dt">ylab =</span> <span class="kw">paste0</span>(<span class="st">&#39;Contributions Barplot&#39;</span>, laDim),</span>
+<span id="cb132-27"><a href="mfa.html#cb132-27"></a>                   <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="fl">1.2</span><span class="op">*</span><span class="kw">min</span>(signed.ctrJ), <span class="fl">1.2</span><span class="op">*</span><span class="kw">max</span>(signed.ctrJ))</span>
+<span id="cb132-28"><a href="mfa.html#cb132-28"></a>)<span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;&quot;</span>,<span class="dt">subtitle =</span> <span class="kw">paste0</span>(<span class="st">&#39;Component &#39;</span>, laDim))</span>
+<span id="cb132-29"><a href="mfa.html#cb132-29"></a>laDim =<span class="dv">3</span></span>
+<span id="cb132-30"><a href="mfa.html#cb132-30"></a>ctrJ<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">PrettyBarPlot2</span>(signed.ctrJ[,laDim],</span>
+<span id="cb132-31"><a href="mfa.html#cb132-31"></a>                   <span class="dt">threshold =</span> <span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="kw">NROW</span>(signed.ctrJ),</span>
+<span id="cb132-32"><a href="mfa.html#cb132-32"></a>                   <span class="dt">font.size =</span> <span class="dv">3</span>,</span>
+<span id="cb132-33"><a href="mfa.html#cb132-33"></a>                   <span class="dt">color4bar =</span> col, <span class="co"># we need hex code</span></span>
+<span id="cb132-34"><a href="mfa.html#cb132-34"></a>                   <span class="dt">signifOnly =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb132-35"><a href="mfa.html#cb132-35"></a>                   <span class="dt">horizontal =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb132-36"><a href="mfa.html#cb132-36"></a>                   <span class="dt">main =</span> <span class="st">&#39;Variable Contributions (Signed)&#39;</span>,</span>
+<span id="cb132-37"><a href="mfa.html#cb132-37"></a>                   <span class="dt">ylab =</span> <span class="kw">paste0</span>(<span class="st">&#39;Contributions Barplot&#39;</span>, laDim),</span>
+<span id="cb132-38"><a href="mfa.html#cb132-38"></a>                   <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="fl">1.2</span><span class="op">*</span><span class="kw">min</span>(signed.ctrJ), <span class="fl">1.2</span><span class="op">*</span><span class="kw">max</span>(signed.ctrJ))</span>
+<span id="cb132-39"><a href="mfa.html#cb132-39"></a>)<span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;&quot;</span>,<span class="dt">subtitle =</span> <span class="kw">paste0</span>(<span class="st">&#39;Component &#39;</span>, laDim))</span>
+<span id="cb132-40"><a href="mfa.html#cb132-40"></a></span>
+<span id="cb132-41"><a href="mfa.html#cb132-41"></a>laDim =<span class="dv">4</span></span>
+<span id="cb132-42"><a href="mfa.html#cb132-42"></a>ctrJ<span class="fl">.4</span> &lt;-<span class="st"> </span><span class="kw">PrettyBarPlot2</span>(signed.ctrJ[,laDim],</span>
+<span id="cb132-43"><a href="mfa.html#cb132-43"></a>           <span class="dt">threshold =</span> <span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="kw">NROW</span>(signed.ctrJ),</span>
+<span id="cb132-44"><a href="mfa.html#cb132-44"></a>           <span class="dt">font.size =</span> <span class="dv">3</span>,</span>
+<span id="cb132-45"><a href="mfa.html#cb132-45"></a>           <span class="dt">color4bar =</span> col, </span>
+<span id="cb132-46"><a href="mfa.html#cb132-46"></a>           <span class="dt">signifOnly =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb132-47"><a href="mfa.html#cb132-47"></a>           <span class="dt">horizontal =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb132-48"><a href="mfa.html#cb132-48"></a>           <span class="dt">main =</span> <span class="st">&#39;Variable Contributions (Signed)&#39;</span>,</span>
+<span id="cb132-49"><a href="mfa.html#cb132-49"></a>           <span class="dt">ylab =</span> <span class="kw">paste0</span>(<span class="st">&#39;Contributions Barplot&#39;</span>, laDim),</span>
+<span id="cb132-50"><a href="mfa.html#cb132-50"></a>           <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="fl">1.2</span><span class="op">*</span><span class="kw">min</span>(signed.ctrJ), <span class="fl">1.2</span><span class="op">*</span><span class="kw">max</span>(signed.ctrJ))</span>
+<span id="cb132-51"><a href="mfa.html#cb132-51"></a>)<span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;&quot;</span>,<span class="dt">subtitle =</span> <span class="kw">paste0</span>(<span class="st">&#39;Component &#39;</span>, laDim))</span>
+<span id="cb132-52"><a href="mfa.html#cb132-52"></a></span>
+<span id="cb132-53"><a href="mfa.html#cb132-53"></a></span>
+<span id="cb132-54"><a href="mfa.html#cb132-54"></a></span>
+<span id="cb132-55"><a href="mfa.html#cb132-55"></a>gridExtra<span class="op">::</span><span class="kw">grid.arrange</span>(<span class="kw">as.grob</span>(ctrJ<span class="fl">.1</span>), </span>
+<span id="cb132-56"><a href="mfa.html#cb132-56"></a>                        <span class="kw">as.grob</span>(ctrJ<span class="fl">.2</span>),</span>
+<span id="cb132-57"><a href="mfa.html#cb132-57"></a>                        <span class="kw">as.grob</span>(ctrJ<span class="fl">.3</span>), </span>
+<span id="cb132-58"><a href="mfa.html#cb132-58"></a>                        <span class="kw">as.grob</span>(ctrJ<span class="fl">.4</span>),</span>
+<span id="cb132-59"><a href="mfa.html#cb132-59"></a>  <span class="dt">ncol=</span><span class="dv">2</span>, <span class="dt">top =</span> <span class="kw">textGrob</span>(<span class="st">&quot;Contribution barplots&quot;</span>,</span>
+<span id="cb132-60"><a href="mfa.html#cb132-60"></a>                         <span class="dt">gp=</span><span class="kw">gpar</span>(<span class="dt">fontsize=</span><span class="dv">18</span>,<span class="dt">font=</span><span class="dv">3</span>)))</span></code></pre></div>
+<p><img src="MSA_files/figure-html/mfaContribution-1.png" width="672" style="display: block; margin: auto;" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="distatis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="end.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown/_book/edit/master/11-MFA.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["MSA.pdf", "MSA.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
