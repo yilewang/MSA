@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="" xml:lang="">
 <head>
 
@@ -132,11 +132,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a><ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#msa-introduction"><i class="fa fa-check"></i><b>1.1</b> MSA Introduction</a></li>
-<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#msadata"><i class="fa fa-check"></i><b>1.2</b> MSA data set</a></li>
-<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#main-packages"><i class="fa fa-check"></i><b>1.3</b> Main packages</a></li>
-<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#whoo-hoo"><i class="fa fa-check"></i><b>1.4</b> Whoo-hoo!</a></li>
+<li class="chapter" data-level="1" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i><b>1</b> Preface</a><ul>
+<li class="chapter" data-level="1.1" data-path="preface.html"><a href="preface.html#msa-introduction"><i class="fa fa-check"></i><b>1.1</b> MSA Introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="preface.html"><a href="preface.html#msadata"><i class="fa fa-check"></i><b>1.2</b> MSA data set</a></li>
+<li class="chapter" data-level="1.3" data-path="preface.html"><a href="preface.html#main-packages"><i class="fa fa-check"></i><b>1.3</b> Main packages</a></li>
+<li class="chapter" data-level="1.4" data-path="preface.html"><a href="preface.html#whoo-hoo"><i class="fa fa-check"></i><b>1.4</b> Whoo-hoo!</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="Functions.html"><a href="Functions.html"><i class="fa fa-check"></i><b>2</b> Functions Introduction</a><ul>
 <li class="chapter" data-level="2.1" data-path="Functions.html"><a href="Functions.html#Scree"><i class="fa fa-check"></i><b>2.1</b> Plotting Scree plot</a></li>
@@ -248,7 +248,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </h1>
         </div>
 
-        <div class="page-wrapper" tabindex="-1" role="main">
+        <div class="page-wrapper" tabpreface="-1" role="main">
           <div class="page-inner">
 
             <section class="normal" id="section-">
@@ -304,37 +304,37 @@ Figure 1.1: Beautiful Tree Texture Here!
 <div id="main-packages" class="section level2">
 <h2><span class="header-section-number">1.3</span> Main packages</h2>
 <p>Also, for happy computing, I listed the packages required for our analysis in the chunk below. Before conducting any analysis, we should keep all these packages installed and updated in your local R environment.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1"></a><span class="co"># Clean Start----</span></span>
-<span id="cb1-2"><a href="index.html#cb1-2"></a><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())</span>
-<span id="cb1-3"><a href="index.html#cb1-3"></a><span class="kw">graphics.off</span>()</span>
-<span id="cb1-4"><a href="index.html#cb1-4"></a><span class="co"># Packages----</span></span>
-<span id="cb1-5"><a href="index.html#cb1-5"></a><span class="kw">library</span>(bookdown)</span>
-<span id="cb1-6"><a href="index.html#cb1-6"></a><span class="kw">library</span>(MExPosition)</span>
-<span id="cb1-7"><a href="index.html#cb1-7"></a><span class="kw">library</span>(RCurl)</span>
-<span id="cb1-8"><a href="index.html#cb1-8"></a><span class="kw">library</span>(dplyr)</span>
-<span id="cb1-9"><a href="index.html#cb1-9"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb1-10"><a href="index.html#cb1-10"></a><span class="kw">library</span>(ggplotify)</span>
-<span id="cb1-11"><a href="index.html#cb1-11"></a><span class="kw">library</span>(grid)</span>
-<span id="cb1-12"><a href="index.html#cb1-12"></a><span class="kw">library</span>(gridExtra)</span>
-<span id="cb1-13"><a href="index.html#cb1-13"></a><span class="kw">library</span>(PTCA4CATA)</span>
-<span id="cb1-14"><a href="index.html#cb1-14"></a><span class="kw">library</span>(ExPosition)</span>
-<span id="cb1-15"><a href="index.html#cb1-15"></a><span class="kw">library</span>(data4PCCAR)</span>
-<span id="cb1-16"><a href="index.html#cb1-16"></a><span class="kw">library</span>(stringr)</span>
-<span id="cb1-17"><a href="index.html#cb1-17"></a><span class="kw">library</span>(readxl)</span>
-<span id="cb1-18"><a href="index.html#cb1-18"></a><span class="kw">library</span>(RColorBrewer)</span>
-<span id="cb1-19"><a href="index.html#cb1-19"></a><span class="kw">library</span>(DistatisR)</span>
-<span id="cb1-20"><a href="index.html#cb1-20"></a><span class="kw">library</span>(TExPosition)</span>
-<span id="cb1-21"><a href="index.html#cb1-21"></a><span class="kw">library</span>(InPosition)</span>
-<span id="cb1-22"><a href="index.html#cb1-22"></a><span class="kw">library</span>(TInPosition)</span>
-<span id="cb1-23"><a href="index.html#cb1-23"></a><span class="kw">library</span>(corrplot)</span>
-<span id="cb1-24"><a href="index.html#cb1-24"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb1-25"><a href="index.html#cb1-25"></a><span class="kw">library</span>(gtable)</span>
-<span id="cb1-26"><a href="index.html#cb1-26"></a><span class="kw">library</span>(prettyGraphs)</span>
-<span id="cb1-27"><a href="index.html#cb1-27"></a><span class="kw">library</span>(superheat)</span>
-<span id="cb1-28"><a href="index.html#cb1-28"></a><span class="kw">library</span>(knitr)</span>
-<span id="cb1-29"><a href="index.html#cb1-29"></a><span class="kw">library</span>(psych)</span>
-<span id="cb1-30"><a href="index.html#cb1-30"></a><span class="kw">library</span>(pheatmap)</span>
-<span id="cb1-31"><a href="index.html#cb1-31"></a><span class="kw">library</span>(factoextra)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="preface.html#cb1-1"></a><span class="co"># Clean Start----</span></span>
+<span id="cb1-2"><a href="preface.html#cb1-2"></a><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())</span>
+<span id="cb1-3"><a href="preface.html#cb1-3"></a><span class="kw">graphics.off</span>()</span>
+<span id="cb1-4"><a href="preface.html#cb1-4"></a><span class="co"># Packages----</span></span>
+<span id="cb1-5"><a href="preface.html#cb1-5"></a><span class="kw">library</span>(bookdown)</span>
+<span id="cb1-6"><a href="preface.html#cb1-6"></a><span class="kw">library</span>(MExPosition)</span>
+<span id="cb1-7"><a href="preface.html#cb1-7"></a><span class="kw">library</span>(RCurl)</span>
+<span id="cb1-8"><a href="preface.html#cb1-8"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb1-9"><a href="preface.html#cb1-9"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb1-10"><a href="preface.html#cb1-10"></a><span class="kw">library</span>(ggplotify)</span>
+<span id="cb1-11"><a href="preface.html#cb1-11"></a><span class="kw">library</span>(grid)</span>
+<span id="cb1-12"><a href="preface.html#cb1-12"></a><span class="kw">library</span>(gridExtra)</span>
+<span id="cb1-13"><a href="preface.html#cb1-13"></a><span class="kw">library</span>(PTCA4CATA)</span>
+<span id="cb1-14"><a href="preface.html#cb1-14"></a><span class="kw">library</span>(ExPosition)</span>
+<span id="cb1-15"><a href="preface.html#cb1-15"></a><span class="kw">library</span>(data4PCCAR)</span>
+<span id="cb1-16"><a href="preface.html#cb1-16"></a><span class="kw">library</span>(stringr)</span>
+<span id="cb1-17"><a href="preface.html#cb1-17"></a><span class="kw">library</span>(readxl)</span>
+<span id="cb1-18"><a href="preface.html#cb1-18"></a><span class="kw">library</span>(RColorBrewer)</span>
+<span id="cb1-19"><a href="preface.html#cb1-19"></a><span class="kw">library</span>(DistatisR)</span>
+<span id="cb1-20"><a href="preface.html#cb1-20"></a><span class="kw">library</span>(TExPosition)</span>
+<span id="cb1-21"><a href="preface.html#cb1-21"></a><span class="kw">library</span>(InPosition)</span>
+<span id="cb1-22"><a href="preface.html#cb1-22"></a><span class="kw">library</span>(TInPosition)</span>
+<span id="cb1-23"><a href="preface.html#cb1-23"></a><span class="kw">library</span>(corrplot)</span>
+<span id="cb1-24"><a href="preface.html#cb1-24"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb1-25"><a href="preface.html#cb1-25"></a><span class="kw">library</span>(gtable)</span>
+<span id="cb1-26"><a href="preface.html#cb1-26"></a><span class="kw">library</span>(prettyGraphs)</span>
+<span id="cb1-27"><a href="preface.html#cb1-27"></a><span class="kw">library</span>(superheat)</span>
+<span id="cb1-28"><a href="preface.html#cb1-28"></a><span class="kw">library</span>(knitr)</span>
+<span id="cb1-29"><a href="preface.html#cb1-29"></a><span class="kw">library</span>(psych)</span>
+<span id="cb1-30"><a href="preface.html#cb1-30"></a><span class="kw">library</span>(pheatmap)</span>
+<span id="cb1-31"><a href="preface.html#cb1-31"></a><span class="kw">library</span>(factoextra)</span></code></pre></div>
 </div>
 <div id="whoo-hoo" class="section level2">
 <h2><span class="header-section-number">1.4</span> Whoo-hoo!</h2>
